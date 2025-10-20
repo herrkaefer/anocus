@@ -1,0 +1,69 @@
+<nav>
+  <a href="/">
+    {{ if .Site.Params.social.gravatar }}
+    <img src="http://www.gravatar.com/avatar/{{ .Site.Params.social.gravatar }}?s=200" id="gravatar" alt="avatar"/>
+    {{ else }}
+    <img src="/logo.png" id="logo" alt="Blog logo"/>
+    {{ end }}
+  </a>
+  <a href="/"><h2>{{ .Site.Params.title }}</h2></a>
+  <div id="social">
+    {{ partial "social.html" . }}
+  </div>
+  <hr>
+  <div >
+    <p>
+    <a href="https://herrkaefer.github.io/Mole/">
+      <img src="/assets/img/mole-icon.png" width="100" alt="Mole" style="margin-left: 0;"/>
+      Mole (鼹鼠)
+    </a>
+    <br>
+    A simple and stupid way to manage Markdown documents.
+    </p>
+
+    <p>
+    <a href="https://github.com/herrkaefer/psycopgr">
+      <i class="fa fa-github"></i>
+      psycopgr
+    </a>
+    <br>
+    All-pairs shortest routing on real map for pythoner.
+    </p>
+
+    <p>
+    <a href="https://github.com/herrkaefer/AccelerateWatch">
+       <i class="fa fa-github"></i>
+       AccelerateWatch
+    </a>
+    <br>
+    Digital signal processing for watchOS with Swift APIs.
+    <a href="https://herrkaefer.com/AccelerateWatch/">(doc)</a>
+    </p>
+
+    <p>
+    <a href="https://github.com/herrkaefer/libevol">
+       <i class="fa fa-github"></i>
+       libevol
+    </a>
+    <br>
+    An evolutionary computation framework implemented in pure C.
+    </p>
+
+    <p>
+    <a href="https://chrome.google.com/webstore/detail/cleanup-tabs/ndkfidodjiekbmokfdcnkhjmikbnjjma">
+       <i class="fa fa-chrome"></i>
+       Cleanup Tabs
+    </a>
+    <br>
+    Chrome extension for closing group of tabs of self-defined URL patterns.
+    </p>
+
+  </div>
+  <hr>
+  <div>
+    <a href="https://herrkaefer.wordpress.com/">
+    旧时光
+    </a>
+  </div>
+
+</nav>

@@ -1,0 +1,30 @@
+{{ define "main" }}
+<p class="meta">
+  {{ .Date.Format "January 02, 2006" }}
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">{{ .Title }}</h1>
+
+<div id="post">
+  {{ .Content }}
+</div>
+
+<div align="right">
+  {{ if .Params.last }}
+  <p>
+  Last modified: {{ .Params.last }}
+  </p>
+  {{ end }}
+</div>
+
+<div id="share-page">
+  {{ partial "share-page.html" . }}
+</div>
+
+<div id="comments">
+  {{ partial "comments.html" . }}
+</div>
+{{ end }}

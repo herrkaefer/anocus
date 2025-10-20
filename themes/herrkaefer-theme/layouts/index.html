@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div id="home">
+  <h2><i class="fa fa-bookmark"></i> Posts</h2>
+  <ul id="blog-posts" class="posts">
+    {{ range .Site.RegularPages }}
+      <li style="line-height:2.4"><span>{{ .Date.Format "Jan 02, 2006" }} &raquo;</span><a id="blog-title" class="title" href="{{ .Permalink }}">{{ .Title }}</a></li>
+      {{ if .Params.summary }}
+      <p id="blog-summary" class="summary">{{ .Params.summary }}</p>
+      {{ end }}
+    {{ end }}
+  </ul>
+</div>
+{{ end }}
