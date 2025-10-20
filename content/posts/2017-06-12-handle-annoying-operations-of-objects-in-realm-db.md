@@ -9,13 +9,13 @@ draft: false
 
 # Problem
 
-Update value of object in Realm DB is annoying because the task should be within a writing transition. 
+Update value of object in Realm DB is annoying because the task should be within a writing transition.
 
 # Solution
 
 Extend the Realm's Object class to provide convient methods to do these things:
 
-- `update`: to set/update properties' values. 
+- `update`: to set/update properties' values.
 - `remove`: to remove object from Realm
 
 ```swift
@@ -30,7 +30,7 @@ extension Object {
             self.setValue(value, forKey: property)
         }
     }
-    
+
     // Remove object from Realm
     func remove() {
         let realm = try! Realm()
