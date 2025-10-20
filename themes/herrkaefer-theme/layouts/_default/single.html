@@ -24,6 +24,41 @@
   {{ partial "share-page.html" . }}
 </div>
 
+<div class="post-navigation">
+  {{ $allPages := .Site.RegularPages }}
+  {{ $current := . }}
+  {{ $prev := false }}
+  {{ $next := false }}
+  {{ $found := false }}
+
+  {{ range $allPages }}
+    {{ if $found }}
+      {{ $next = . }}
+      {{ break }}
+    {{ else if eq . $current }}
+      {{ $found = true }}
+    {{ else }}
+      {{ $prev = . }}
+    {{ end }}
+  {{ end }}
+
+  <div class="nav-buttons">
+    {{ if $prev }}
+      <a href="{{ $prev.Permalink }}" class="nav-button prev">
+        <i class="fa fa-arrow-left"></i>
+        <span class="nav-title">{{ $prev.Title }}</span>
+      </a>
+    {{ end }}
+
+    {{ if $next }}
+      <a href="{{ $next.Permalink }}" class="nav-button next">
+        <span class="nav-title">{{ $next.Title }}</span>
+        <i class="fa fa-arrow-right"></i>
+      </a>
+    {{ end }}
+  </div>
+</div>
+
 <div id="comments">
   {{ partial "comments.html" . }}
 </div>
