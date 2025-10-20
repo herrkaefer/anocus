@@ -13,7 +13,7 @@ draft: false
 # Install Jekyll on Ubuntu VPS
 
 ```sh
-sudo apt update && apt -y upgrade
+sudo apt update &amp;&amp; apt -y upgrade
 sudo apt install ruby ruby-dev ruby-bundler zlib1g-dev build-essential make gcc git jekyll bundler
 ```
 
@@ -34,7 +34,7 @@ git init --bare
 cp hooks/post-update.sample hooks/post-receive
 ```
 
-> `--bare` means that our folder will have no source files, just the version control.
+&gt; `--bare` means that our folder will have no source files, just the version control.
 
 Edit `hooks/post-receive`:
 
@@ -133,8 +133,6 @@ After writing,
 git commit -am "blog updated"
 git push web master
 ```
-
-
 
 # Troubleshoot
 

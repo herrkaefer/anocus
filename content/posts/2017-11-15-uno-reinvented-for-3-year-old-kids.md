@@ -7,7 +7,7 @@ categories: ["Kid"]
 draft: false
 ---
 
-<img src="/assets/images/uno.jpg" alt="uno" style="zoom:100%;" />
+![uno](/assets/images/uno.jpg)
 
 The playing rules of original Uno card are not designed for a 3 years old. Recently I created a "car driving" game using Uno cards. Children can learn and practice comparing numbers when playing the game.
 
@@ -20,7 +20,7 @@ The senario is simulating a car driving on the road. Players operate the car by 
 
 ### Traffic signs and their meanings
 
-<img src="/assets/images/uno-action-cards.jpg" alt="uno" style="zoom:100%;" />
+![uno](/assets/images/uno-action-cards.jpg)
 
 - **Skip**: Stop. The car should reduce its speed as soon as possible. So the next player should play a smallest number in his/her hand, or a wild car and call its number. If no number or wild card is available, a traffic sign should be placed.
 - **Reverse**: reversing the accelrating status. When the car is accelerating, it is goint to decelerate, and vise versa.
@@ -36,7 +36,6 @@ The youngest player play the first card (should be a number card) and shout out 
     - a more strict rule is: to keep the car moves smooth, we should play a possible smallest number if it is accelerating, or a possible largest number if it is decelerating.
 - place traffic sign to change the behavior of the car.
 - play several cards if the previous card is "+2" or "+4", and keep them correct.
-
 
 ### Dealing
 

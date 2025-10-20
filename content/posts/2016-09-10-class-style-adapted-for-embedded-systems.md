@@ -13,7 +13,7 @@ draft: false
 
 [CLASS](http://rfc.zeromq.org/spec:21/CLASS/) is "C Language Style for Scalability" developed by Pieter Hintjens:
 
->The C Language Style for Scalability (CLASS) defines a consistent style and organization for scalable C library and application code built on modern C compilers and operating systems. CLASS aims to collect industry best practice into one reusable standard.
+&gt;The C Language Style for Scalability (CLASS) defines a consistent style and organization for scalable C library and application code built on modern C compilers and operating systems. CLASS aims to collect industry best practice into one reusable standard.
 
 CLASS is all about writing APIs. Types and functions are grouped by tasks. I have used this style to write C codes after reading the unfinished book ["Scalable C"](https://www.gitbook.com/book/hintjens/scalable-c/details), and it makes writing C code a great fun.
 
@@ -29,10 +29,9 @@ To avoid use of heap memory, we need to re-consider the following issues:
 
 Below is my initial solution.
 
-
 ## CLASS for Embedded System (CLASSES)
 
-I wrote a skeleton project for demonstration purpose. [embedded-c-boilerplate <i class="fa fa-github"></i>](https://github.com/herrkaefer/embedded-c-boilerplate). The following of this post is basically explanations of the codes. Let's take a `buffer` class for example.
+I wrote a skeleton project for demonstration purpose. [embedded-c-boilerplate ](https://github.com/herrkaefer/embedded-c-boilerplate). The following of this post is basically explanations of the codes. Let's take a `buffer` class for example.
 
 ### Parameter configuration with a separate header file
 
@@ -71,19 +70,19 @@ These are done in the class header. For the buffer example, in `buffer.h`:
 #define BUFFER_SIZE 32
 #endif
 #define _BUFFER_SIZE (size_t) BUFFER_SIZE
-ct_assert (_BUFFER_SIZE <= 1024);
+ct_assert (_BUFFER_SIZE &lt;= 1024);
 
 #ifndef BUFFER_PARAM_A
 #define BUFFER_PARAM_A 2
 #endif
 #define _BUFFER_PARAM_A (int) BUFFER_PARAM_A
-ct_assert (_BUFFER_PARAM_A <= 3);
+ct_assert (_BUFFER_PARAM_A &lt;= 3);
 
 #ifndef BUFFER_PARAM_B
 #define BUFFER_PARAM_B 7.0
 #endif
 #define _BUFFER_PARAM_B (double) BUFFER_PARAM_B
-ct_assert (_BUFFER_PARAM_B < 10.0);
+ct_assert (_BUFFER_PARAM_B &lt; 10.0);
 ```
 
 `ct_assert` macro does compile-time assertion of to verify that the parameter is within the correct range, which is defined as below:
@@ -140,9 +139,9 @@ For example,
 void buffer_init (buffer_t *self) {
     assert (self);
     memset (self, 0, _BUFFER_SIZE * sizeof (double));
-    self->size = _BUFFER_SIZE;
-    self->param_a = _BUFFER_PARAM_A;
-    self->param_b = _BUFFER_PARAM_B;
+    self-&gt;size = _BUFFER_SIZE;
+    self-&gt;param_a = _BUFFER_PARAM_A;
+    self-&gt;param_b = _BUFFER_PARAM_B;
 }
 ```
 
@@ -168,7 +167,7 @@ Initialize the object once before you use it:
 
 ```c
 myclass myobject;
-myclass_init (&myobject);
+myclass_init (&amp;myobject);
 ```
 
 ### Getter and setter
@@ -196,8 +195,8 @@ For example, to calculate the squared root of every element in a buffer, we writ
 void buffer_sqrt (buffer_t *self, double *output) {
     assert (self);
     assert (output);
-    for (size_t idx = 0; idx < self->size; idx++)
-        output[idx] = sqrt (self->data[idx]);
+    for (size_t idx = 0; idx &lt; self-&gt;size; idx++)
+        output[idx] = sqrt (self-&gt;data[idx]);
 }
 ```
 
@@ -208,7 +207,6 @@ It is better to indicate the inout parameter by name such as **"output"** in the
 // Return result in param output.
 void buffer_sqrt (buffer_t *self, double *output);
 ```
-
 
 ## Problems and limitations
 

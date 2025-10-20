@@ -37,13 +37,13 @@ The IP address can be find in the "Remote Access" panel. Enter the password to l
 Upgrade packages
 
 ```sh
-sudo apt-get update && apt-get upgrade
+sudo apt-get update &amp;&amp; apt-get upgrade
 ```
 
 Set hostname
 
 ```sh
-echo "hostname" > /etc/hostname
+echo "hostname" &gt; /etc/hostname
 
 # Set hostname from file
 hostname -F /etc/hostname
@@ -64,7 +64,7 @@ and add a line:
 [IP address] [Fully Qualified Domain Name (FQDN)] hostname
 ```
 
->The value you assign as your system’s FQDN should have an “A” record in DNS pointing to your Linode’s IPv4 address. 
+&gt;The value you assign as your system’s FQDN should have an “A” record in DNS pointing to your Linode’s IPv4 address. 
 
 (Save and close file after editing with nano: `CTRL-X`, then `Y`, then `ENTER`.)
 
@@ -116,7 +116,7 @@ Two files `id_rsa` and `id_rsa.pub` are generated in `/home/your_username/.ssh`.
 On Linode,
 
 ```sh
-mkdir -p ~/.ssh && sudo chmod -R 700 ~/.ssh/
+mkdir -p ~/.ssh &amp;&amp; sudo chmod -R 700 ~/.ssh/
 ```
 
 Upload public key to server:
@@ -171,7 +171,6 @@ Refs:
 - [https://www.linode.com/docs/security/firewalls/configure-firewall-with-ufw](https://www.linode.com/docs/security/firewalls/configure-firewall-with-ufw)
 - [UFW Essentials: Common Firewall Rules and Commands](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands)
 
-
 ## Tools
 
 ### zsh
@@ -214,8 +213,6 @@ ZSH_THEME="alanpeabody"
 ### Cyberduck for File transfer
 
 Use [Cyberduck](https://cyberduck.io/): [Transfer Files with Cyberduck on Mac OS X](https://www.linode.com/docs/tools-reference/file-transfer/transfer-files-with-cyberduck-on-mac-os-x)
-
-
 
 ### Install desktop
 
@@ -266,10 +263,10 @@ vncserver -kill :1
 And edit `~/.vnc/xstartup` file to add a few lines to the end:
 
 ```
-gnome-panel &
-gnome-settings-daemon &
-metacity &
-nautilus &
+gnome-panel &amp;
+gnome-settings-daemon &amp;
+metacity &amp;
+nautilus &amp;
 ```
 
 Start VNC server again and connect from client. Desktop should show.
@@ -280,8 +277,6 @@ In case that VNC viewer shows connection error: "Too many Security Failures", re
 vncserver -kill :1
 vncserver :1
 ```
-
-
 
 #### Install Chrome
 

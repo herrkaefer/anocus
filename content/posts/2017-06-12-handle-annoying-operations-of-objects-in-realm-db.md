@@ -41,5 +41,4 @@ extension Object {
 }
 ```
 
-<!--<script src="https://gist.github.com/herrkaefer/6e3ac0e561daaac8f3887166fee2bf11.js"></script>
--->
+--&gt;

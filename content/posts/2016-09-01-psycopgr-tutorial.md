@@ -11,12 +11,12 @@ draft: false
 
 ## What is psycopgr
 
-psycopgr [<i class="fa fa-github"></i>](https://github.com/herrkaefer/psycopgr) is a Python wrapper of [pgRouting](http://pgrouting.org/) written by me.
+psycopgr [](https://github.com/herrkaefer/psycopgr) is a Python wrapper of [pgRouting](http://pgrouting.org/) written by me.
 
 As said in [pgRouting docs](http://workshop.pgrouting.org/2.1.0-dev/en/chapters/wrapper.html):
 
->
->Just considering the different ways that the cost can be calculated, makes it almost impossible to create a general wrapper, that can work on all applications.
+&gt;
+&gt;Just considering the different ways that the cost can be calculated, makes it almost impossible to create a general wrapper, that can work on all applications.
 
 Indeed, in many applicatons you may need to modify the database tables and fill some computed values to fit your specific purpose, which is often done in a preprocessing stage by SQL, before real routing starts working. It is not appropriate to be wrapped.
 
@@ -134,7 +134,6 @@ costs = pgr.get_costs(nodes, nodes)
 ```
 The returned is also a dict: `{(start_node, end_node): cost}`
 
-
 ## Low-level wrapper of pgRouting functions
 
 | psycopgr function | pgRouting function |
@@ -142,6 +141,5 @@ The returned is also a dict: `{(start_node, end_node): cost}`
 | dijkstra          | pgr_dijkstra       |
 | dijkstra_cost     | pgr_dijkstraCost   |
 | astar             | pgr_astar          |
-
 
 These are direct wrappings of pgRouting functions. For example, `dijkstra` takes vertex ids as input. This list may be extended in the future.

@@ -38,7 +38,7 @@ $ pyenv install --list
 To install a Python version:
 
 ```sh
-$ pyenv install <version>
+$ pyenv install 
 ```
 
 ### Pipenv
@@ -52,8 +52,8 @@ $ brew install pipenv
 To install environment with specific Python version other than system default, this version must exist in system, so we can use pyenv to install the version first, then switch to its context.
 
 ```sh
-$ pyenv shell <version>
-$ pipenv --python <version>
+$ pyenv shell 
+$ pipenv --python 
 ```
 
 After this, pyenv will be of no use because corresponding Python and pip have been installed into Pipenv's context, unless you update to a new Python version.

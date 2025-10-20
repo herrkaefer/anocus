@@ -7,7 +7,7 @@ categories: ["Workflow"]
 draft: false
 ---
 
-<img src="/assets/images/open-with-sublime.png" style="zoom:100%;" />
+![](/assets/images/open-with-sublime.png)
 
 ## Solution
 
@@ -28,7 +28,7 @@ try
 			set itemPath to POSIX path of ((folder of the front Finder window) as alias)
 		end if
 		tell application "Terminal"
-			do shell script "/usr/local/bin/subl " & quoted form of itemPath
+			do shell script "/usr/local/bin/subl " &amp; quoted form of itemPath
 		end tell
 	end tell
 on error
@@ -42,4 +42,4 @@ end try
 
 ### Step 2:
 
-Open System Preferences > Security & Privacy > Privacy > Accessibility, add your app to the list.
+Open System Preferences &gt; Security &amp; Privacy &gt; Privacy &gt; Accessibility, add your app to the list.

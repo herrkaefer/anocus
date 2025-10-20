@@ -23,7 +23,7 @@ Suppose that we already installed an Ubuntu image on a Linode plan.
 ## Update packages
 
 ```sh
-sudo apt-get update && apt-get upgrade
+sudo apt-get update &amp;&amp; apt-get upgrade
 ```
 
 ## DNS resolution
@@ -196,13 +196,13 @@ $VENV/bin/pip install --upgrade pip setuptools
 
 "Why use `$VENV/bin/pip` instead of `source bin/activate`, then `pip`?" From Pyramid docs:
 
->$VENV/bin/pip clearly specifies that pip is run from within the virtual environment and not at the system level.
->
->activate drops turds into the user's shell environment, leaving them vulnerable to executing commands in the wrong context. deactivate might not correctly restore previous shell environment variables.
->
->Although using source bin/activate, then pip, requires fewer key strokes to issue commands once invoked, there are other things to consider. Michael F. Lamb (datagrok) presents a summary in Virtualenv's bin/activate is Doing It Wrong.
+&gt;$VENV/bin/pip clearly specifies that pip is run from within the virtual environment and not at the system level.
+&gt;
+&gt;activate drops turds into the user's shell environment, leaving them vulnerable to executing commands in the wrong context. deactivate might not correctly restore previous shell environment variables.
+&gt;
+&gt;Although using source bin/activate, then pip, requires fewer key strokes to issue commands once invoked, there are other things to consider. Michael F. Lamb (datagrok) presents a summary in Virtualenv's bin/activate is Doing It Wrong.
 
->Ultimately we prefer to keep things clear and simple, so we use $VENV/bin/pip.
+&gt;Ultimately we prefer to keep things clear and simple, so we use $VENV/bin/pip.
 
 ### Pyramid
 

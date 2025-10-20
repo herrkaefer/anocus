@@ -8,7 +8,6 @@ date: "2016-08-15T00:00:00"
 
 [Official Documentation](https://www.postgresql.org/docs/9.5/static/index.html) and [Tutorial](https://www.postgresql.org/docs/9.5/static/tutorial.html)
 
-
 ## Install and run
 
 ### Mac
@@ -39,7 +38,6 @@ brew services stop [restart] postgresql
 
 (to add)
 
-
 ## Tools
 
 ### Administrative front-ends
@@ -50,7 +48,6 @@ brew services stop [restart] postgresql
 ### GIS
 
 - [QGIS](http://www.qgis.org/en/site/)
-
 
 ## psql
 

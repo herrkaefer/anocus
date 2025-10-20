@@ -77,7 +77,6 @@ newnote.sh title category
 
 The note file `notesdir/category/title.md` will be created (if it does not exist) and opened for edit.
 
-
 ## Publish note as Jekyll post
 
 Here I need another script to do the job:
@@ -91,7 +90,6 @@ Here I need another script to do the job:
 - Add and set `published` variable to true for the original note
 
 `publishnote.sh`: (to add later)
-
 
 ## Do we need a new kind of note taking app, again?
 

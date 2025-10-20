@@ -29,7 +29,7 @@ brew install pgrouting
 
 It is said that osm2pgrouting has limitation:
 
-> Can't process "large" files, continents, big countries, or very large states.
+&gt; Can't process "large" files, continents, big countries, or very large states.
 
 For large files, we can use [osm2po](http://osm2po.de/).
 
@@ -48,15 +48,15 @@ Note that a mapconfig.xml file is at: `/usr/local/Cellar/osm2pgrouting/[version]
 1. Download code from [repo](https://github.com/pgRouting/osm2pgrouting)
 
 2. Modify `CMakeLists.txt` to install app to `/usr/local/bin` and other files to `/usr/local/share`
-   - line 5 —> set (SHARE_DIR "/usr/local/share/osm2pgrouting")
-   - line 36 —> RUNTIME DESTINATION "/usr/local/bin"
+   - line 5 —&gt; set (SHARE_DIR "/usr/local/share/osm2pgrouting")
+   - line 36 —&gt; RUNTIME DESTINATION "/usr/local/bin"
 
 3. Add the following headers to `src/way.h` (otherwise there will be errors)
 
     ```c++
-    #include <string>
-    #include <sstream>
-    #include <iostream>
+    #include 
+    #include 
+    #include 
     ```
 
 4. Build and install
@@ -121,14 +121,12 @@ Two main tables:
 - `ways`: stores the edges
 - `ways_vertices_pgr`: stores the end nodes of edges
 
-
 Meanings of `ways` columns `length`, `length_m`, `cost`, `reverse_cost`, `cost_s`, `reverse_cost_s`. According to post [here](https://gis.stackexchange.com/questions/198200/how-are-cost-and-reverse-cost-computed-in-pgrouting/201451#201451):
 
 - `length` is length of the segment in degree units
 - `cost` and `reverse_cost` is the length in degree units. (include the negative values for wrong way)
 - `length_m` is in meters (there is no cost_m or reverse_cost_m)
 - `cost_s` and `reverse_cost_s` is in time: seconds units (using the maxspeed value that is in km/hr transforming it to meters/second and using the `length_m`)
-
 
 ### Do routings in SQL
 

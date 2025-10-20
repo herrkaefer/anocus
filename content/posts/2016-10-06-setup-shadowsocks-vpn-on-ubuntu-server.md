@@ -22,7 +22,7 @@ I put the following process into a shell script. Check this **"one-click" method
 Update packages:
 
 ```sh
-sudo apt-get update && apt-get upgrade
+sudo apt-get update &amp;&amp; apt-get upgrade
 ```
 
 Install pip and m2crypto:
@@ -134,7 +134,7 @@ sudo service supervisor start
 
 And the server part is done.
 
-### Update kernel and install BBR acceleration (for kernel version < 4.9)
+### Update kernel and install BBR acceleration (for kernel version &lt; 4.9)
 
 ref: [一键安装最新内核并开启 BBR 脚本](https://teddysun.com/489.html)
 
@@ -149,8 +149,6 @@ wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
 chmod +x bbr.sh
 ./bbr.sh
 ```
-
-
 
 ## Mac client
 
@@ -193,9 +191,9 @@ This will automatically update the file `~/.ShadowsocksX/gfwlist.js` everyday at
 
 Thanks to NEKit, there's perfect way for iOS user.
 
-> Wingy - Http(s),Socks5 Proxy Utility 作者是 SMART LIMITED
->
-> App Store: [Wingy](https://itunes.apple.com/us/app/wingy-http-s-socks5-proxy-utility/id1178584911?mt=8)
+&gt; Wingy - Http(s),Socks5 Proxy Utility 作者是 SMART LIMITED
+&gt;
+&gt; App Store: [Wingy](https://itunes.apple.com/us/app/wingy-http-s-socks5-proxy-utility/id1178584911?mt=8)
 
 ### Share proxy from Mac within LAN
 
@@ -211,13 +209,13 @@ brew install privoxy
 
 Edit config file: `/usr/local/etc/privoxy/config`:
 
-- line "forward-socks5t / …" -> "forward-socks5t / 127.0.0.1:1080"
-- line "listen-address 127.0.0.1:8118" -> "listen-address 0.0.0.0:6666" (6666 is a custom unused port)
+- line "forward-socks5t / …" -&gt; "forward-socks5t / 127.0.0.1:1080"
+- line "listen-address 127.0.0.1:8118" -&gt; "listen-address 0.0.0.0:6666" (6666 is a custom unused port)
 
 Start privoxy:
 
 ```sh
-/usr/local/sbin/privoxy --no-daemon /usr/local/etc/privoxy/config &
+/usr/local/sbin/privoxy --no-daemon /usr/local/etc/privoxy/config &amp;
 ```
 
 **Step 2**: make Mac a pac server

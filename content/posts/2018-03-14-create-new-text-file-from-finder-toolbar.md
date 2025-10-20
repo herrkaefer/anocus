@@ -8,7 +8,7 @@ lastmod: 2018-05-01
 draft: false
 ---
 
-<img src="/assets/images/new_file_app_toolbar.png" style="zoom:100%;" />
+![](/assets/images/new_file_app_toolbar.png)
 
 ## Problem
 
@@ -42,11 +42,11 @@ end try
 tell application "System Events"
 	set file_list to get the name of every disk item of this_folder
 end tell
-set new_file to file_name & file_ext
+set new_file to file_name &amp; file_ext
 set x to 1
 repeat
 	if new_file is in file_list then
-		set new_file to file_name & " " & x & file_ext
+		set new_file to file_name &amp; " " &amp; x &amp; file_ext
 		set x to x + 1
 	else
 		exit repeat
@@ -68,7 +68,6 @@ tell application "Finder"
 	delay 0.4
 	
 end tell
-
 
 -- press enter (rename)
 tell application "System Events"
@@ -92,7 +91,7 @@ In `Application` folder, Drag the app to the Finder's toolbar while holding the 
 
 ### Step 4 (optional)
 
-Turn off the annoying warning when changing the file suffix. This can be set in Finder's Preference -> Advanced.
+Turn off the annoying warning when changing the file suffix. This can be set in Finder's Preference -&gt; Advanced.
 
 ### Step 5 (optional)
 
