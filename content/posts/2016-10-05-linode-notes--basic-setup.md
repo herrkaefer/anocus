@@ -1,8 +1,8 @@
 ---
 title: "Linode Notes - Basic Setup"
-date: 2016-10-05T00:00:00
+date: "2016-10-05T00:00:00"
 summary: "How to get started on a Linode server?"
-tags: ['vps', 'linode', 'ubuntu']
+tags: "['vps', 'linode', 'ubuntu']"
 categories: ["Webapp"]
 lastmod: 2016-12-12
 comments: true

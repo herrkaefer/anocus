@@ -3,6 +3,7 @@ title: "PostgreSQL Notes"
 summary: "As a novice of PostgreSQL, what if I can not remember the simple steps to construct a basic working environment?"
 comments: true
 draft: false
+date: "2016-08-15T00:00:00"
 ---
 
 [Official Documentation](https://www.postgresql.org/docs/9.5/static/index.html) and [Tutorial](https://www.postgresql.org/docs/9.5/static/tutorial.html)

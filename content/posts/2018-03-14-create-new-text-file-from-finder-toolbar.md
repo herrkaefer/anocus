@@ -1,8 +1,8 @@
 ---
 title: "Create new text file from Finder toolbar"
-date: 2018-03-14T00:00:00
+date: "2018-03-14T00:00:00"
 summary: "How to create a new file from Finder toolbar?"
-tags: ['AppleScript', 'Finder', 'macOS']
+tags: "['AppleScript', 'Finder', 'macOS']"
 categories: ["Workflow"]
 lastmod: 2018-05-01
 draft: false

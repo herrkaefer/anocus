@@ -1,8 +1,8 @@
 ---
 title: "psycopgr Tutorial"
-date: 2016-09-01T00:00:00
+date: "2016-09-01T00:00:00"
 summary: "For a Python guy who is not skilled at SQL and GIS, how to conveniently compute real optimal paths from locations to locations on real map efficiently, in Python?"
-tags: ['GIS', 'pgRouting', 'PostGIS', 'blog']
+tags: "['GIS', 'pgRouting', 'PostGIS', 'blog']"
 categories: ["GIS"]
 lastmod: 2019-05-04
 comments: true

@@ -1,8 +1,8 @@
 ---
 title: "Uno reinvented for 3-year-old kids"
-date: 2017-11-15T00:00:00
+date: "2017-11-15T00:00:00"
 summary: "Could a kid learn and excerise numbers with Uno cards?"
-tags: ['card', 'game', 'kid', 'Uno']
+tags: "['card', 'game', 'kid', 'Uno']"
 categories: ["Kid"]
 draft: false
 ---
