@@ -2,7 +2,7 @@
 title: "Setup Shadowsocks / VPN on Ubuntu Server"
 date: "2016-10-06T00:00:00"
 summary: "People in stupid country, you know what this is for."
-tags: "['blog', 'vpn', 'shadowsocks', 'server', 'GFW', 'vps']"
+tags: ['blog', 'vpn', 'shadowsocks', 'server', 'GFW', 'vps']
 categories: ["Webapp"]
 lastmod: 2017-12-04
 comments: true

@@ -2,7 +2,7 @@
 title: "CLASS Style Adapted for Embedded Systems"
 date: "2016-09-10T00:00:00"
 summary: "The heavy reliance on heap memory makes CLASS unsuitable for embedded systems where all memory use must be static. How should we improve this?"
-tags: "['embedded', 'C', 'blog']"
+tags: ['embedded', 'C', 'blog']
 categories: ["C"]
 lastmod: 2018-05-05
 comments: true
