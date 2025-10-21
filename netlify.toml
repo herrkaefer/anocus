@@ -1,7 +1,23 @@
 [build]
-  command = "npm run build"
+  command = "hugo -b $CF_PAGES_URL --buildDrafts --minify"
   publish = "public"
 
 [build.environment]
   HUGO_VERSION = "0.152.0"
   HUGO_EXTENDED = "true"
+  NODE_VERSION = "18"
+
+# Cloudflare Pages specific configuration
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
