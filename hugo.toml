@@ -47,7 +47,14 @@ theme = 'hugo-paged'
       unsafe = true
 
 [permalinks]
-  posts = '/:year/:month/:day/:title/'
+  posts = '/:year/:month/:day/:slug/'
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML", "RSS"]
 
 [build]
   publishDir = 'public'

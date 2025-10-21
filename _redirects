@@ -1,0 +1,7 @@
+# Handle Chinese characters in URLs
+/*/嗯/* /2008/11/02/嗯/ 200
+/*/说句心里话英文版/* /2008/11/01/说句心里话英文版/ 200
+/*/time-can-kill-itself/* /2008/11/06/time-can-kill-itself/ 200
+
+# Fallback for any 404
+/* /404.html 404
