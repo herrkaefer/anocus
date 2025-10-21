@@ -40,7 +40,7 @@
     <link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}">
     {{ end }}
 
-    {{ range (slice "style" "fonts" "custom") }}
+    {{ range (slice "style" "fonts" "custom" "syntax") }}
     <link rel="stylesheet" href="{{ printf "css/%s.css" . | relURL }}">
     {{ end }}
     {{ partial "head_custom.html" . }}
