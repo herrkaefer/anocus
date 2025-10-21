@@ -158,3 +158,9 @@ pre {
   overflow-x: auto !important;
 }
 
+/* 增加文章内容和导航链接之间的间距 */
+.post-nav {
+  margin-top: 3em !important;
+  padding-top: 2em !important;
+}
+

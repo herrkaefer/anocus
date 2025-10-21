@@ -5,11 +5,7 @@
 <h3 class="meta-line">
   <span>{{ partial "meta.html" . }}</span>
   <span class="term">
-  {{ with .Params.categories }}
-  {{ range first 1 . }}
-  {<a href="{{ relURL (print "categories/" . "/" | urlize) }}" class="term-cat">{{ . }}</a>}
-  {{ end }}
-  {{ end }}
+  {{/* Categories removed per user request */}}
   {{ with .Params.tags }}
   {{ $len := sub (len .) 1 }}
   {{ range $i, $v := . }}
