@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Hugo site for herrkaefer.com",
   "scripts": {
-    "build": "hugo --buildDrafts --minify",
+    "build": "hugo -b $CF_PAGES_URL --buildDrafts --minify",
     "dev": "hugo server --buildDrafts --port 1313",
     "deploy": "hugo --buildDrafts && wrangler pages deploy public --project-name=herrkaefer-com"
   },

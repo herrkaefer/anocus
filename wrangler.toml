@@ -1,0 +1,8 @@
+name = "herrkaefer-com"
+compatibility_date = "2023-10-21"
+
+[env.production]
+name = "herrkaefer-com"
+
+[env.preview]
+name = "herrkaefer-com-preview"

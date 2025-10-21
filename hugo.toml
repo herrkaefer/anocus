@@ -54,7 +54,6 @@ theme = 'hugo-paged'
   page = ["HTML"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
-  taxonomyTerm = ["HTML", "RSS"]
 
 [build]
   publishDir = 'public'

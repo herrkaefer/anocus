@@ -1,27 +1,13 @@
 #!/bin/bash
 
-# Build script for Cloudflare Pages deployment
-# This script is optimized for Cloudflare Pages build environment
-
-set -e
-
-echo "Starting Hugo build process..."
-
-# Install Hugo if not present (for CI/CD environments)
-if ! command -v hugo &> /dev/null; then
-    echo "Hugo not found, installing..."
-    # For Cloudflare Pages, Hugo is usually pre-installed
-    # But we can specify version if needed
-    export HUGO_VERSION=0.151.2
+# Download and install Hugo 0.152.0 if not present
+if ! command -v hugo &> /dev/null || [[ "$(hugo version | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+')" != "v0.152.0" ]]; then
+    echo "Installing Hugo 0.152.0..."
+    wget -O hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.152.0/hugo_extended_0.152.0_linux-amd64.tar.gz
+    tar -xzf hugo.tar.gz
+    chmod +x hugo
+    export PATH=$PWD:$PATH
 fi
 
 # Build the site
-echo "Building Hugo site..."
-hugo --buildDrafts --minify
-
-echo "Build completed successfully!"
-echo "Output directory: public/"
-
-# List the contents of public directory for verification
-echo "Contents of public directory:"
-ls -la public/
+hugo -b $CF_PAGES_URL --buildDrafts --minify

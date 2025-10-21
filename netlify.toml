@@ -1,5 +1,5 @@
 [build]
-  command = "hugo -b $CF_PAGES_URL --minify"
+  command = "npm run build"
   publish = "public"
 
 [build.environment]
