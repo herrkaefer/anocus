@@ -164,3 +164,32 @@ pre {
   padding-top: 2em !important;
 }
 
+/* 修复文章列表标题对齐问题 */
+.post-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.5em;
+}
+
+.post-date {
+  flex-shrink: 0;
+  margin-right: 0.5em;
+}
+
+.post-separator {
+  flex-shrink: 0;
+  margin-right: 0.5em;
+}
+
+.post-title-wrapper {
+  flex: 1;
+  min-width: 0; /* 允许内容收缩 */
+}
+
+.post-title {
+  display: block;
+  text-indent: 0; /* 确保标题从左边开始 */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
