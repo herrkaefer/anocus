@@ -45,11 +45,11 @@ theme = 'hugo-paged'
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
-  
+
   [markup.highlight]
-    style = 'solarized-dark'
-    lineNos = true
-    lineNumbersInTable = true
+    style = 'github'
+    lineNos = false
+    lineNumbersInTable = false
     noClasses = false
 
 [permalinks]

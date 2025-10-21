@@ -74,3 +74,87 @@ pre, table, .fullwidth {
   margin-right: auto !important;
 }
 
+/* 确保代码块不溢出容器 */
+.highlight, .chroma {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.highlight pre, .chroma pre {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  margin: 0 !important;
+  padding: 1em !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* 移除所有可能的阴影和边框 */
+.highlight, .chroma, .highlight pre, .chroma pre {
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* 覆盖主题的阴影变量 */
+:root {
+  --box-shadow: none !important;
+}
+
+/* 确保代码块完全扁平 */
+.highlight, .chroma {
+  --box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* 确保代码永远不换行 */
+.highlight, .chroma, .highlight pre, .chroma pre, .highlight code, .chroma code {
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  white-space: pre !important;
+}
+
+/* 确保代码行不换行 */
+.chroma .line, .chroma .cl {
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+
+/* 处理没有语言指定的代码块 (plain pre/code) */
+pre code, pre {
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  overflow-x: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+/* 确保所有pre元素都不换行 */
+pre {
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  overflow-x: auto !important;
+}
+
