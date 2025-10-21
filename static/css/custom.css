@@ -67,3 +67,10 @@ footer.small {
   margin-top: 0;
 }
 
+/* 让代码块与文本同宽 */
+pre, table, .fullwidth {
+  width: var(--text-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
