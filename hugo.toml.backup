@@ -1,21 +1,7 @@
 baseURL = 'https://herrkaefer.com'
 languageCode = 'en-us'
 title = 'herrkaefer'
-theme = 'hugo-paged'
-
-[menu]
-  [[menu.main]]
-    name = 'Blog'
-    url = '/'
-    weight = 10
-  [[menu.main]]
-    name = 'About'
-    url = '/about/'
-    weight = 20
-  [[menu.main]]
-    name = 'Subscribe'
-    url = '/index.xml'
-    weight = 30
+theme = 'herrkaefer-theme'
 
 [params]
   name = 'herrkaefer'
@@ -28,11 +14,6 @@ theme = 'hugo-paged'
   show_atom_feed = true
   show_email = true
   google_analytics_key = 'UA-3042065-2'
-  toc_threshold = 999999  # 禁用目录：将阈值设置为一个很大的数字
-  footer = 'Powered by [Hugo](https://gohugo.io/)'
-
-  [params.logo]
-    en = { alt = "herrkaefer", url = "/" }
 
 [params.social]
   github = 'herrkaefer'

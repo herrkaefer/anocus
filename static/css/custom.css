@@ -1,0 +1,69 @@
+/* 全局字体设置：英文使用 Verdana，中文使用系统默认字体 */
+body {
+  font-family: Verdana, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* 去掉文章标题的斜体 */
+.toc-line > a {
+  font-style: normal;
+}
+
+/* 文章列表样式 */
+.post-item {
+  line-height: 2.0;
+  margin-bottom: 0.5em;
+}
+
+.post-date {
+  color: #666;
+  margin-right: 0.5em;
+}
+
+.post-separator {
+  color: #999;
+  margin-right: 0.5em;
+}
+
+.post-title {
+  font-style: normal;
+}
+
+/* 隐藏文章中的目录 */
+#TableOfContents {
+  display: none;
+}
+
+/* 去掉四个角的瞄准线 */
+.crop-h, .crop-v, .crop-c {
+  display: none;
+}
+
+/* 去掉页面左上角的灰色图形背景水印 */
+body::before,
+body::after,
+h1.title::before {
+  display: none !important;
+}
+
+/* 在文章页面隐藏底部的 Categories, Tags, Subscribe, Back to Top */
+.single .menu-bottom {
+  display: none;
+}
+
+/* footer 上方的虚线样式 - post list 和 single post 页面共享 */
+hr {
+  border: none;
+  border-top: 1px dashed #ccc;
+  margin: 2em 0 0 0;  /* 上边距 2em，下边距 0 */
+}
+
+/* 确保 footer 紧跟虚线，无额外间距 */
+hr + footer {
+  margin-top: 0 !important;
+  padding-top: 0.5em;
+}
+
+footer.small {
+  margin-top: 0;
+}
+

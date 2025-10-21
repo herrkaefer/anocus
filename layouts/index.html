@@ -1,0 +1,14 @@
+{{ partial "header.html" . }}
+
+<div class="main archive">
+{{ range (where site.RegularPages "Type" "posts") }}
+<div class="post-item">
+<span class="post-date small">{{ .Date.Format "2006-01-02" }}</span>
+<span class="post-separator">·</span>
+<a href="{{ .RelPermalink }}" class="post-title">{{ .Title | markdownify }}</a>
+</div>
+{{ end }}
+</div>
+<hr/>
+{{ partial "footer.html" . }}
+
