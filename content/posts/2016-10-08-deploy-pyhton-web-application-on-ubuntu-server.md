@@ -52,47 +52,47 @@ Template of `/etc/nginx/conf.d/[app_name].conf`:
 
 ```
 upstream app_server_wsgiapp {
-    server localhost:8000 fail_timeout=0;
+server localhost:8000 fail_timeout=0;
 }
 
 server {
-    listen 80;
-    # make sure to change the next line to your own domain name!
-    server_name appname.example.com;
-    access_log /var/log/nginx/appname.access.log;
-    error_log /var/log/nginx/appname.error.log info;
-    keepalive_timeout 5;
+listen 80;
+# make sure to change the next line to your own domain name!
+server_name appname.example.com;
+access_log /var/log/nginx/appname.access.log;
+error_log /var/log/nginx/appname.error.log info;
+keepalive_timeout 5;
 
-    # nginx serve up static files and never send to the WSGI server
-    location /static {
-        autoindex on;
-        alias /home/username/appname/static;
-    }
+# nginx serve up static files and never send to the WSGI server
+location /static {
+    autoindex on;
+    alias /home/username/appname/static;
+}
 
-    location / {
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header Host $http_host;
-            proxy_redirect off;
-            if (!-f $request_filename) {
-                proxy_pass http://app_server_wsgiapp;
-                break;
-            }
-    }
-
-    # this section allows Nginx to reverse proxy for websockets
-    location /socket.io {
-        proxy_pass http://app_server_wsgiapp/socket.io;
+location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
         proxy_redirect off;
-        proxy_buffering off;
+        if (!-f $request_filename) {
+            proxy_pass http://app_server_wsgiapp;
+            break;
+        }
+}
 
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+# this section allows Nginx to reverse proxy for websockets
+location /socket.io {
+    proxy_pass http://app_server_wsgiapp/socket.io;
+    proxy_redirect off;
+    proxy_buffering off;
 
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
-    }
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+}
 }
 ```
 

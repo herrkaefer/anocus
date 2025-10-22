@@ -23,21 +23,21 @@ Extend the Realm's Object class to provide convient methods to do these things:
 import RealmSwift
 
 extension Object {
-    // Update property value in Realm
-    func update(_ property: String, value: Any?) {
-        let realm = try! Realm()
-        try! realm.write {
-            self.setValue(value, forKey: property)
-        }
+// Update property value in Realm
+func update(_ property: String, value: Any?) {
+    let realm = try! Realm()
+    try! realm.write {
+        self.setValue(value, forKey: property)
     }
+}
 
-    // Remove object from Realm
-    func remove() {
-        let realm = try! Realm()
-        try! realm.write {
-            realm.delete(self)
-        }
+// Remove object from Realm
+func remove() {
+    let realm = try! Realm()
+    try! realm.write {
+        realm.delete(self)
     }
+}
 }
 ```
 

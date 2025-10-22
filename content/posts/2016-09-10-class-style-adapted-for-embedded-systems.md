@@ -103,10 +103,10 @@ This is the `buffer_t` structure:
 
 ```c
 typedef struct {
-    double data[_BUFFER_SIZE];
-    size_t size;
-    int param_a;
-    double param_b;
+double data[_BUFFER_SIZE];
+size_t size;
+int param_a;
+double param_b;
 } buffer_t;
 ```
 
@@ -137,11 +137,11 @@ For example,
 
 ```c
 void buffer_init (buffer_t *self) {
-    assert (self);
-    memset (self, 0, _BUFFER_SIZE * sizeof (double));
-    self-&gt;size = _BUFFER_SIZE;
-    self-&gt;param_a = _BUFFER_PARAM_A;
-    self-&gt;param_b = _BUFFER_PARAM_B;
+assert (self);
+memset (self, 0, _BUFFER_SIZE * sizeof (double));
+self-&gt;size = _BUFFER_SIZE;
+self-&gt;param_a = _BUFFER_PARAM_A;
+self-&gt;param_b = _BUFFER_PARAM_B;
 }
 ```
 
@@ -193,10 +193,10 @@ For example, to calculate the squared root of every element in a buffer, we writ
 
 ```c
 void buffer_sqrt (buffer_t *self, double *output) {
-    assert (self);
-    assert (output);
-    for (size_t idx = 0; idx &lt; self-&gt;size; idx++)
-        output[idx] = sqrt (self-&gt;data[idx]);
+assert (self);
+assert (output);
+for (size_t idx = 0; idx &lt; self-&gt;size; idx++)
+    output[idx] = sqrt (self-&gt;data[idx]);
 }
 ```
 

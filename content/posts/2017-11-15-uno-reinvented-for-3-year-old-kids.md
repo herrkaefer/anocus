@@ -33,7 +33,7 @@ The senario is simulating a car driving on the road. Players operate the car by 
 The youngest player play the first card (should be a number card) and shout out "faster!" or "slower!". The next player could:
 
 - play a number card, which should be larger if the car is accelerating, or smaller if it is decelerating.
-    - a more strict rule is: to keep the car moves smooth, we should play a possible smallest number if it is accelerating, or a possible largest number if it is decelerating.
+- a more strict rule is: to keep the car moves smooth, we should play a possible smallest number if it is accelerating, or a possible largest number if it is decelerating.
 - place traffic sign to change the behavior of the car.
 - play several cards if the previous card is "+2" or "+4", and keep them correct.
 

@@ -63,7 +63,7 @@ then execute commands for the database.
 
 - Use psql directly
 
-    For example:
+For example:
 
 ```sh
 psql mydb -c "\l"

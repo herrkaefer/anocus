@@ -100,15 +100,15 @@ $ pipenv clean
 
 ```json
 "syntaxes": [
-    {
-        "syntax": "TOML/TOML",
-        "rules": [
-            {"file_path": ".*\\Pipfile$"}
-        ]
-    },
-    {
-        "syntax": "JavaScript/JSON",
-        "extensions": ["Pipfile.lock"]
-    },
+{
+    "syntax": "TOML/TOML",
+    "rules": [
+        {"file_path": ".*\\Pipfile$"}
+    ]
+},
+{
+    "syntax": "JavaScript/JSON",
+    "extensions": ["Pipfile.lock"]
+},
 ]
 ```

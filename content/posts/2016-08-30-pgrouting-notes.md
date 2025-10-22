@@ -53,20 +53,20 @@ Note that a mapconfig.xml file is at: `/usr/local/Cellar/osm2pgrouting/[version]
 
 3. Add the following headers to `src/way.h` (otherwise there will be errors)
 
-    ```c++
-    #include 
-    #include 
-    #include 
-    ```
+```c++
+#include 
+#include 
+#include 
+```
 
 4. Build and install
 
-    ```sh
-    cmake -H. -Bbuild
-    cd build/
-    make
-    make install
-    ```
+```sh
+cmake -H. -Bbuild
+cd build/
+make
+make install
+```
 
 ## Workflow
 
@@ -134,9 +134,9 @@ Now we can calculate routes with `pgRouting`. For example, to calculate one-to-o
 
 ```sql
 SELECT * FROM pgr_dijkstra(
-    'SELECT gid as id, source, target, cost, reverse_cost FROM ways',
-    100, 200,
-    TRUE
+'SELECT gid as id, source, target, cost, reverse_cost FROM ways',
+100, 200,
+TRUE
 );
 ```
 

@@ -53,14 +53,14 @@ For single user:
 
 ```json
 {
-    "server": "my_server_ip",
-    "server_port": 8388,
-    "local_address": "127.0.0.1",
-    "local_port": 1080,
-    "password": "mypassword",
-    "timeout": 300,
-    "method": "aes-256-cfb",
-    "fast_open": false
+"server": "my_server_ip",
+"server_port": 8388,
+"local_address": "127.0.0.1",
+"local_port": 1080,
+"password": "mypassword",
+"timeout": 300,
+"method": "aes-256-cfb",
+"fast_open": false
 }
 ```
 
@@ -68,15 +68,15 @@ For multiple users:
 
 ```json
 {
-    "server": "0.0.0.0",
-    "port_password": {
-        "8381": "ps1",
-        "8382": "ps2",
-        "8383": "ps3",
-        "8384": "ps4"
-    },
-    "timeout": 300,
-    "method": "aes-256-cfb"
+"server": "0.0.0.0",
+"port_password": {
+    "8381": "ps1",
+    "8382": "ps2",
+    "8383": "ps3",
+    "8384": "ps4"
+},
+"timeout": 300,
+"method": "aes-256-cfb"
 }
 ```
 
@@ -243,11 +243,11 @@ Then add a nginx configuration file in `/usr/local/etc/nginx/servers`:
 
 ```sh
 server {
-    listen       8000;
-    location / {
-        root   /usr/local/share/pac;
-        index  index.html index.htm;
-    }
+listen       8000;
+location / {
+    root   /usr/local/share/pac;
+    index  index.html index.htm;
+}
 }
 ```
 

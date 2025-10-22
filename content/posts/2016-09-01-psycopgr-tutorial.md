@@ -73,20 +73,20 @@ This is the default meta datas:
 
 ```python
 {
-    'table': 'ways',
-    'id': 'gid',
-    'source': 'source',
-    'target': 'target',
-    'cost': 'cost_s', # driving time in second
-    'reverse_cost': 'reverse_cost_s', # reverse driving time in second
-    'x1': 'x1',
-    'y1': 'y1',
-    'x2': 'x2',
-    'y2': 'y2',
-    'geometry': 'the_geom',
-    'has_reverse_cost': True,
-    'directed': True,
-    'srid': 4326
+'table': 'ways',
+'id': 'gid',
+'source': 'source',
+'target': 'target',
+'cost': 'cost_s', # driving time in second
+'reverse_cost': 'reverse_cost_s', # reverse driving time in second
+'x1': 'x1',
+'y1': 'y1',
+'x2': 'x2',
+'y2': 'y2',
+'geometry': 'the_geom',
+'has_reverse_cost': True,
+'directed': True,
+'srid': 4326
 }
 ```
 
@@ -102,9 +102,9 @@ For example:
 
 ```python
 nodes = [PgrNode(None, 116.30150, 40.05500),
-         PgrNode(None, 116.36577, 40.00253),
-         PgrNode(None, 116.30560, 39.95458),
-         PgrNode(None, 116.46806, 39.99857)]
+     PgrNode(None, 116.36577, 40.00253),
+     PgrNode(None, 116.30560, 39.95458),
+     PgrNode(None, 116.46806, 39.99857)]
 ```
 
 Now we can do routings:

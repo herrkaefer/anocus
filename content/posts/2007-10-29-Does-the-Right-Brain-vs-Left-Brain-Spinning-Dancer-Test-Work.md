@@ -22,15 +22,15 @@ Email
 
 Related Posts
 
-                    High on Memory                
+                High on Memory                
 
 Frederik Joelving • December 3, 2008
 
-                    Red Wine Good for Gray Matter                
+                Red Wine Good for Gray Matter                
 
 Carina Storrs • December 30, 2008
 
-                    Healing our Brains, Changing our Selves?                
+                Healing our Brains, Changing our Selves?                
 
 Frederik Joelving • July 16, 2009
 
