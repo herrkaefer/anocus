@@ -167,29 +167,36 @@ pre {
 /* 修复文章列表标题对齐问题 */
 .post-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center; /* 改为center对齐，让日期和标题在同一水平线上 */
   margin-bottom: 0.5em;
+  line-height: 1.4; /* 调整行高 */
 }
 
 .post-date {
   flex-shrink: 0;
   margin-right: 0.5em;
+  vertical-align: baseline; /* 确保基线对齐 */
 }
 
 .post-separator {
   flex-shrink: 0;
   margin-right: 0.5em;
+  vertical-align: baseline; /* 确保基线对齐 */
 }
 
 .post-title-wrapper {
   flex: 1;
   min-width: 0; /* 允许内容收缩 */
+  display: flex;
+  align-items: center; /* 确保标题在容器内垂直居中 */
 }
 
 .post-title {
-  display: block;
+  display: inline-block; /* 改为inline-block */
   text-indent: 0; /* 确保标题从左边开始 */
   word-wrap: break-word;
   overflow-wrap: break-word;
+  vertical-align: baseline; /* 确保基线对齐 */
+  line-height: 1.4; /* 与整体行高保持一致 */
 }
 
