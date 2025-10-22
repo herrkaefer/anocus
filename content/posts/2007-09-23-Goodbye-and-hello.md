@@ -5,6 +5,4 @@ summary: "Migrated from my old blog"
 draft: false
 ---
 
-Why everybody uses MSN, and why me, 2? 
- 
-![Restored Image 1](/assets/images/placeholder.svg "Original image from WordPress")
+Why everybody uses MSN, and why me, 2?

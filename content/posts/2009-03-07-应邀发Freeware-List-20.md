@@ -7,136 +7,302 @@ draft: false
 
 (无链接的不是freeware)
 
-Internet
-Web Browser: Firefox 
 
-   (addon: IE Tab, gladder, Adblock Plus,Hide Menu Bar, New Tab Button On Tab Bar, Easy DragToGo, Forecastfox |10n, Foxmarks Bookmark Synchronizer, CustomizeGoogle, Google Reader Watcher)
-Email Client: Thunderbird (addon: MinimizeToTray) 
 
-RSS Reader: Google Reader,
+**Internet**
 
-Instant Messaging: Windows Live Messenger (+ Messenger Plus! Live), Skype 
 
-Blog Editor: Windows Live Writer 
+
+****Web Browser: Firefox
+
+
+
+(addon: IE Tab, gladder, Adblock Plus,Hide Menu Bar, New Tab Button On Tab Bar, Easy DragToGo, Forecastfox |10n, Foxmarks Bookmark Synchronizer, CustomizeGoogle, Google Reader Watcher)Email Client: Thunderbird (addon: MinimizeToTray)
+
+
+
+RSS Reader: [Google Reader](https://www.google.com/reader/),
+
+
+
+Instant Messaging: Windows Live Messenger (+ Messenger Plus! Live), Skype
+
+
+
+Blog Editor: Windows Live Writer
+
+
 
 Download: 迅雷, eMule
 
-FLV Downloader: FLV Downloader 
 
-Social Music Downloading: Free music zilla 
 
-Offline browser: HTTrack
+FLV Downloader: FLV Downloader
 
-Security
 
-Firewall: Comodo 
 
-Anti-Virus: AntiVir Personal, AVG Free Edition 
+Social Music Downloading: Free music zilla
 
-Anti-Spyware:  Ad-Aware,  Spyware Terminator 
+
+
+Offline browser: [HTTrack](http://www.httrack.com/)
+
+
+
+**
+
+
+
+****Security**
+
+
+
+Firewall: Comodo
+
+
+
+Anti-Virus: [AntiVir Personal](http://www.free-av.com/), AVG Free Edition
+
+
+
+Anti-Spyware:  [Ad-Aware](http://www.lavasoftusa.com/products/ad-aware_se_personal.php),  Spyware Terminator
+
+
 
 WinPatrol
 
+
+
 Eraser
 
-Backup
-Firefox/Thunderbird: MozBackup
+
+
+**Backup**
+
+
+
+Firefox/Thunderbird: [MozBackup](http://mozbackup.jasnapaka.com/)
+
+
 
 File: SyncBack
 
-Driver: DriverMax
-Password: KeePass, lastpass  
 
-Media
-Music Player: foobar2000 (+foo_input_monkey, lame)
 
-Video Player: 
+Driver: [DriverMax](http://www.innovative-sol.com/drivermax/index.htm)
 
-K-Lite Codec Pack, QuickTime Alternative, Real Alternative
 
-MP3 Tag Editor: Mp3tag
 
-Media convert: Quick Media Converter
+Password: [KeePass](http://keepass.info/), [lastpass](https://lastpass.com/)
 
-Text Reader &amp; Editor
-Office: MS Word, OpenOffice 
 
-Pdf Viewer: PDF-XChange Viewer, Foxit Reader 
 
-Pdf Printer: CutePDF Writer,  PDFCreator
+**
 
-pdf to word: Free PDF to Word Doc Converter
 
-Notepad++
+
+****Media**
+
+
+
+Music Player: [foobar2000](http://www.foobar2000.org/) (+[foo_input_monkey](http://www.foobar2000.com/?page=Download), [lame](http://lame.sourceforge.net/))
+
+
+
+Video Player:
+
+
+
+[K-Lite Codec Pack](http://www.free-codecs.com/download/K_lite_codec_pack.htm), [QuickTime Alternative](http://www.free-codecs.com/download/quicktime_alternative.htm), [Real Alternative](http://www.free-codecs.com/download/real_Alternative.htm)
+
+
+
+MP3 Tag Editor: [Mp3tag](http://www.mp3tag.de/en/)
+
+
+
+Media convert: [Quick Media Converter](http://www.cocoonsoftware.com/index.php?lang=en)
+
+
+
+**Text Reader & Editor**
+
+
+
+Office: MS Word, OpenOffice[ ](http://www.openoffice.org/)
+
+
+
+Pdf Viewer: [PDF-XChange Viewer,](http://www.docu-track.com/home/prod_user/PDF-XChange_Tools/pdfx_viewer) [Foxit Reader](http://www.foxitsoftware.com/pdf/reader_2/reader-interstitial.html)
+
+
+
+Pdf Printer: [CutePDF Writer](http://www.cutepdf.com/Products/CutePDF/writer.asp),  [PDFCreator](http://www.pdfforge.org/products/pdfcreator)
+
+
+
+pdf to word: [Free PDF to Word Doc Converter](http://www.hellopdf.com/index.php)
+
+
+
+[Notepad++](http://notepad-plus.sourceforge.net/uk/site.htm)
+
+
 
 WinDjView
 
+
+
 AbiWord
 
-Image
-Image Viewer &amp; Simple Editor: FastStone, Photoscape, 光影魔术手
 
-Pixel Based Editor: Paint.NET, GIMP 
+
+**
+
+
+
+****Image**
+
+
+
+Image Viewer & Simple Editor: FastStone, Photoscape, 光影魔术手
+
+
+
+Pixel Based Editor: [Paint.NET](http://www.getpaint.net/index.html), GIMP
+
+
 
 Vector Graphics Editor: InkScape
 
-Panorama, photo stitch: Hugin, Autostitch
+
+
+Panorama, photo stitch: [Hugin](http://hugin.sourceforge.net/), [Autostitch](http://www.autostitch.net/)
+
+
 
 Lightroom
+
+
+
 Capture NX 2
+
+
+
 Portrait Professional
 
-System Tools
+
+
+**System ****Tools**
+
+
+
 TeraCopy
 
-CCleaner
 
-Defragger
 
-Unlocker
+[CCleaner](http://www.ccleaner.com/)
 
-Launchy
 
-Tweak UI
 
-Virtual Desktop: Dexpot
+[Defragger](http://www.defraggler.com/)
+
+
+
+[Unlocker](http://ccollomb.free.fr/unlocker/)
+
+
+
+[Launchy](http://launchy.net/index.html)
+
+
+
+[Tweak UI](http://www.microsoft.com/windowsxp/downloads/powertoys/xppowertoys.mspx)
+
+
+
+Virtual Desktop: [Dexpot](http://www.dexpot.de/)
+
+
 
 Virtual CD/DVD-Rom: DAEMON Tools Lite
 
-System installation
-Partition: GParted live CD
 
-Bart’s Preinstalled Environment: BartPE
 
-Image: DriveImage XML
+**System installation**
 
-nLite 
 
-Software Update Monitor
 
-FileHippo.com’s Update Checker
-Ketarin 
+Partition: [GParted live CD](http://gparted.sourceforge.net/livecd.php)
 
-Other Tools
-File Compression: 7-Zip 
 
-Input Method: Chinese: 搜狗拼音 , English: Triivi 
+
+Bart's Preinstalled Environment: [BartPE](http://www.nu2.nu/pebuilder/)
+
+
+
+Image: [DriveImage XML](http://www.runtime.org/driveimage-xml.htm)
+
+
+
+[nLite](http://www.nliteos.com/)
+
+
+
+**Software Update Monitor**
+
+
+
+FileHippo.com's [Update Checker](http://www.filehippo.com/updatechecker/)
+
+
+
+[Ketarin](http://ketarin.canneverbe.com/)
+
+
+
+**Other Tools**
+
+
+
+File Compression: 7-Zip
+
+
+
+Input Method: Chinese: 搜狗拼音 , English: Triivi
+
+
 
 Dictionary: Lingoes
 
+
+
 Java Runtime Environment
+
+
 
 Md5Checker
 
+
+
 CD/DVD Burner: CDBurnerXP
 
-Note: Evernote
+
+
+Note: [Evernote](http://evernote.com/)
+
+
 
 Google Earth
 
-Diary: EfficientDiary 
-Filerecovery: PC INSPECTOR™ File Recovery
 
-Slideshow maker: Jtvmaker 
+
+Diary: [EfficientDiary](http://www.efficientdiary.com/download.htm) Filerecovery: [PC INSPECTOR™ File Recovery](http://www.pcinspector.de/Sites/file_recovery/info.htm?language=1)
+
+
+
+Slideshow maker: [Jtvmaker](http://sites.google.com/site/jtvmaker/Home)
+
+
 
 OCR: ABBYY FineReader
