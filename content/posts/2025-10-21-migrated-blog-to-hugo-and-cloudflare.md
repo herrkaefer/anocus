@@ -2,7 +2,7 @@
 title: "Migrated Blog to Hugo and Cloudflare Pages"
 date: "2025-10-21"
 summary: "Make blogging great again!"
-tags: ['blog', 'hugo', 'cloudflare', 'migration', 'static-site']
+tags: ['blog', 'hugo', 'cloudflare']
 categories: ['workflow']
 draft: false
 ---
