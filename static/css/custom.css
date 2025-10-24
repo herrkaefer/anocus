@@ -14,6 +14,7 @@
 /* 全局字体设置：英文使用 Verdana，中文使用系统默认字体 */
 body {
   font-family: Verdana, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-autospace: normal;
 }
 
 /* 在文章页优先使用 Verdana 显示英文，中文使用楷体系列 */
@@ -53,7 +54,7 @@ code, pre, kbd, samp {
 /* 文章列表样式 */
 .post-item {
   line-height: 2.0;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 .post-date {
@@ -225,7 +226,7 @@ pre {
 .post-item {
   display: flex;
   align-items: center; /* 改为center对齐，让日期和标题在同一水平线上 */
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   line-height: 1.4; /* 调整行高 */
 }
 
