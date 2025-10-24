@@ -20,8 +20,9 @@ theme = 'hugo-paged'
 [params]
   name = 'herrkaefer'
   title = 'herrkaefer'
+  description = 'Personal website of herrkaefer - sharing thoughts on technology, family, and life'
   email = 'gloolar+blog@gmail.com'
-  tagline = ''
+  tagline = 'Personal website of herrkaefer'
   highlight_color = '#1C1C1C'
   link_color = '#00896C'
   show_disclaimer = false
@@ -30,6 +31,12 @@ theme = 'hugo-paged'
   google_analytics_key = 'UA-3042065-2'
   toc_threshold = 999999  # 禁用目录：将阈值设置为一个很大的数字
   footer = 'Powered by [Hugo](https://gohugo.io/)'
+
+  # SEO and Social Media
+  twitter_image = '/logo.svg'
+  og_image = '/logo.svg'
+  author = 'herrkaefer'
+  keywords = ['blog', 'technology', 'family', 'life']
 
   [params.logo]
     en = { alt = "herrkaefer", url = "/" }
@@ -60,6 +67,12 @@ theme = 'hugo-paged'
   page = ["HTML"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
+
+# Sitemap configuration
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
 
 [build]
   publishDir = 'public'
