@@ -69,9 +69,11 @@ footer.small {
 
 /* 让代码块与文本同宽 */
 pre, table, .fullwidth {
-  width: var(--text-width) !important;
+  width: 100% !important;
+  max-width: var(--text-width) !important;
   margin-left: auto !important;
   margin-right: auto !important;
+  box-sizing: border-box !important;
 }
 
 /* 确保代码块不溢出容器 */
@@ -162,6 +164,19 @@ pre {
 .post-nav {
   margin-top: 3em !important;
   padding-top: 2em !important;
+}
+
+/* 让 post-nav 在移动端与正文同宽且不溢出 */
+.post-nav {
+  width: 100% !important;
+  max-width: var(--text-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+}
+
+.post-nav span {
+  min-width: 0; /* 防止超出容器 */
 }
 
 /* 修复文章列表标题对齐问题 */
