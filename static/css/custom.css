@@ -1,6 +1,48 @@
+/* 网页楷体：霞鹜文楷（LXGW WenKai） */
+@font-face {
+  font-family: "LXGW WenKai";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/LXGWWenKai-Regular.woff2") format("woff2"),
+       url("/assets/fonts/LXGWWenKai-Regular.woff") format("woff"),
+       url("/assets/fonts/LXGWWenKai-Regular.ttf") format("truetype");
+  /* 仅限常用中日韩字符范围，避免影响英文的 Verdana 渲染 */
+  unicode-range: U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+FF00-FFEF, U+20000-2A6DF;
+}
+
 /* 全局字体设置：英文使用 Verdana，中文使用系统默认字体 */
 body {
   font-family: Verdana, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* 在文章页优先使用 Verdana 显示英文，中文使用楷体系列 */
+.single {
+  font-family: Verdana,
+    /* Kai-family fallbacks across platforms */
+    "Kaiti SC", "Kaiti TC", "STKaiti", KaiTi, "楷体", "BiauKai", "DFKai-SB", "AR PL UKai CN", "AR PL UKai TW",
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, serif;
+}
+
+/* 对正文内容应用混排：Latin 优先 Verdana，CJK 优先楷体，之后再回退 */
+.single, .single body, .single .content, .single article {
+  font-family: Verdana,
+    /* Web 楷体优先，确保跨设备一致 */
+    "LXGW WenKai",
+    /* Kai-family fallbacks across platforms */
+    "Kaiti SC", "Kaiti TC", "STKaiti", KaiTi, "楷体", "BiauKai", "DFKai-SB", "AR PL UKai CN", "AR PL UKai TW",
+    "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, serif;
+}
+
+/* 提升文章页正文字号一点点，增强中文可读性 */
+.single {
+  font-size: 1.0625rem; /* ≈ 17px */
+  line-height: 1.7;
+}
+
+/* 代码与等宽字体不受影响 */
+code, pre, kbd, samp {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
 }
 
 /* 去掉文章标题的斜体 */
