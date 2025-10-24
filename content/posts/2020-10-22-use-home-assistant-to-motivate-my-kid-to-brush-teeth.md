@@ -1,32 +1,40 @@
 ---
 title: "Use Home Assistant to Motivate My Kid to Brush Teeth"
-date: 2025-10-23
+date: 2025-10-22
 summary: "A simple yet delightful Home Assistant automation that helps kids build the brushing habit — with Spotify music, voice encouragement, and streak tracking."
 tags: ["home assistant", "automation", "smart home", "parenting", "iot"]
 categories: ["projects"]
 draft: false
 ---
 
-## Overview
+I hope you're not in the same boat, but getting my kids to brush their teeth consistently can be a daily struggle. After an unpleasant incident this morning, I decided to add some fun to the routine using Home Assistant, hoping my daughter would stay motivated (at least for a while😆).
 
-Hope you are not, but getting my kids to brush their teeth consistently can be a daily struggle. After a unpleasure event this morning, I was thinking to add a small fun using Home Aasistant so that hopefully my daughter could be motivated (for a while or longer)
-
-With this setup I wish the teeth brushing events are automatically detected, announced by Google speaker, accompanied by a two-minute Spotify playlist, and recorded in Home Assistant.
+With this setup, I wanted the teeth brushing events to be automatically detected, announced by the Google speaker, accompanied by a two-minute song playing, and recorded in Home Assistant.
 
 
-## Components Used
+## Plan
 
-- **Home Assistant** core for automation logic
-- **Aqara Zigbee Button** (used to start brushing sequence)
-- **Google Speaker** for voice & music
-- **Spotify Integration** for 2-minute brushing songs
-- **Helpers:**
-  - `input_datetime.teeth_brushing_start` and `end`
+As she is using a plain electric tooth brush without bluetooth or app connection, there's no direct way to get the teeth brushing data. I was thinking to put a NFC stick on the brush or somewhere, but it doesn't sound good because it relies on a phone touch to trigger.
+
+So I removed a Zigbee button from the frontdoor (which was set to press before leaving home but rearly used) and stick it on the mirror in the bathroom. The kid can press it to start the brushing automation.
+
+Here's a random [link](https://www.aliexpress.us/item/3256807114382706.html?src=google&pdp_npi=4%40dis%21USD%213.77%211.80%21%21%21%21%21%40%2112000040119318979%21ppc%21%21%21&snps=y&snpsid=1&retailTag=FullHosting&traffic_server_nav=true&src=google&albch=shopping&acnt=742-864-1166&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=_oDeeeiG&gclsrc=aw.ds&albagn=888888&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=en3256807114382706&ds_e_product_merchant_id=5551326180&ds_e_product_country=US&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=22443129574&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gad_campaignid=22443130765&gbraid=0AAAAA99aYpftxnhsLS2pTK4hLOZGvTVVp&gclid=CjwKCAjwpOfHBhAxEiwAm1SwEtC6H4IjjDXT70tgqs2g1zohu5so1e_Rkv-3MO4OuYV4EDTEXdxtOxoC8psQAvD_BwE&gatewayAdapt=glo2usa) of the button on AliExpress.
+
+Components that are needed for this flow:
+
+- A working Home Assistant
+- A Aqara Zigbee Button
+- Google Speaker (or any speaker that can be controled by home assistant) for voice & music
+- `Spotify` and `Spotcast` integrations for 2-minute brushing songs
+
+
+## Helpers
+
+Create a few helper entities in Home Assistant:
+
+  - `input_datetime.teeth_brushing_start` and `end` (single brushing recording)
   - `counter.teeth_brushing_counter` (daily count)
   - `counter.teeth_brush_streak` (streak days)
-
-<!-- ![placeholder – hardware overview](path/to/image_hardware_overview.jpg) -->
-
 
 ## Automations
 
