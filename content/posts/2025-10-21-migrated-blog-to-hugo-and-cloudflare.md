@@ -33,4 +33,4 @@ Hugo version caused some issues. I had to specify a newer version on Cloudflare 
 hugo server --buildDrafts --port 1313
 ```
 
-Make blogging great again!
+*Make blogging great again!*
