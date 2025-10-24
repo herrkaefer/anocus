@@ -1,6 +1,6 @@
 ---
 title: "Use Home Assistant to Motivate My Kid to Brush Teeth"
-date: 2025-10-22
+date: "2025-10-22"
 summary: "A simple yet delightful Home Assistant automation that helps kids build the brushing habit — with Spotify music, voice encouragement, and streak tracking."
 tags: ["home assistant", "automation", "smart home", "parenting", "iot"]
 categories: ["projects"]
