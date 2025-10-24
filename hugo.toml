@@ -79,4 +79,4 @@ theme = 'hugo-paged'
 
 [pagination]
   # Number of posts per page
-  pageSize = 10
+  pageSize = 20
