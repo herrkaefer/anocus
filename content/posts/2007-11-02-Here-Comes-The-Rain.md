@@ -8,56 +8,34 @@ draft: false
 [*](http://byfiles.storage.live.com/y1pmGngNzV4uYa_UsjLN-kw1t3WQXk3qsJUat_1hgWaAwmGR-rVFj0WsfxQhOc1YTBSzG03gSESCzk)
 
 
-
 [*](http://by1.storage.live.com/y1pMmmrmC_aQ3Vm_KakYvTWuNxNFyDs_LIRYWgFX-O93qpYOWL1NgyRaCMnwAui-HG9s15EXYiVGHAcwr9hPkEr2AZ-b_RWHmb2)
-
 
 
 当我走在吃饭的路上
 
-
-
 天空正飘着朦胧细雨
-
-
 
 红的更红，黄的更黄
 
-
-
 雨中色彩多么美丽
-
-
 
 踩着落叶我漫步在不知名的地方
 
-
-
 走过一条街
-
-
 
 又走过一条街
 
-
-
 未曾出现那间写满英文的小书店
-
-
 
 失望中我把相机对准一些美丽的铅笔
 
-
-
 有人却对我说不可以
-
-
 
 什么 难道这是古罗马的神像
 
+还是某大师的遗迹
 
-
-还是某大师的遗迹[*](http://by1.storage.live.com/y1pMmmrmC_aQ3U_XLi9V3M0K23LK1R_oV0vGZlxzPmMsJwSSMY10BZhXLXxd1XBTPNTGbqhY4k1NXjvKwXcVejye3T52eddvHxS)
+[*](http://by1.storage.live.com/y1pMmmrmC_aQ3U_XLi9V3M0K23LK1R_oV0vGZlxzPmMsJwSSMY10BZhXLXxd1XBTPNTGbqhY4k1NXjvKwXcVejye3T52eddvHxS)
 
 
 
