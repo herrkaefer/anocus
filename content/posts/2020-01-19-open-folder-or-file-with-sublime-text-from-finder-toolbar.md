@@ -28,73 +28,23 @@ Create a new AppleScript script, input:
 
 
 ```applescript
-
-
-
 try
+  tell application "Finder"
+    set sel to selection
+    set numElements to count sel
+    if numElements is 1 then
+      set itemPath to POSIX path of (sel as string)
+    else
+      set itemPath to POSIX path of ((folder of the front Finder window) as alias)
+    end if
 
-
-
-tell application "Finder"
-
-
-
-set sel to selection
-
-
-
-set numElements to count sel
-
-
-
-if numElements is 1 then
-
-
-
-set itemPath to POSIX path of (sel as string)
-
-
-
-else
-
-
-
-set itemPath to POSIX path of ((folder of the front Finder window) as alias)
-
-
-
-end if
-
-
-
-tell application "Terminal"
-
-
-
-do shell script "/usr/local/bin/subl " &amp; quoted form of itemPath
-
-
-
-end tell
-
-
-
-end tell
-
-
-
+    tell application "Terminal"
+      do shell script "/usr/local/bin/subl " &amp; quoted form of itemPath
+    end tell
+  end tell
 on error
-
-
-
-log "Error: No selection"
-
-
-
+  log "Error: No selection"
 end try
-
-
-
 ```
 
 
