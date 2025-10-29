@@ -16,6 +16,8 @@ With this setup, I wanted the teeth brushing events to be automatically detected
 
 As she is using a plain electric tooth brush without bluetooth or app connection, there's no direct way to get the teeth brushing data. I was thinking to put a NFC stick on the brush or somewhere, but it doesn't sound good because it relies on a phone touch to trigger.
 
+![](/assets/images/aqara_zigbee_button.jpg)
+
 So I removed a Zigbee button from the frontdoor (which was set to press before leaving home but rearly used) and stick it on the mirror in the bathroom. The kid can press it to start the brushing automation.
 
 Here's a random [link](https://www.aliexpress.us/item/3256807114382706.html?src=google&pdp_npi=4%40dis%21USD%213.77%211.80%21%21%21%21%21%40%2112000040119318979%21ppc%21%21%21&snps=y&snpsid=1&retailTag=FullHosting&traffic_server_nav=true&src=google&albch=shopping&acnt=742-864-1166&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=_oDeeeiG&gclsrc=aw.ds&albagn=888888&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=en3256807114382706&ds_e_product_merchant_id=5551326180&ds_e_product_country=US&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=22443129574&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gad_campaignid=22443130765&gbraid=0AAAAA99aYpftxnhsLS2pTK4hLOZGvTVVp&gclid=CjwKCAjwpOfHBhAxEiwAm1SwEtC6H4IjjDXT70tgqs2g1zohu5so1e_Rkv-3MO4OuYV4EDTEXdxtOxoC8psQAvD_BwE&gatewayAdapt=glo2usa) of the button on AliExpress.
@@ -92,12 +94,6 @@ actions:
       minutes: 1
       seconds: 50
       milliseconds: 0
-  - action: tts.google_translate_say
-    metadata: {}
-    data:
-      cache: true
-      entity_id: "{{ speaker }}"
-      message: Great job! You finished brushing your teeth!
   - action: input_datetime.set_datetime
     metadata: {}
     data:
@@ -109,9 +105,53 @@ actions:
     data: {}
     target:
       entity_id: counter.teeth_brushing_counter
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ states('counter.teeth_brushing_counter') | int == 1 }}"
+        sequence:
+          - data:
+              cache: false
+              entity_id: "{{ speaker }}"
+              message: >
+                Great job starting your day with brushing! You’re on a {{
+                states('counter.teeth_brushing_streak') | int }}-day streak.
+                Keep it up, and you’ll make it even longer tonight!
+            action: tts.google_translate_say
+      - conditions:
+          - condition: template
+            value_template: "{{ states('counter.teeth_brushing_counter') | int == 2 }}"
+        sequence:
+          - target:
+              entity_id: counter.teeth_brushing_streak
+            action: counter.increment
+          - data:
+              cache: false
+              entity_id: "{{ speaker }}"
+              message: >
+                Fantastic! You’ve brushed twice today and kept your streak
+                going! That’s now {{ states('counter.teeth_brushing_streak') |
+                int }} days in a row! Awesome job, keep shining!
+            action: tts.google_translate_say
+      - conditions:
+          - condition: template
+            value_template: "{{ states('counter.teeth_brushing_counter') | int > 2 }}"
+        sequence:
+          - data:
+              cache: true
+              entity_id: "{{ speaker }}"
+              message: >
+                Wow, you’re really into brushing today! Keep those teeth
+                sparkling clean!
+            action: tts.google_translate_say
 variables:
   speaker: media_player.mira_room_speaker
-  volume_level: 0.48
+  volume_level: |
+    {% set now_time = now().strftime('%H:%M') %} {% if now_time < '21:15' %}
+      0.47
+    {% else %}
+      0.12
+    {% endif %}
   playlist_uri: spotify:playlist:3lacrdXRalnL5FJrzb4UcS
 mode: single
 ```
@@ -161,6 +201,8 @@ actions:
 
 ## Dashboard Visualization
 
+![](/assets/images/ha_teeth_brushing_chip.png)
+
 Daily Count + Streak Chip
 
 A single Mushroom Template Chip shows both today’s brushing and the running streak.
@@ -190,10 +232,9 @@ chips:
       action: more-info
 ```
 
+## What are good to add later
 
-## What are good to add
-
-- Let brushing ends by manually pressing the button again, this way there's less chance of cheating.
+- Let brushing ends by manually pressing the button again, in case of cheating.
 - Add a small battery-powered display near the sink to show streaks. Physical visialization is powerful.
 - Streak would be better to be updated in realtime, i.e. adding today after brushing in the evening instead of updating at midnight.
 - Add milestone rewards based on streak, e.g., TTS “You reached 7 days!”
