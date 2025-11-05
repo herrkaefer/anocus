@@ -157,7 +157,7 @@ mode: single
 ```
 
 
-### 2. Midnight Streak Update
+### 2. Midnight Helpers Update
 
 At midnight, another automation checks whether (>= 2) brushing happened that day, and update the counter and streak.
 
