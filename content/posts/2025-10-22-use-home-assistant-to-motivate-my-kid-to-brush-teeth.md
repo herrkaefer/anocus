@@ -159,34 +159,19 @@ mode: single
 
 ### 2. Midnight Streak Update
 
-At midnight, another automation checks whether (>= 2) brushing happened that day:
+At midnight, another automation checks whether (>= 2) brushing happened that day, and update the counter and streak.
 
 ```yaml
-alias: Update Teeth Brush Streak at Midnight
-description: Increment or reset streak depending on daily brushing
-mode: single
-
-variables:
-  daily_counter: counter.teeth_brushing_counter
-  streak_counter: counter.teeth_brush_streak
-
+alias: Update Teeth Brush Helpers at Midnight
+description: Reset daily counter and streak
 triggers:
   - at: "23:59:00"
     trigger: time
-
 conditions: []
-
 actions:
   - variables:
       brushed_today: "{{ states(daily_counter) | int > 1 }}"
   - choose:
-      - conditions:
-          - condition: template
-            value_template: "{{ brushed_today }}"
-        sequence:
-          - target:
-              entity_id: "{{ streak_counter }}"
-            action: counter.increment
       - conditions:
           - condition: template
             value_template: "{{ not brushed_today }}"
@@ -197,6 +182,11 @@ actions:
   - target:
       entity_id: "{{ daily_counter }}"
     action: counter.reset
+mode: single
+variables:
+  daily_counter: counter.teeth_brushing_counter
+  streak_counter: counter.teeth_brushing_streak
+
 ```
 
 ## Stream emoji evolution on dashboard!
