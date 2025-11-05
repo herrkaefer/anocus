@@ -199,11 +199,13 @@ actions:
     action: counter.reset
 ```
 
-## Dashboard Visualization
+## Stream emoji evolution on dashboard!
 
-![](/assets/images/ha_teeth_brushing_chip.png)
+![](/assets/images/ha_teeth_brushing_chip.gif)
 
-Daily Count + Streak Chip
+🥚 → 🐣 → 🐥 → 🐓 → 🦅 → 🐦‍🔥 → 🐉
+
+Make it a bit more fun by adding some emoji evolution on home assistant dashboard. Each emoji evolves every 7 days to another level. This little trick has been working very well for my daughter to keep her motivated. Actually this idea was suggested by my daughter herself, and she always wants to take a look at the dashboard to see how the emojis are evolving after brushing.
 
 A single Mushroom Template Chip shows both today’s brushing and the running streak.
 The number of 🪥 icons corresponds to the daily brushing count, and the streak is visualized with fire emojis.
@@ -214,20 +216,29 @@ chips:
   - type: template
     entity: counter.teeth_brushing_counter
     icon: mdi:toothbrush-electric
-    icon_color: >
-      {% set count = states('counter.teeth_brushing_counter') | int %} {% if
-      count == 0 %}
-        red
-      {% elif count == 1 %}
-        amber
-      {% else %}
-        green
-      {% endif %}
+    icon_color: blue
     content: >
-      {% set count = states('counter.teeth_brushing_counter') | int %}  {% set
-      streak = states('counter.teeth_brushing_streak') | int %}  {% set brushes
-      = '🪥' * count if count > 0 else '🚨' %}  {% set fire = '☘️' * streak if
-      streak > 0 else 0 %}  today:{{ brushes }} streak:{{ fire }}
+      {% set count = states('counter.teeth_brushing_counter') | int %} {% set
+      streak = states('counter.teeth_brushing_streak') | int %} {% set brushes =
+      '🪥' * count if count > 0 else '0' %}
+
+      {% set stage = streak // 7 %} {% set rem = streak % 7 %}
+
+      {% set evolutions = ['🐣', '🐥', '🐓', '🦅', '🐦‍🔥'] %}
+
+      {% if stage == 0 %}
+        {% set evo = '' %}
+      {% elif stage <= evolutions | length %}
+        {% set evo = evolutions[:stage] | reverse | join('') %}
+      {% else %}
+        {% set dragons = '🐉' * (stage - (evolutions | length)) %}
+        {% set evo = dragons + (evolutions | reverse | join('')) %}
+      {% endif %}
+
+      {% set eggs = '🥚' * rem %} {% set final = evo + eggs if streak > 0 else
+      '0' %}
+
+      Today:{{ brushes }} Streak:{{ final }}
     tap_action:
       action: more-info
 ```
