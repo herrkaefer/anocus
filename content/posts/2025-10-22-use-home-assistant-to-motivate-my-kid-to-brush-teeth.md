@@ -235,8 +235,5 @@ chips:
 
 ## What are good to add later
 
-- Let brushing ends by manually pressing the button again, in case of cheating.
-- Add a small battery-powered display near the sink to show streaks. Physical visialization is powerful.
-- Streak would be better to be updated in realtime, i.e. adding today after brushing in the evening instead of updating at midnight.
-- Add milestone rewards based on streak, e.g., TTS “You reached 7 days!”
-
+- Let brushing ends by manually pressing the button again, if cheating is noticed. -- So far not needed.
+- Add a small battery-powered display near the sink to show streaks. Physical visialization would be more powerful feedback for the kid.
