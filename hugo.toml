@@ -48,6 +48,14 @@ theme = 'hugo-paged'
   instagram = 'herrkaefer'
   weibo = 'herrkaefer'
 
+  [params.giscus]
+    repo = 'herrkaefer/blog-comments'
+    repoId = 'R_kgDOQP6rYw'
+    category = 'General'
+    categoryId = 'DIC_kwDOQP6rY84CxeDf'
+    theme = 'preferred_color_scheme'
+    lang = 'en'
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
