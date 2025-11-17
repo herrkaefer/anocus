@@ -2,11 +2,10 @@
 title: Realtime monitoring of ComEd hourly price
 date: "2025-11-17"
 summary:
-tags: home assistant, iOS, widget, scriptable, ComEd
+tags: ["home assistant", "iOS", "widget", "scriptable", "ComEd"]
 categories:
 draft: false
 ---
-
 
 
 After changing to use ComEd's hourly pricing, we have been paid more attention to the realtime electricity price before using some appliances like dryer and EV charger. I've added a chip on home assistant which call ComEd's api every 10 min and display it and it's very convenient. Yes ComEd has provided [APIs](https://hourlypricing.comed.com/hp-api/).
