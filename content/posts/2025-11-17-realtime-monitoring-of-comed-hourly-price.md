@@ -71,14 +71,9 @@ let trend = "→";
 if (diff > 0.8) trend = "⬈";
 else if (diff < -0.8) trend = "⬊";
 
-// ===== TODAY LOW / HIGH =====
-let today0 = new Date();
-today0.setHours(0, 0, 0, 0);
-
-let todayEntries = entries.filter(e => e.ts >= today0.getTime());
-
-let lowEntry = todayEntries.reduce((a, b) => a.price < b.price ? a : b);
-let highEntry = todayEntries.reduce((a, b) => a.price > b.price ? a : b);
+// ===== 24-HOUR LOW / HIGH =====
+let lowEntry = entries.reduce((a, b) => a.price < b.price ? a : b);
+let highEntry = entries.reduce((a, b) => a.price > b.price ? a : b);
 
 let lowTime = new Date(lowEntry.ts).toLocaleTimeString("en-US", {
   hour: "2-digit",
