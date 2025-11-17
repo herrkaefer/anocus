@@ -16,7 +16,7 @@ But not everyone has home assistant installed. Of course the straightforward met
 
 Or, we can use shortcuts (on iPhone). Shortcut can fetch the price and show a notification. You can also let Siri trigger it. Cool.
 
-If you want to see a widget showing the prices for you, go with the [Scriptable app](https://apps.apple.com/us/app/scriptable/id1405459188). This app lets your run custom javascript scripts and show a widget.
+If you want to see a widget showing the prices for you, go with the wonderful [Scriptable app](https://apps.apple.com/us/app/scriptable/id1405459188). This app lets your run custom javascript scripts and show a widget.
 
 ![](/assets/images/comed-scriptable.jpg)
 
@@ -168,3 +168,4 @@ App.close();
 
 ```
 
+It'd better to put the widget in the Today widget so it seems to get refreshed more often. But the timing of refresh totally depends on iOS system. The solution is tapping the widget if you see the "updated" time is not very recent. The Scriptable app will be opened for the script to run but will automatically close after that, which takes half a second.
