@@ -8,11 +8,11 @@ draft: false
 ---
 
 
-After changing to use ComEd's hourly pricing, we have been paid more attention to the realtime electricity price before using some appliances like dryer and EV charger. I've added a chip on home assistant which call ComEd's api every 10 min and display it and it's very convenient. Yes ComEd has provided [APIs](https://hourlypricing.comed.com/hp-api/).
+After changing to use ComEd's hourly pricing, we have been paid more attention to the realtime electricity price before using some appliances like dryer and EV charger. I've added a chip on home assistant which call ComEd's api every 10 min and display it and it's very convenient. Yes ComEd provides [APIs](https://hourlypricing.comed.com/hp-api/) surprisingly.
 
 ![](/assets/images/comed-ha.png)
 
-But not everyone has home assistant installed. Of course the straightforward method is to put a shortcut of this [webpage](https://hourlypricing.comed.com/live-prices/) on the home screen, and click it and wait for the page showing the prices. But this feels slow.
+But not everyone has home assistant installed. Of course the straightforward method is to put a shortcut of this [live price page](https://hourlypricing.comed.com/live-prices/) on the home screen, and click it and wait for the page showing the prices. But this feels slow.
 
 Or, we can use shortcuts (on iPhone). Shortcut can fetch the price and show a notification. You can also let Siri trigger it. Cool.
 
