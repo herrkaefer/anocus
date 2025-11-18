@@ -71,7 +71,7 @@ let trend = "→";
 if (diff > 0.8) trend = "⬈";
 else if (diff < -0.8) trend = "⬊";
 
-// ===== 24-HOUR LOW / HIGH =====
+// ===== 24-hr LOW / HIGH =====
 let lowEntry = entries.reduce((a, b) => a.price < b.price ? a : b);
 let highEntry = entries.reduce((a, b) => a.price > b.price ? a : b);
 
@@ -143,24 +143,30 @@ widget.addSpacer(4);
 
 // UPDATED
 let updatedTxt = widget.addText(`Updated ${timeStr}`);
-updatedTxt.font = Font.regularMonospacedSystemFont(12);
+updatedTxt.font = Font.mediumMonospacedSystemFont(12);
 updatedTxt.textColor = textColor;
 updatedTxt.rightAlignText();
 
-widget.addSpacer(2);
+widget.addSpacer(4);
 
 // LOW / HIGH (same font size)
-let lhTxt = widget.addText(`Low ${lowEntry.price}¢ @ ${lowTime}   High ${highEntry.price}¢ @ ${highTime}`);
-lhTxt.font = Font.regularMonospacedSystemFont(12);
-lhTxt.textColor = textColor;
-lhTxt.rightAlignText();
+let lTxt = widget.addText(`Low ${lowEntry.price}¢ @ ${lowTime}`)
+lTxt.font = Font.mediumMonospacedSystemFont(12);
+lTxt.textColor = textColor;
+lTxt.rightAlignText();
+
+widget.addSpacer(4);
+
+let hTxt = widget.addText(`High ${highEntry.price}¢ @ ${highTime}`);
+hTxt.font = Font.mediumMonospacedSystemFont(12);
+hTxt.textColor = textColor;
+hTxt.rightAlignText();
 
 widget.refreshAfterDate = new Date(Date.now() + 5 * 60 * 1000);
 
 Script.setWidget(widget);
 Script.complete();
 App.close();
-
 ```
 
 It'd better to put the widget in the Today widget so it seems to get refreshed more often. But the timing of refresh totally depends on iOS system. The solution is tapping the widget if you see the "updated" time is not very recent. The Scriptable app will be opened for the script to run but will automatically close after that, which takes half a second.
