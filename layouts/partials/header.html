@@ -171,6 +171,7 @@
       {{- $mclass = delimit $mclass " " -}}
       <span{{ with $mclass }} class="{{ . }}"{{ end }}><a href="{{ relURL .URL }}">{{ .Name }}</a></span>
       {{ end }}
+      {{ partial "search.html" . }}
     </div>
     </nav>
 

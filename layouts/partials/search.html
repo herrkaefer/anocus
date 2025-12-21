@@ -1,0 +1,428 @@
+<div class="search-container">
+  <button id="search-toggle" class="search-toggle" aria-label="Search articles" title="Search articles">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11.5 10h-.79l-.28-.27C11.41 8.59 12 7.11 12 5.5 12 2.46 9.54 0 6.5 0S1 2.46 1 5.5 3.46 11 6.5 11c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L16.49 15l-4.99-5zm-5 0C4.01 10 2 7.99 2 5.5S4.01 1 6.5 1 11 3.01 11 5.5 8.99 10 6.5 10z" fill="currentColor"/>
+    </svg>
+  </button>
+  <div id="search-box" class="search-box" style="display: none;">
+    <input type="text" id="search-input" placeholder="Search articles..." autocomplete="off" aria-label="Search articles">
+    <div id="search-results" class="search-results" role="listbox" aria-label="Search results"></div>
+  </div>
+</div>
+
+<style>
+.search-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 1rem;
+  vertical-align: middle;
+}
+
+.search-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.search-toggle:hover {
+  color: #00896C;
+}
+
+.search-toggle:focus {
+  outline: 2px solid #00896C;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.search-box {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  z-index: 1000;
+}
+
+#search-input {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 250px;
+  background: white;
+  color: #333;
+  transition: border-color 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#search-input:focus {
+  outline: none;
+  border-color: #00896C;
+  box-shadow: 0 0 0 2px rgba(0, 137, 108, 0.1), 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#search-input::placeholder {
+  color: #999;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  max-height: 400px;
+  overflow-y: auto;
+  display: none;
+  z-index: 1001;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-top: 2px;
+}
+
+.search-results.active {
+  display: block;
+}
+
+.search-result-item {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: left;
+}
+
+.search-result-item:hover,
+.search-result-item:focus {
+  background-color: #f5f5f5;
+  outline: none;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-title {
+  font-weight: 600;
+  color: #00896C;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.search-result-date {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+}
+
+.search-result-snippet {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.25rem;
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.search-no-results {
+  padding: 1rem;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    margin-left: 0.5rem;
+  }
+
+  #search-input {
+    width: 200px;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .search-results {
+    max-height: 300px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  let searchData = null;
+  let isLoading = false;
+
+  // 加载搜索数据
+  async function loadSearchData() {
+    if (searchData || isLoading) return;
+    isLoading = true;
+
+    try {
+      const response = await fetch('/index.json');
+      if (!response.ok) throw new Error('Failed to load search data');
+      searchData = await response.json();
+    } catch (error) {
+      console.error('Failed to load search data:', error);
+    } finally {
+      isLoading = false;
+    }
+  }
+
+  // 提取搜索片段
+  function extractSnippet(text, query, maxLength = 150) {
+    if (!text) return '';
+
+    const lowerText = text.toLowerCase();
+    const lowerQuery = query.toLowerCase();
+    const index = lowerText.indexOf(lowerQuery);
+
+    if (index === -1) {
+      return text.substring(0, maxLength) + (text.length > maxLength ? '...' : '');
+    }
+
+    const start = Math.max(0, index - 50);
+    const end = Math.min(text.length, index + query.length + 50);
+    let snippet = text.substring(start, end);
+
+    if (start > 0) snippet = '...' + snippet;
+    if (end < text.length) snippet = snippet + '...';
+
+    // 高亮匹配的文本
+    const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+    snippet = snippet.replace(regex, '<mark>$1</mark>');
+
+    return snippet;
+  }
+
+  // 转义正则表达式特殊字符
+  function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  // HTML 转义
+  function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // 高亮标题中的匹配文本
+  function highlightTitle(title, query) {
+    if (!title || !query) return escapeHtml(title);
+    const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+    return escapeHtml(title).replace(regex, '<mark>$1</mark>');
+  }
+
+  // 搜索函数
+  function search(query) {
+    if (!searchData || !query.trim()) return [];
+
+    const lowerQuery = query.toLowerCase().trim();
+    const results = [];
+
+    for (const item of searchData) {
+      const titleMatch = item.title && item.title.toLowerCase().includes(lowerQuery);
+      const contentMatch = item.content && item.content.toLowerCase().includes(lowerQuery);
+      const summaryMatch = item.summary && item.summary.toLowerCase().includes(lowerQuery);
+      const tagsMatch = item.tags && item.tags.some(tag =>
+        tag && tag.toLowerCase().includes(lowerQuery)
+      );
+
+      if (titleMatch || contentMatch || summaryMatch || tagsMatch) {
+        // 计算相关性分数
+        let score = 0;
+        if (titleMatch) score += 10;
+        if (tagsMatch) score += 8;
+        if (summaryMatch) score += 5;
+        if (contentMatch) score += 1;
+
+        // 提取片段
+        let snippet = '';
+        if (summaryMatch && item.summary) {
+          snippet = extractSnippet(item.summary, query, 120);
+        } else if (contentMatch && item.content) {
+          snippet = extractSnippet(item.content, query, 150);
+        } else if (item.summary) {
+          snippet = item.summary.substring(0, 120) + '...';
+        } else if (item.content) {
+          snippet = item.content.substring(0, 150) + '...';
+        }
+
+        results.push({
+          ...item,
+          score,
+          snippet
+        });
+      }
+    }
+
+    // 按分数排序，然后按日期排序
+    return results
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        // 如果分数相同，按日期降序
+        if (a.date && b.date) return b.date.localeCompare(a.date);
+        return 0;
+      })
+      .slice(0, 10); // 只返回前10个结果
+  }
+
+  // 显示搜索结果
+  function displayResults(results) {
+    const resultsContainer = document.getElementById('search-results');
+    if (!resultsContainer) return;
+
+    if (results.length === 0) {
+      resultsContainer.innerHTML = '<div class="search-no-results">未找到相关文章</div>';
+      resultsContainer.classList.add('active');
+      return;
+    }
+
+    resultsContainer.innerHTML = results.map(item => `
+      <div class="search-result-item"
+           role="option"
+           tabindex="0"
+           onclick="window.location.href='${item.uri}'"
+           onkeydown="if(event.key==='Enter') window.location.href='${item.uri}'">
+        <div class="search-result-title">${highlightTitle(item.title, document.getElementById('search-input').value)}</div>
+        ${item.date ? `<div class="search-result-date">${item.date}</div>` : ''}
+        ${item.snippet ? `<div class="search-result-snippet">${item.snippet}</div>` : ''}
+      </div>
+    `).join('');
+    resultsContainer.classList.add('active');
+  }
+
+  // 初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchToggle = document.getElementById('search-toggle');
+    const searchBox = document.getElementById('search-box');
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('search-results');
+
+    if (!searchToggle || !searchBox || !searchInput || !resultsContainer) return;
+
+    // 切换搜索框显示/隐藏
+    searchToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isVisible = searchBox.style.display !== 'none';
+
+      if (isVisible) {
+        // 隐藏搜索框
+        searchBox.style.display = 'none';
+        resultsContainer.classList.remove('active');
+        searchInput.value = '';
+      } else {
+        // 显示搜索框并聚焦
+        searchBox.style.display = 'block';
+        setTimeout(() => {
+          searchInput.focus();
+          // 加载搜索数据（如果还没加载）
+          loadSearchData();
+        }, 10);
+      }
+    });
+
+    let searchTimeout;
+    searchInput.addEventListener('input', function(e) {
+      clearTimeout(searchTimeout);
+      const query = e.target.value.trim();
+
+      if (!query) {
+        resultsContainer.classList.remove('active');
+        return;
+      }
+
+      // 如果数据还没加载，先加载
+      if (!searchData && !isLoading) {
+        loadSearchData();
+      }
+
+      searchTimeout = setTimeout(() => {
+        if (searchData) {
+          const results = search(query);
+          displayResults(results);
+        } else {
+          // 如果数据还在加载，等待一下再搜索
+          setTimeout(() => {
+            if (searchData) {
+              const results = search(query);
+              displayResults(results);
+            }
+          }, 500);
+        }
+      }, 300);
+    });
+
+    // 点击外部关闭搜索结果和搜索框
+    document.addEventListener('click', function(e) {
+      if (!searchBox.contains(e.target) && !searchToggle.contains(e.target)) {
+        resultsContainer.classList.remove('active');
+        searchBox.style.display = 'none';
+        searchInput.value = '';
+      }
+    });
+
+    // 键盘导航
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        resultsContainer.classList.remove('active');
+        searchBox.style.display = 'none';
+        searchInput.value = '';
+        searchToggle.focus();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const firstResult = resultsContainer.querySelector('.search-result-item');
+        if (firstResult) {
+          firstResult.focus();
+        }
+      }
+    });
+
+    // 搜索结果中的键盘导航
+    resultsContainer.addEventListener('keydown', function(e) {
+      const items = Array.from(resultsContainer.querySelectorAll('.search-result-item'));
+      const currentIndex = items.indexOf(e.target);
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = (currentIndex + 1) % items.length;
+        items[nextIndex].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (currentIndex <= 0) {
+          searchInput.focus();
+        } else {
+          const prevIndex = currentIndex - 1;
+          items[prevIndex].focus();
+        }
+      } else if (e.key === 'Escape') {
+        resultsContainer.classList.remove('active');
+        searchInput.focus();
+      }
+    });
+  });
+})();
+</script>
+
+<style>
+mark {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 0.1em 0;
+  font-weight: 600;
+}
+</style>
