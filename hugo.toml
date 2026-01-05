@@ -1,4 +1,5 @@
 baseURL = 'https://herrkaefer.com'
+enableGitInfo = true
 languageCode = 'en-us'
 title = 'herrkaefer'
 theme = 'hugo-paged'
@@ -71,7 +72,7 @@ theme = 'hugo-paged'
   posts = '/:year/:month/:day/:slug/'
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS", "JSON", "Sitemap"]
   page = ["HTML"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
