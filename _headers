@@ -17,3 +17,11 @@
 # Cache HTML pages for a shorter time
 /*.html
   Cache-Control: public, max-age=3600
+
+# Never cache CMS admin pages
+/admin/*
+  Cache-Control: no-store
+
+# Never cache auth/API responses
+/api/*
+  Cache-Control: no-store

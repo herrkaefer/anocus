@@ -1,0 +1,62 @@
+backend:
+  name: github
+  repo: herrkaefer/herrkaefer.com
+  branch: main
+  base_url: https://herrkaefer.com
+  auth_endpoint: /api/auth
+
+publish_mode: simple
+site_url: https://herrkaefer.com
+display_url: https://herrkaefer.com
+logo_url: /logo.svg
+
+media_folder: static/assets/images
+public_folder: /assets/images
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: content/posts
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: true
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Date
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+      - label: Summary
+        name: summary
+        widget: text
+        required: false
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+      - label: Categories
+        name: categories
+        widget: list
+        required: false
+      - label: Draft
+        name: draft
+        widget: boolean
+        default: true
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
