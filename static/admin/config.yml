@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: herrkaefer/herrkaefer.com
-  branch: main
+  branch: master
   base_url: https://herrkaefer.com
   auth_endpoint: /api/auth
 
