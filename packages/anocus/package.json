@@ -1,0 +1,31 @@
+{
+  "name": "anocus",
+  "version": "0.1.0",
+  "description": "Anonymous comments for static sites with Turnstile and pluggable storage backends.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./server": "./server/index.ts",
+    "./adapters/cloudflare": "./adapters/cloudflare.ts",
+    "./client/anocus.js": "./client/anocus.js",
+    "./client/anocus.css": "./client/anocus.css"
+  },
+  "files": [
+    "index.ts",
+    "LICENSE",
+    "README.md",
+    "client",
+    "server",
+    "adapters",
+    "templates"
+  ],
+  "keywords": [
+    "comments",
+    "hugo",
+    "cloudflare",
+    "turnstile",
+    "github-discussions"
+  ]
+}

@@ -42,6 +42,13 @@ theme = 'hugo-paged'
   [params.logo]
     en = { alt = "herrkaefer", url = "/" }
 
+[params.anocus]
+  enabled = true
+  api_base = '/api/anocus'
+  turnstile_site_key = ''
+  max_length = 5000
+  lang = 'en'
+
 [params.social]
   github = 'herrkaefer'
   twitter = 'herr_kaefer'

@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/anocus/anocus.css">
+<div id="anocus-comments"></div>
+<script src="/anocus/anocus.js" defer></script>
+<script>
+window.addEventListener("DOMContentLoaded", function () {
+  if (!window.Anocus) return;
+  window.Anocus.mount({
+    container: "#anocus-comments",
+    apiBase: "{{ default \"/api/anocus\" .Site.Params.anocus.api_base }}",
+    pathname: "{{ .RelPermalink }}",
+    pageTitle: {{ .Title | jsonify }},
+    turnstileSiteKey: "{{ default \"\" .Site.Params.anocus.turnstile_site_key }}",
+    maxLength: {{ default 5000 .Site.Params.anocus.max_length }},
+    lang: "{{ default \"en\" .Site.Params.anocus.lang }}"
+  });
+});
+</script>
