@@ -62,7 +62,10 @@ x-post-collection-base: &post_collection_base
   extension: md
   format: frontmatter
   summary: "{{date}} · {{title}}"
-  sortable_fields: ["date"]
+  sortable_fields:
+    - field: date
+      label: Date
+      default_sort: desc
   sort: "date:desc"
   slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
   editor:
