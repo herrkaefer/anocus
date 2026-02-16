@@ -5,6 +5,7 @@ lastmod: 2016-10-08
 comments: true
 draft: false
 date: "2016-10-08T00:00:00"
+year: "2016"
 ---
 
 Components used for this article:

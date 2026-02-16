@@ -1,6 +1,7 @@
 ---
 title: "Move Jekyll blog to Ubuntu VPS"
 date: "2017-02-20T00:00:00"
+year: "2017"
 summary: "How to write blog with Jekyll + git, on a Ubuntu VPS?"
 tags: ['blog', 'jekyll', 'vps', 'ubuntu']
 categories: ["Workflow"]

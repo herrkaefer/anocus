@@ -1,6 +1,7 @@
 ---
 title: "转：Lost In Cyberspace: Brits Waste 3 Years Of Their Lives"
 date: "2008-01-24T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

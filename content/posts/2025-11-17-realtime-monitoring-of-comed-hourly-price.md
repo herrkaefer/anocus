@@ -1,6 +1,7 @@
 ---
 title: Realtime monitoring of ComEd hourly price
 date: "2025-11-17"
+year: "2025"
 summary:
 tags: ["home assistant", "iOS", "widget", "scriptable", "ComEd"]
 categories:

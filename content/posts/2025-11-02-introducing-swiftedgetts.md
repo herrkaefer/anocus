@@ -1,6 +1,7 @@
 ---
 title: "Introducing SwiftEdgeTTS"
 date: "2025-11-02"
+year: "2025"
 tags: ["Swift", "open source", "TTS", "iOS", "macOS"]
 draft: false
 ---

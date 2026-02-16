@@ -1,6 +1,7 @@
 ---
 title: "Barack Obama's Speech in Berlin"
 date: "2008-07-25T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

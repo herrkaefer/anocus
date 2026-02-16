@@ -1,6 +1,7 @@
 ---
 title: "Es ist ein Schnee gefallen"
 date: "2008-06-05T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

@@ -1,6 +1,7 @@
 ---
 title: "Google book下载"
 date: "2010-01-22T00:00:00"
+year: "2010"
 summary: "Migrated from my old blog"
 draft: false
 ---

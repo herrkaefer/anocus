@@ -1,6 +1,7 @@
 ---
 title: "Introducing Mole"
 date: "2016-11-09T00:00:00"
+year: "2016"
 summary: "I implemented my workflow of note taking as an app."
 tags: ['blog']
 categories: ["Mole"]

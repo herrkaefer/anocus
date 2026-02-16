@@ -1,6 +1,7 @@
 ---
 title: "Crayon Physics Deluxe"
 date: "2009-01-08T00:00:00"
+year: "2009"
 summary: "Migrated from my old blog"
 draft: false
 ---

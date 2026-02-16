@@ -1,6 +1,7 @@
 ---
 title: "给Live Space备个份"
 date: "2008-06-25T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

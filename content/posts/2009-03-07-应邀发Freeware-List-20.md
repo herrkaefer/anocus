@@ -1,6 +1,7 @@
 ---
 title: "应邀发Freeware List 2.0"
 date: "2009-03-07T00:00:00"
+year: "2009"
 summary: "Migrated from my old blog"
 draft: false
 ---

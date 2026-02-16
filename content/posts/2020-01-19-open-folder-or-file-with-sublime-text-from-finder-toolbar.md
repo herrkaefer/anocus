@@ -1,6 +1,7 @@
 ---
 title: "Open folder or file with Sublime Text from Finder toolbar"
 date: "2020-01-19T00:00:00"
+year: "2020"
 summary: "How to open folder in Sublime Text directly from Finder?"
 tags: ['macOS', 'Finder', 'workflow', 'SublimeText']
 categories: ["Workflow"]

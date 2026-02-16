@@ -1,6 +1,7 @@
 ---
 title: "Setup Shadowsocks / VPN on Ubuntu Server"
 date: "2016-10-06T00:00:00"
+year: "2016"
 summary: "People in stupid country, you know what this is for."
 tags: ['blog', 'vpn', 'shadowsocks', 'server', 'GFW', 'vps']
 categories: ["Webapp"]

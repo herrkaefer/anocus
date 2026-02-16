@@ -1,6 +1,7 @@
 ---
 title: "P.S. Ich liebe Dich"
 date: "2008-02-29T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

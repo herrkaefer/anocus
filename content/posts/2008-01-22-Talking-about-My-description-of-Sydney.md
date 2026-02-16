@@ -1,6 +1,7 @@
 ---
 title: "Talking about My description of Sydney"
 date: "2008-01-22T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

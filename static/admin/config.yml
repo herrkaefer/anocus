@@ -19,80 +19,130 @@ slug:
   clean_accents: true
   sanitize_replacement: "-"
 
+x-post-fields: &post_fields
+  - label: Title
+    name: title
+    widget: string
+  - label: Date
+    name: date
+    widget: datetime
+    format: YYYY-MM-DD
+    date_format: YYYY-MM-DD
+    time_format: false
+  - label: Year
+    name: year
+    widget: hidden
+    default: "{{year}}"
+  - label: Summary
+    name: summary
+    widget: text
+    required: false
+  - label: Tags
+    name: tags
+    widget: list
+    required: false
+  - label: Categories
+    name: categories
+    widget: list
+    required: false
+  - label: Draft
+    name: draft
+    widget: boolean
+    default: true
+    required: false
+  - label: Body
+    name: body
+    widget: markdown
+
+x-post-collection-base: &post_collection_base
+  folder: content/posts
+  search: false
+  create: false
+  delete: false
+  extension: md
+  format: frontmatter
+  summary: "{{date}} · {{title}}"
+  sortable_fields: []
+  sort: "date:desc"
+  slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+  editor:
+    preview: true
+  fields: *post_fields
+
 collections:
   - name: posts
-    label: Posts
+    label: All Posts
     label_singular: Post
-    folder: content/posts
-    search: false
+    <<: *post_collection_base
     create: true
     delete: true
-    extension: md
-    format: frontmatter
-    summary: "{{date}} · {{title}}"
-    sortable_fields: ["date"]
-    sort: "date:desc"
-    view_filters:
-      - label: "2025"
-        field: date
-        pattern: "^2025-"
-      - label: "2020"
-        field: date
-        pattern: "^2020-"
-      - label: "2018"
-        field: date
-        pattern: "^2018-"
-      - label: "2017"
-        field: date
-        pattern: "^2017-"
-      - label: "2016"
-        field: date
-        pattern: "^2016-"
-      - label: "2011"
-        field: date
-        pattern: "^2011-"
-      - label: "2010"
-        field: date
-        pattern: "^2010-"
-      - label: "2009"
-        field: date
-        pattern: "^2009-"
-      - label: "2008"
-        field: date
-        pattern: "^2008-"
-      - label: "2007"
-        field: date
-        pattern: "^2007-"
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    editor:
-      preview: true
-    fields:
-      - label: Title
-        name: title
-        widget: string
-      - label: Date
-        name: date
-        widget: datetime
-        format: YYYY-MM-DD
-        date_format: YYYY-MM-DD
-        time_format: false
-      - label: Summary
-        name: summary
-        widget: text
-        required: false
-      - label: Tags
-        name: tags
-        widget: list
-        required: false
-      - label: Categories
-        name: categories
-        widget: list
-        required: false
-      - label: Draft
-        name: draft
-        widget: boolean
-        default: true
-        required: false
-      - label: Body
-        name: body
-        widget: markdown
+  - name: posts_2025
+    label: "2025"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2025"
+  - name: posts_2020
+    label: "2020"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2020"
+  - name: posts_2018
+    label: "2018"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2018"
+  - name: posts_2017
+    label: "2017"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2017"
+  - name: posts_2016
+    label: "2016"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2016"
+  - name: posts_2011
+    label: "2011"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2011"
+  - name: posts_2010
+    label: "2010"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2010"
+  - name: posts_2009
+    label: "2009"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2009"
+  - name: posts_2008
+    label: "2008"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2008"
+  - name: posts_2007
+    label: "2007"
+    label_singular: Post
+    <<: *post_collection_base
+    filter:
+      field: year
+      value: "2007"

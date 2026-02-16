@@ -1,6 +1,7 @@
 ---
 title: "Brain control rat"
 date: "2008-01-17T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

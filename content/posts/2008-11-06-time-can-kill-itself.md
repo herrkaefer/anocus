@@ -1,6 +1,7 @@
 ---
 title: "time can kill itself"
 date: "2008-11-06T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

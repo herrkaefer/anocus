@@ -1,6 +1,7 @@
 ---
 title: "转：饶毅--“杂志拜物教”：何时发Cell Nature Science 论文害你"
 date: "2009-06-30T00:00:00"
+year: "2009"
 summary: "Migrated from my old blog"
 draft: false
 ---

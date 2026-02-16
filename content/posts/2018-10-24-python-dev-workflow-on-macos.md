@@ -1,6 +1,7 @@
 ---
 title: "Python dev workflow on macOS"
 date: "2018-10-24T00:00:00"
+year: "2018"
 summary: "How to deal with project specific Python versions and packages?"
 tags: ['']
 categories: ["Python"]

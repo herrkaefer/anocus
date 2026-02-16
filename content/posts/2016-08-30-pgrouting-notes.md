@@ -1,6 +1,7 @@
 ---
 title: "pgRouting Notes"
 date: "2016-08-30T00:00:00"
+year: "2016"
 summary: "As a novice of GIS and PostGIS, I worked out a way to install a PostgreSQL database with necessary extensions, and loaded some map data by specific tools, and now pgRouting can be performed without problem. But what if I forget all these steps?"
 tags: ['pgRouting', 'PostGIS', 'blog']
 categories: ["GIS"]

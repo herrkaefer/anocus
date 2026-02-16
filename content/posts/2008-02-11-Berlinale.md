@@ -1,6 +1,7 @@
 ---
 title: "Berlinale"
 date: "2008-02-11T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

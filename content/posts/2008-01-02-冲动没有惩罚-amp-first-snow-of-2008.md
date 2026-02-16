@@ -1,6 +1,7 @@
 ---
 title: "冲动没有惩罚 &amp; first snow of 2008"
 date: "2008-01-02T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---

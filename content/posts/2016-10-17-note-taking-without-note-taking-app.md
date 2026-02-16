@@ -1,6 +1,7 @@
 ---
 title: "Note taking without note taking app"
 date: "2016-10-17T00:00:00"
+year: "2016"
 summary: "Is it possible to take notes without any note taking apps and lose no convenience?"
 tags: ['']
 categories: ["workflow"]

@@ -1,6 +1,7 @@
 ---
 title: "放下思想，拿起梦想——《料理鼠王》Ratatouille"
 date: "2007-11-08T00:00:00"
+year: "2007"
 summary: "Migrated from my old blog"
 draft: false
 ---

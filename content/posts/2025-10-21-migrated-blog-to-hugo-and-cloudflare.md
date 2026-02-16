@@ -1,6 +1,7 @@
 ---
 title: "Migrated Blog to Hugo and Cloudflare Pages"
 date: "2025-10-21"
+year: "2025"
 summary: "Make blogging great again!"
 tags: ['blog', 'hugo', 'cloudflare']
 categories: ['workflow']

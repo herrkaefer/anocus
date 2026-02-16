@@ -1,6 +1,7 @@
 ---
 title: "怎么给word文档加索引Q&amp;A"
 date: "2008-12-19T00:00:00"
+year: "2008"
 summary: "Migrated from my old blog"
 draft: false
 ---
