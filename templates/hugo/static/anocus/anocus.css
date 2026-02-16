@@ -41,6 +41,13 @@
   background: #fff;
 }
 
+.anocus-comment.depth-1,
+.anocus-comment.depth-2,
+.anocus-comment.depth-3,
+.anocus-comment.depth-4 {
+  margin-left: 1rem;
+}
+
 .anocus-comment-header {
   display: flex;
   align-items: center;
@@ -75,6 +82,23 @@
 .anocus-comment-body {
   line-height: 1.55;
   word-break: break-word;
+}
+
+.anocus-comment-actions {
+  margin-top: 0.5rem;
+}
+
+.anocus-reply-btn {
+  border: 1px solid #c9c9c9;
+  background: #fff;
+  border-radius: 5px;
+  padding: 0.18rem 0.48rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.anocus-replies {
+  margin-top: 0.55rem;
 }
 
 .anocus-form {
@@ -116,6 +140,25 @@
 
 .anocus-row button:hover {
   background: #0c6d59;
+}
+
+.anocus-reply-context {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  background: #fff;
+  padding: 0.45rem 0.6rem;
+}
+
+.anocus-reply-context button {
+  width: auto;
+  border: 1px solid #c7c7c7;
+  background: #fff;
+  color: #333;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
 }
 
 @media (max-width: 680px) {

@@ -32,10 +32,68 @@
       .replace(/'/g, '&#039;');
   }
 
+  function encodeAttrValue(input) {
+    return encodeURIComponent(String(input || ''));
+  }
+
   function formatDate(value) {
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return value;
     return date.toLocaleString();
+  }
+
+  function buildCommentTree(comments) {
+    const byId = new Map();
+    const byParent = new Map();
+    const roots = [];
+    (comments || []).forEach((comment) => {
+      byId.set(comment.id, comment);
+      const key = comment.parentId || '';
+      if (!byParent.has(key)) byParent.set(key, []);
+      byParent.get(key).push(comment);
+    });
+    byParent.forEach((items) => {
+      items.sort((a, b) => String(a.createdAt || '').localeCompare(String(b.createdAt || '')));
+    });
+
+    function walk(node, depth, seen) {
+      if (seen.has(node.id)) {
+        return { comment: node, depth, children: [] };
+      }
+      const nextSeen = new Set(seen);
+      nextSeen.add(node.id);
+      const children = (byParent.get(node.id) || []).map((child) => walk(child, depth + 1, nextSeen));
+      return { comment: node, depth, children };
+    }
+
+    const rootNodes = (comments || []).filter((comment) => !comment.parentId || !byId.has(comment.parentId));
+    roots.push(...rootNodes.map((node) => walk(node, 0, new Set())));
+    return roots;
+  }
+
+  function renderCommentNode(node) {
+    const comment = node.comment;
+    const depth = Math.min(node.depth || 0, 4);
+    const rawName = comment.author && comment.author.name ? comment.author.name : 'guest';
+    const name = escapeHtml(rawName);
+    const badge = comment.author && comment.author.kind === 'github'
+      ? '<span class="anocus-author-badge">GitHub</span>'
+      : '<span class="anocus-author-badge anocus-author-badge-guest">Guest</span>';
+    const content = escapeHtml(comment.content || '').replace(/\n/g, '<br>');
+    const createdAt = formatDate(comment.createdAt || '');
+    const childrenHtml = (node.children || []).map(renderCommentNode).join('');
+
+    return [
+      `<article class="anocus-comment depth-${depth}" data-comment-id="${escapeHtml(comment.id)}">`,
+      '  <header class="anocus-comment-header">',
+      `    <span class="anocus-author" data-author-name="${name}">${name}</span>${badge}`,
+      `    <time class="anocus-time">${escapeHtml(createdAt)}</time>`,
+      '  </header>',
+      `  <div class="anocus-comment-body">${content}</div>`,
+      `  <div class="anocus-comment-actions"><button type="button" class="anocus-reply-btn" data-reply-id="${escapeHtml(comment.id)}" data-reply-name="${encodeAttrValue(rawName)}">Reply</button></div>`,
+      childrenHtml ? `<div class="anocus-replies">${childrenHtml}</div>` : '',
+      '</article>',
+    ].join('');
   }
 
   async function requestJson(url, options) {
@@ -79,23 +137,8 @@
       return;
     }
 
-    const html = comments
-      .map((comment) => {
-        const name = escapeHtml(comment.author && comment.author.name ? comment.author.name : 'guest');
-        const badge = comment.author && comment.author.kind === 'github' ? '<span class="anocus-author-badge">GitHub</span>' : '<span class="anocus-author-badge anocus-author-badge-guest">Guest</span>';
-        const content = escapeHtml(comment.content || '').replace(/\n/g, '<br>');
-        const createdAt = formatDate(comment.createdAt || '');
-        return [
-          '<article class="anocus-comment">',
-          '  <header class="anocus-comment-header">',
-          `    <span class="anocus-author">${name}</span>${badge}`,
-          `    <time class="anocus-time">${escapeHtml(createdAt)}</time>`,
-          '  </header>',
-          `  <div class="anocus-comment-body">${content}</div>`,
-          '</article>',
-        ].join('');
-      })
-      .join('');
+    const tree = buildCommentTree(comments);
+    const html = tree.map(renderCommentNode).join('');
 
     container.innerHTML = html;
   }
@@ -112,6 +155,8 @@
       comments: [],
       turnstileToken: '',
       turnstileWidgetId: null,
+      replyToCommentId: '',
+      replyToName: '',
     };
 
     root.classList.add('anocus-root');
@@ -123,6 +168,10 @@
       '  <div class="anocus-feedback" data-role="feedback"></div>',
       '  <div class="anocus-list" data-role="list"></div>',
       '  <form class="anocus-form" data-role="form">',
+      '    <div class="anocus-row anocus-reply-context" data-role="reply-context" style="display:none;">',
+      '      <span data-role="reply-label"></span>',
+      '      <button type="button" data-role="reply-cancel">Cancel</button>',
+      '    </div>',
       '    <div class="anocus-row">',
       '      <label>Name</label>',
       '      <input type="text" name="guest_name" maxlength="80" required />',
@@ -147,6 +196,9 @@
     const formNode = root.querySelector('[data-role="form"]');
     const feedbackNode = root.querySelector('[data-role="feedback"]');
     const turnstileNode = root.querySelector('[data-role="turnstile"]');
+    const replyContextNode = root.querySelector('[data-role="reply-context"]');
+    const replyLabelNode = root.querySelector('[data-role="reply-label"]');
+    const replyCancelNode = root.querySelector('[data-role="reply-cancel"]');
 
     function setFeedback(message, type) {
       feedbackNode.textContent = message || '';
@@ -176,6 +228,25 @@
         window.turnstile.reset(state.turnstileWidgetId);
       }
       state.turnstileToken = '';
+    }
+
+    function clearReplyTarget() {
+      state.replyToCommentId = '';
+      state.replyToName = '';
+      replyLabelNode.textContent = '';
+      replyContextNode.style.display = 'none';
+    }
+
+    function setReplyTarget(commentId, authorName) {
+      state.replyToCommentId = String(commentId || '').trim();
+      state.replyToName = String(authorName || '').trim() || 'guest';
+      if (!state.replyToCommentId) {
+        clearReplyTarget();
+        return;
+      }
+      replyLabelNode.textContent = `Replying to ${state.replyToName}`;
+      replyContextNode.style.display = '';
+      formNode.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     async function setupTurnstile() {
@@ -227,6 +298,7 @@
             guest_name: guestName,
             guest_email: guestEmail,
             content,
+            parent_comment_id: state.replyToCommentId || undefined,
             turnstile_token: state.turnstileToken,
           }),
         });
@@ -235,11 +307,32 @@
         state.comments = state.comments.concat(payload.comment);
         renderCommentsList(listNode, state.comments);
         formNode.reset();
+        clearReplyTarget();
         resetTurnstile();
         setFeedback('Comment posted.', 'success');
       } catch (error) {
         setFeedback(error.message || 'Unable to post comment', 'error');
       }
+    });
+
+    listNode.addEventListener('click', function (event) {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const button = target.closest('.anocus-reply-btn');
+      if (!button) return;
+      const replyId = button.getAttribute('data-reply-id') || '';
+      const encodedReplyName = button.getAttribute('data-reply-name') || '';
+      let replyName = 'guest';
+      try {
+        replyName = decodeURIComponent(encodedReplyName) || 'guest';
+      } catch (_) {
+        replyName = encodedReplyName || 'guest';
+      }
+      setReplyTarget(replyId, replyName);
+    });
+
+    replyCancelNode.addEventListener('click', function () {
+      clearReplyTarget();
     });
 
     setupTurnstile();

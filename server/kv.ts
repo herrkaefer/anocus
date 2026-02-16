@@ -12,6 +12,7 @@ interface KvThreadRecord {
 interface KvCommentRecord {
   id: string;
   threadId: string;
+  parentId?: string;
   createdAt: string;
   body: string;
 }
@@ -109,6 +110,7 @@ export class KvStorageAdapter implements StorageAdapter {
         const parsed = await parseStoredCommentBody(record.body, this.hmacSecret);
         comments.push({
           id: record.id,
+          parentId: record.parentId,
           content: trimBody(parsed.content),
           createdAt: record.createdAt,
           author: {
@@ -122,7 +124,13 @@ export class KvStorageAdapter implements StorageAdapter {
     return comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   }
 
-  async createComment(thread: ThreadRef, body: string, guestName: string, guestEmail?: string): Promise<PublicComment> {
+  async createComment(
+    thread: ThreadRef,
+    body: string,
+    guestName: string,
+    guestEmail?: string,
+    parentCommentId?: string,
+  ): Promise<PublicComment> {
     const content = trimBody(body);
     const createdAt = nowIso();
     const id = crypto.randomUUID();
@@ -133,6 +141,7 @@ export class KvStorageAdapter implements StorageAdapter {
     const record: KvCommentRecord = {
       id,
       threadId: thread.id,
+      parentId: parentCommentId || undefined,
       createdAt,
       body: mergedBody,
     };
@@ -141,6 +150,7 @@ export class KvStorageAdapter implements StorageAdapter {
 
     return {
       id,
+      parentId: parentCommentId || undefined,
       content,
       createdAt,
       author: {

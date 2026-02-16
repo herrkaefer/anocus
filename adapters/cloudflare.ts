@@ -72,6 +72,7 @@ export async function handleCommentRequest({ request, env }: CloudflareContext):
   const guestEmail = textOrEmpty(body.guest_email || body.guestEmail);
   const content = textOrEmpty(body.content);
   const turnstileToken = textOrEmpty(body.turnstile_token || body.turnstileToken);
+  const parentCommentId = textOrEmpty(body.parent_comment_id || body.parentCommentId);
 
   if (!pathname || !guestName || !content) {
     return withCors(jsonResponse(400, { error: "pathname_guestName_content_required" }), origin);
@@ -85,6 +86,7 @@ export async function handleCommentRequest({ request, env }: CloudflareContext):
         guestName,
         guestEmail,
         content,
+        parentCommentId: parentCommentId || undefined,
         remoteIp: getRemoteIp(request),
       },
       turnstileToken,

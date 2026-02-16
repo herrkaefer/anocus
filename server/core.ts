@@ -94,7 +94,13 @@ export class AnocusService {
     }
 
     const thread = await this.adapter.ensureThread(pathname, input.pageTitle);
-    const comment = await this.adapter.createComment(thread, content, guestName, input.guestEmail);
+    const comment = await this.adapter.createComment(
+      thread,
+      content,
+      guestName,
+      input.guestEmail,
+      input.parentCommentId,
+    );
 
     return {
       ok: true,

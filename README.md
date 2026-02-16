@@ -4,6 +4,7 @@ Anocus is a reusable anonymous comment component for static sites.
 
 It provides:
 - Anonymous comments (no GitHub login required for visitors)
+- Threaded replies (comment reply)
 - Cloudflare Turnstile human verification
 - Pluggable storage backends
 - `github`: GitHub Discussions
@@ -98,6 +99,7 @@ Body:
   "guest_name": "Alice",
   "guest_email": "alice@example.com",
   "content": "Hello",
+  "parent_comment_id": "optional_parent_comment_id",
   "turnstile_token": "..."
 }
 ```

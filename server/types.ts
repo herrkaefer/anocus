@@ -16,6 +16,7 @@ export interface AuthorRef {
 
 export interface PublicComment {
   id: string;
+  parentId?: string;
   content: string;
   createdAt: string;
   author: AuthorRef;
@@ -34,6 +35,7 @@ export interface CommentInput {
   guestName: string;
   guestEmail?: string;
   content: string;
+  parentCommentId?: string;
   remoteIp?: string;
 }
 
@@ -49,7 +51,13 @@ export interface StorageAdapter {
   getThreadByPath(pathname: string): Promise<ThreadRef | null>;
   ensureThread(pathname: string, pageTitle: string): Promise<ThreadRef>;
   listComments(thread: ThreadRef): Promise<PublicComment[]>;
-  createComment(thread: ThreadRef, body: string, guestName: string, guestEmail?: string): Promise<PublicComment>;
+  createComment(
+    thread: ThreadRef,
+    body: string,
+    guestName: string,
+    guestEmail?: string,
+    parentCommentId?: string,
+  ): Promise<PublicComment>;
 }
 
 export interface AnocusConfig {

@@ -16,6 +16,21 @@ interface GitHubDiscussionNode {
   body?: string;
 }
 
+interface GitHubReplyRef {
+  id: string;
+}
+
+interface GitHubCommentNode {
+  id: string;
+  body: string;
+  createdAt: string;
+  author?: GitHubAuthor;
+  replyTo?: GitHubReplyRef | null;
+  replies?: {
+    nodes?: GitHubCommentNode[];
+  };
+}
+
 interface GitHubEnv {
   ANOCUS_GITHUB_TOKEN?: string;
   ANOCUS_GITHUB_REPO_OWNER?: string;
@@ -282,10 +297,28 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
                   id
                   body
                   createdAt
+                  replyTo {
+                    id
+                  }
                   author {
                     login
                     avatarUrl
                     url
+                  }
+                  replies(first: 100) {
+                    nodes {
+                      id
+                      body
+                      createdAt
+                      replyTo {
+                        id
+                      }
+                      author {
+                        login
+                        avatarUrl
+                        url
+                      }
+                    }
                   }
                 }
                 pageInfo {
@@ -301,7 +334,7 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
       const data = await this.graphql<{
         node?: {
           comments?: {
-            nodes?: Array<{ id: string; body: string; createdAt: string; author?: GitHubAuthor }>;
+            nodes?: GitHubCommentNode[];
             pageInfo?: { hasNextPage: boolean; endCursor: string | null };
           };
         };
@@ -312,31 +345,11 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
 
       const commentNodes = data.node?.comments?.nodes || [];
       for (const node of commentNodes) {
-        const parsed = await parseStoredCommentBody(node.body, this.hmacSecret);
-        if (parsed.isGuest) {
-          comments.push({
-            id: node.id,
-            content: parsed.content,
-            createdAt: node.createdAt,
-            author: {
-              kind: "guest",
-              name: parsed.guestName || "guest",
-            },
-          });
-          continue;
+        comments.push(await this.toPublicComment(node, node.replyTo?.id || undefined));
+        const replies = node.replies?.nodes || [];
+        for (const reply of replies) {
+          comments.push(await this.toPublicComment(reply, reply.replyTo?.id || node.id));
         }
-
-        comments.push({
-          id: node.id,
-          content: trimBody(node.body),
-          createdAt: node.createdAt,
-          author: {
-            kind: "github",
-            name: node.author?.login || "github-user",
-            avatarUrl: node.author?.avatarUrl,
-            profileUrl: node.author?.url,
-          },
-        });
       }
 
       hasNextPage = data.node?.comments?.pageInfo?.hasNextPage || false;
@@ -349,42 +362,106 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
     return comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   }
 
-  async createComment(thread: ThreadRef, body: string, guestName: string, guestEmail?: string): Promise<PublicComment> {
+  private async toPublicComment(node: GitHubCommentNode, parentId?: string): Promise<PublicComment> {
+    const parsed = await parseStoredCommentBody(node.body, this.hmacSecret);
+    if (parsed.isGuest) {
+      return {
+        id: node.id,
+        parentId,
+        content: parsed.content,
+        createdAt: node.createdAt,
+        author: {
+          kind: "guest",
+          name: parsed.guestName || "guest",
+        },
+      };
+    }
+
+    return {
+      id: node.id,
+      parentId,
+      content: trimBody(node.body),
+      createdAt: node.createdAt,
+      author: {
+        kind: "github",
+        name: node.author?.login || "github-user",
+        avatarUrl: node.author?.avatarUrl,
+        profileUrl: node.author?.url,
+      },
+    };
+  }
+
+  async createComment(
+    thread: ThreadRef,
+    body: string,
+    guestName: string,
+    guestEmail?: string,
+    parentCommentId?: string,
+  ): Promise<PublicComment> {
     const content = trimBody(body);
     const mergedBody = composePublicCommentBody(guestName, guestEmail, content);
 
-    const mutation = `
-      mutation AddDiscussionComment($discussionId: ID!, $body: String!) {
-        addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
-          comment {
-            id
-            body
-            createdAt
+    let node: { id: string; createdAt: string; replyTo?: { id: string } | null } | undefined;
+    if (parentCommentId) {
+      const mutation = `
+        mutation AddDiscussionCommentReply($replyToId: ID!, $body: String!) {
+          addDiscussionCommentReply(input: {replyToId: $replyToId, body: $body}) {
+            comment {
+              id
+              createdAt
+              replyTo {
+                id
+              }
+            }
           }
         }
-      }
-    `;
-
-    const data = await this.graphql<{
-      addDiscussionComment?: {
-        comment?: {
-          id: string;
-          body: string;
-          createdAt: string;
+      `;
+      const data = await this.graphql<{
+        addDiscussionCommentReply?: {
+          comment?: {
+            id: string;
+            createdAt: string;
+            replyTo?: { id: string } | null;
+          };
         };
-      };
-    }>(mutation, {
-      discussionId: thread.id,
-      body: mergedBody,
-    });
+      }>(mutation, {
+        replyToId: parentCommentId,
+        body: mergedBody,
+      });
+      node = data.addDiscussionCommentReply?.comment;
+    } else {
+      const mutation = `
+        mutation AddDiscussionComment($discussionId: ID!, $body: String!) {
+          addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
+            comment {
+              id
+              createdAt
+            }
+          }
+        }
+      `;
 
-    const node = data.addDiscussionComment?.comment;
+      const data = await this.graphql<{
+        addDiscussionComment?: {
+          comment?: {
+            id: string;
+            createdAt: string;
+          };
+        };
+      }>(mutation, {
+        discussionId: thread.id,
+        body: mergedBody,
+      });
+      node = data.addDiscussionComment?.comment;
+    }
+
     if (!node) {
       throw new Error("Unable to create discussion comment");
     }
 
     return {
       id: node.id,
+      parentId: node.replyTo?.id || parentCommentId || undefined,
       content,
       createdAt: node.createdAt,
       author: {
