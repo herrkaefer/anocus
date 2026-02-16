@@ -1,9 +1,0 @@
----
-title: "Andrea Bocelli - Sogno"
-date: "2008-01-30T00:00:00"
-year: "2008"
-summary: "Migrated from my old blog"
-draft: false
----
-
-小年快乐！   那个wma放不了的~  [](http://www.box.net/static/flash/box_explorer.swf?widgetHash=yvlutregwg&v=1)[](http://www.box.net/static/flash/box_explorer.swf?widgetHash=yvlutregwg&v=1)[http://www.box.net/static/flash/box_explorer.swf?widgetHash=yvlutregwg&#038;v=1](http://www.box.net/static/flash/box_explorer.swf?widgetHash=yvlutregwg&#038;v=1)

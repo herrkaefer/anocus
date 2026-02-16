@@ -1,9 +1,0 @@
----
-title: "Gay Pride Parade"
-date: "2008-06-29T00:00:00"
-year: "2008"
-summary: "Migrated from my old blog"
-draft: false
----
-
-今天去参 加 观了柏林年度盛事同性恋骄傲大游行([Gay Pride Parade](http://www.csd-berlin.de))，德国叫CSD，查了一下，是Christopher Street Day的意思。这个活动是全球性的，在德国和瑞士叫CSD，在其它国家就叫[Gay Pride](http://en.wikipedia.org/wiki/Gay_Pride) or Pride Parade。其实不只是同性恋参加，而是包括所有[LGBT](http://en.wikipedia.org/wiki/LGBT)（垃圾变态）人士（猜猜看，答案见链接*）。 老话说的没错，不看不知道，一看吓一跳。（此处略去郭茅巴冰式文字若干坨。） 当事实足够强大和有冲击力的时候，人们会震惊，然后反思和修正成见，继而慢慢转为接受，最终视之如常。不过也许我只能停留在第一和第二阶段之间了，因为无法有机会接受更多的冲击来让我完成升级——一个证明就是：当时我看的时候觉得极有趣，而且几乎一点反应都没有，但回来看照片，就稍有不适了*。 6色彩虹旗是他/她们的标志： [*](http://f1ouwa.bay.livefilestore.com/y1p6yPiZIkf2zlIXk8TnBgmWXlIP8Pbj9mYsj-E4FOXcrIRbaw_zPmCSY5B5a2QLDj2931SDqeIL6YTm1lpgemp9g?PARTNER=WRITER)  LGBT的样子就是这样子滴： [*](http://f1ouwa.bay.livefilestore.com/y1pJd1yMzo_iQWxE_tjgIWTBUersFl0ns5mJNWe-b03xrDG76ffvZMxwMQcQZnhbPuicZ5Rz8W7SNS1IOL3RBmmeQ?PARTNER=WRITER) [*](http://f1ouwa.bay.livefilestore.com/y1p7VJPBtfhrg5g4CssilAFKXbXiuYUntPaXez0HktdGec-knf2VA7Yg--kPscl_5kF3yew1ooKXyKHSWGlzsOkZw?PARTNER=WRITER) [*](http://f1ouwa.bay.livefilestore.com/y1p8HJMhyTPMoNxlQk02LdS8IpWY5KbEaX2yoDKUgmglIP9TDRa-39lpv0aF4KAt-V2z1xYW-eTouHVB-w5Tj7a0g?PARTNER=WRITER) [*](http://f1ouwa.bay.livefilestore.com/y1p1FYoiEM2fpCnENWue-g03IvMeK11lRMWI3qKoelVpHU6zSV0q75s2Gs1qXL-aSOB1qmL7GE8mMsf_ECiursKbw?PARTNER=WRITER) [*](http://f1ouwa.bay.livefilestore.com/y1pGRpasBd0-xvgXlB7PEovLATxvWNPDoo0GaZx_ocKf-dgT5VWvdpkLekyU1Tv_gzrtETZJT7xn6ugRH8EAVK9HQ?PARTNER=WRITER) [*](http://f1ouwa.bay.livefilestore.com/y1p3ytaaTsvK0Esluy3L2-y8cL_EQz70kYmlTgS7wOVSdf32lcnmUIrET8DidbewOe3JM3jvTtiYDFRPVZ2Or_NrQ?PARTNER=WRITER) [*](http://f1ouwa.bay.livefilestore.com/y1pdYdcEXBhJ5rPBE3K6uwoG4NqHlzgWURGmMrJhJIA8VWxF9PVI0RYVfFVbAfrXF8F0tGGjmJgAf8G4fntDBimwg?PARTNER=WRITER) [*](http://f1ouwa.bay.livefilestore.com/y1pDWZt_K52lxCcsfpNtBMhE_3MuXCLF3OOoosTkX6wcirIqDeMedFCEhxmuXN4QVvAbbY69ZzXtQh2DcsoZM4KVA?PARTNER=WRITER)
