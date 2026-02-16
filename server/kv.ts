@@ -31,11 +31,9 @@ function ensureKv(env: KvEnv): KVNamespace {
 export class KvStorageAdapter implements StorageAdapter {
   provider = "kv" as const;
   private kv: KVNamespace;
-  private hmacSecret: string;
 
-  constructor(env: KvEnv, hmacSecret: string) {
+  constructor(env: KvEnv) {
     this.kv = ensureKv(env);
-    this.hmacSecret = hmacSecret;
   }
 
   private async threadKey(pathname: string): Promise<string> {
@@ -107,7 +105,7 @@ export class KvStorageAdapter implements StorageAdapter {
         const record = await this.kv.get<KvCommentRecord>(key.name, "json");
         if (!record) continue;
 
-        const parsed = await parseStoredCommentBody(record.body, this.hmacSecret);
+        const parsed = parseStoredCommentBody(record.body);
         comments.push({
           id: record.id,
           parentId: record.parentId,

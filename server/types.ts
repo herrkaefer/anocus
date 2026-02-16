@@ -45,12 +45,6 @@ export interface CommentResponse {
   comment: PublicComment;
 }
 
-export interface EnsureThreadResponse {
-  ok: true;
-  provider: StorageBackend;
-  thread: ThreadRef;
-}
-
 export interface StorageAdapter {
   provider: StorageBackend;
   getThreadByPath(pathname: string): Promise<ThreadRef | null>;
@@ -67,7 +61,6 @@ export interface StorageAdapter {
 export interface AnocusConfig {
   storageBackend: StorageBackend;
   turnstileSecretKey?: string;
-  hmacSecret: string;
   allowedOrigin?: string;
   maxCommentLength: number;
   minSecondsBetweenPosts: number;
@@ -78,7 +71,6 @@ export interface AnocusRequestEnv {
   ANOCUS_STORAGE_BACKEND?: string;
   ANOCUS_TURNSTILE_REQUIRED?: string;
   ANOCUS_TURNSTILE_SECRET_KEY?: string;
-  ANOCUS_HMAC_SECRET?: string;
   ANOCUS_ALLOWED_ORIGIN?: string;
   ANOCUS_MAX_COMMENT_LENGTH?: string;
   ANOCUS_MIN_SECONDS_BETWEEN_POSTS?: string;

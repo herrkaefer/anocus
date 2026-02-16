@@ -33,12 +33,10 @@ Copy these files into your static assets:
 Create:
 - `functions/api/anocus/thread.ts`
 - `functions/api/anocus/comment.ts`
-- `functions/api/anocus/ensure-thread.ts`
 
 Use the templates from:
 - `templates/cloudflare/functions/api/anocus/thread.ts`
 - `templates/cloudflare/functions/api/anocus/comment.ts`
-- `templates/cloudflare/functions/api/anocus/ensure-thread.ts`
 
 If you keep Anocus source in your repo (recommended), make imports point to your local copy of `adapters/cloudflare.ts`.
 
@@ -58,15 +56,12 @@ Then render it from your single post template.
   turnstile_site_key = 'YOUR_TURNSTILE_SITE_KEY'
   max_length = 5000
   lang = 'en'
-  github_login_enabled = true
-  github_login_label = 'Comment with GitHub'
 ```
 
 ### 5. Configure Cloudflare environment variables
 
 Required for all backends:
 - `ANOCUS_STORAGE_BACKEND=github` or `kv`
-- `ANOCUS_HMAC_SECRET`
 - `ANOCUS_ALLOWED_ORIGIN=https://example.com`
 - `ANOCUS_TURNSTILE_SECRET_KEY`
 
@@ -107,14 +102,9 @@ Body:
 }
 ```
 
-### `POST /api/anocus/ensure-thread`
-
-Ensures a discussion thread exists and returns thread metadata (including `thread.url` when backend is GitHub Discussions).
-
 ## Security Model
 
 - Turnstile token is verified server-side.
-- Legacy hidden guest metadata is still readable for backward compatibility.
 - Request origin can be restricted with `ANOCUS_ALLOWED_ORIGIN`.
 - In-memory rate limits reduce spam bursts.
 

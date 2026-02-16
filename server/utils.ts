@@ -53,26 +53,6 @@ export async function sha256Hex(input: string): Promise<string> {
   return bytesToHex(new Uint8Array(hash));
 }
 
-function bytesToBase64(bytes: Uint8Array): string {
-  let binary = "";
-  for (const byte of bytes) {
-    binary += String.fromCharCode(byte);
-  }
-  return btoa(binary);
-}
-
-export async function signText(input: string, secret: string): Promise<string> {
-  const key = await crypto.subtle.importKey(
-    "raw",
-    encoder.encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"],
-  );
-  const sig = await crypto.subtle.sign("HMAC", key, encoder.encode(input));
-  return bytesToBase64(new Uint8Array(sig));
-}
-
 export function jsonResponse(status: number, payload: unknown): Response {
   return new Response(JSON.stringify(payload), {
     status,

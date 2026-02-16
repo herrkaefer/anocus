@@ -11,9 +11,7 @@ window.addEventListener("DOMContentLoaded", function () {
     pageTitle: {{ .Title | jsonify }},
     turnstileSiteKey: "{{ default \"\" .Site.Params.anocus.turnstile_site_key }}",
     maxLength: {{ default 5000 .Site.Params.anocus.max_length }},
-    lang: "{{ default \"en\" .Site.Params.anocus.lang }}",
-    githubLoginEnabled: {{ if isset .Site.Params.anocus "github_login_enabled" }}{{ .Site.Params.anocus.github_login_enabled }}{{ else }}true{{ end }},
-    githubLoginLabel: {{ default "Comment with GitHub" .Site.Params.anocus.github_login_label | jsonify }}
+    lang: "{{ default \"en\" .Site.Params.anocus.lang }}"
   });
 });
 </script>

@@ -89,16 +89,14 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
   private repo: string;
   private categoryId?: string;
   private categoryName?: string;
-  private hmacSecret: string;
   private repoInfoCache: RepoInfo | null = null;
 
-  constructor(env: GitHubEnv, hmacSecret: string) {
+  constructor(env: GitHubEnv) {
     this.token = assertRequired(env.ANOCUS_GITHUB_TOKEN, "ANOCUS_GITHUB_TOKEN");
     this.owner = assertRequired(env.ANOCUS_GITHUB_REPO_OWNER, "ANOCUS_GITHUB_REPO_OWNER");
     this.repo = assertRequired(env.ANOCUS_GITHUB_REPO_NAME, "ANOCUS_GITHUB_REPO_NAME");
     this.categoryId = env.ANOCUS_GITHUB_CATEGORY_ID;
     this.categoryName = env.ANOCUS_GITHUB_CATEGORY_NAME;
-    this.hmacSecret = hmacSecret;
   }
 
   private async graphql<T>(query: string, variables: Record<string, unknown>): Promise<T> {
@@ -363,7 +361,7 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
   }
 
   private async toPublicComment(node: GitHubCommentNode, parentId?: string): Promise<PublicComment> {
-    const parsed = await parseStoredCommentBody(node.body, this.hmacSecret);
+    const parsed = parseStoredCommentBody(node.body);
     if (parsed.isGuest) {
       return {
         id: node.id,

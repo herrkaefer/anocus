@@ -6,7 +6,6 @@ import {
   AnocusRequestEnv,
   CommentInput,
   CommentResponse,
-  EnsureThreadResponse,
   StorageAdapter,
   ThreadResponse,
 } from "./types.ts";
@@ -19,15 +18,9 @@ export function readConfig(env: AnocusRequestEnv): AnocusConfig {
     throw new Error("ANOCUS_STORAGE_BACKEND must be github or kv");
   }
 
-  const hmacSecret = env.ANOCUS_HMAC_SECRET;
-  if (!hmacSecret) {
-    throw new Error("Missing required environment variable: ANOCUS_HMAC_SECRET");
-  }
-
   return {
     storageBackend: backend,
     turnstileSecretKey: env.ANOCUS_TURNSTILE_SECRET_KEY,
-    hmacSecret,
     allowedOrigin: env.ANOCUS_ALLOWED_ORIGIN,
     maxCommentLength: toInt(env.ANOCUS_MAX_COMMENT_LENGTH, 5000),
     minSecondsBetweenPosts: toInt(env.ANOCUS_MIN_SECONDS_BETWEEN_POSTS, 20),
@@ -37,9 +30,9 @@ export function readConfig(env: AnocusRequestEnv): AnocusConfig {
 
 export function createAdapter(env: AnocusRequestEnv, config: AnocusConfig): StorageAdapter {
   if (config.storageBackend === "kv") {
-    return new KvStorageAdapter(env, config.hmacSecret);
+    return new KvStorageAdapter(env);
   }
-  return new GitHubDiscussionsAdapter(env, config.hmacSecret);
+  return new GitHubDiscussionsAdapter(env);
 }
 
 export class AnocusService {
@@ -60,16 +53,6 @@ export class AnocusService {
       provider: this.adapter.provider,
       thread,
       comments,
-    };
-  }
-
-  async ensureThread(pathname: string, pageTitle: string): Promise<EnsureThreadResponse> {
-    const normalized = normalizePathname(pathname);
-    const thread = await this.adapter.ensureThread(normalized, pageTitle);
-    return {
-      ok: true,
-      provider: this.adapter.provider,
-      thread,
     };
   }
 

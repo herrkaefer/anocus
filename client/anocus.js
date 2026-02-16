@@ -7,8 +7,6 @@
     theme: 'auto',
     maxLength: 5000,
     turnstileSiteKey: '',
-    githubLoginEnabled: false,
-    githubLoginLabel: 'Comment with GitHub',
   };
 
   function normalizePathname(pathname) {
@@ -180,9 +178,8 @@
       `      <textarea name="content" rows="5" maxlength="${opts.maxLength}" required></textarea>`,
       '    </div>',
       '    <div class="anocus-row anocus-turnstile" data-role="turnstile"></div>',
-      '    <div class="anocus-row anocus-actions">',
+      '    <div class="anocus-row">',
       '      <button type="submit">Post Comment</button>',
-      '      <button type="button" class="anocus-github-btn" data-role="github-login" style="display:none;"></button>',
       '    </div>',
       '  </form>',
       '</section>',
@@ -195,43 +192,10 @@
     const replyContextNode = root.querySelector('[data-role="reply-context"]');
     const replyLabelNode = root.querySelector('[data-role="reply-label"]');
     const replyCancelNode = root.querySelector('[data-role="reply-cancel"]');
-    const githubLoginNode = root.querySelector('[data-role="github-login"]');
 
     function setFeedback(message, type) {
       feedbackNode.textContent = message || '';
       feedbackNode.className = 'anocus-feedback' + (type ? ` ${type}` : '');
-    }
-
-    function updateGitHubLoginButton() {
-      if (!githubLoginNode) return;
-      if (!opts.githubLoginEnabled) {
-        githubLoginNode.style.display = 'none';
-        return;
-      }
-      githubLoginNode.textContent = String(opts.githubLoginLabel || 'Comment with GitHub');
-      githubLoginNode.style.display = '';
-    }
-
-    async function ensureGitHubThreadUrl() {
-      if (state.thread && state.thread.url) {
-        return String(state.thread.url);
-      }
-      const payload = await requestJson(`${opts.apiBase}/ensure-thread`, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          pathname: normalizePathname(opts.pathname),
-          page_title: String(opts.pageTitle || document.title || '').trim(),
-        }),
-      });
-      state.thread = payload.thread || null;
-      if (!state.thread || !state.thread.url) {
-        return '';
-      }
-      return String(state.thread.url);
     }
 
     async function loadComments() {
@@ -246,7 +210,6 @@
         state.thread = payload.thread;
         state.comments = payload.comments || [];
         renderCommentsList(listNode, state.comments);
-        updateGitHubLoginButton();
         setFeedback('', '');
       } catch (error) {
         setFeedback(error.message || 'Unable to load comments', 'error');
@@ -334,7 +297,6 @@
         state.thread = payload.thread;
         state.comments = state.comments.concat(payload.comment);
         renderCommentsList(listNode, state.comments);
-        updateGitHubLoginButton();
         formNode.reset();
         clearReplyTarget();
         resetTurnstile();
@@ -364,23 +326,6 @@
       clearReplyTarget();
     });
 
-    if (githubLoginNode) {
-      githubLoginNode.addEventListener('click', async function () {
-        try {
-          setFeedback('Opening GitHub discussion...', 'info');
-          const threadUrl = await ensureGitHubThreadUrl();
-          if (!threadUrl) {
-            throw new Error('GitHub login comment is unavailable for current backend.');
-          }
-          setFeedback('', '');
-          window.location.href = threadUrl;
-        } catch (error) {
-          setFeedback(error.message || 'Unable to open GitHub discussion', 'error');
-        }
-      });
-    }
-
-    updateGitHubLoginButton();
     setupTurnstile();
     loadComments();
   }

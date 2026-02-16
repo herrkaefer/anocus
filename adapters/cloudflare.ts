@@ -48,39 +48,6 @@ export async function handleThreadRequest({ request, env }: CloudflareContext): 
   }
 }
 
-export async function handleEnsureThreadRequest({ request, env }: CloudflareContext): Promise<Response> {
-  const origin = request.headers.get("Origin");
-  if (request.method === "OPTIONS") {
-    return withCors(new Response(null, { status: 204 }), origin);
-  }
-  const service = new AnocusService(env);
-
-  if (!service.ensureOriginAllowed(origin)) {
-    return withCors(jsonResponse(403, { error: "origin_not_allowed" }), origin);
-  }
-
-  let body: Record<string, unknown>;
-  try {
-    body = (await request.json()) as Record<string, unknown>;
-  } catch {
-    return withCors(jsonResponse(400, { error: "invalid_json" }), origin);
-  }
-
-  const pathname = textOrEmpty(body.pathname);
-  const pageTitle = textOrEmpty(body.page_title || body.pageTitle);
-  if (!pathname) {
-    return withCors(jsonResponse(400, { error: "pathname_required" }), origin);
-  }
-
-  try {
-    const payload = await service.ensureThread(pathname, pageTitle);
-    return withCors(jsonResponse(200, payload), origin);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Unable to ensure thread";
-    return withCors(jsonResponse(400, { error: message }), origin);
-  }
-}
-
 export async function handleCommentRequest({ request, env }: CloudflareContext): Promise<Response> {
   const origin = request.headers.get("Origin");
   if (request.method === "OPTIONS") {
