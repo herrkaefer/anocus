@@ -42,6 +42,18 @@
     return date.toLocaleString();
   }
 
+  function sanitizeProfileUrl(input) {
+    const raw = String(input || '').trim();
+    if (!raw) return '';
+    try {
+      const url = new URL(raw);
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') return '';
+      return url.toString();
+    } catch (_) {
+      return '';
+    }
+  }
+
   function buildCommentTree(comments) {
     const byId = new Map();
     const byParent = new Map();
@@ -75,7 +87,12 @@
     const comment = node.comment;
     const depth = Math.min(node.depth || 0, 4);
     const rawName = comment.author && comment.author.name ? comment.author.name : 'guest';
+    const rawProfileUrl = comment.author && comment.author.profileUrl ? String(comment.author.profileUrl) : '';
+    const profileUrl = sanitizeProfileUrl(rawProfileUrl);
     const name = escapeHtml(rawName);
+    const displayName = profileUrl
+      ? `<a href="${escapeHtml(profileUrl)}" target="_blank" rel="noopener noreferrer nofollow ugc">${name}</a>`
+      : name;
     const content = escapeHtml(comment.content || '').replace(/\n/g, '<br>');
     const createdAt = formatDate(comment.createdAt || '');
     const childrenHtml = (node.children || []).map(renderCommentNode).join('');
@@ -87,7 +104,7 @@
     return [
       `<article class="anocus-comment depth-${depth}" data-comment-id="${escapeHtml(comment.id)}">`,
       '  <header class="anocus-comment-header">',
-      `    <span class="anocus-author" data-author-name="${name}">${name}</span>`,
+      `    <span class="anocus-author" data-author-name="${name}">${displayName}</span>`,
       `    <time class="anocus-time">${escapeHtml(createdAt)}</time>`,
       '  </header>',
       `  <div class="anocus-comment-body">${content}</div>`,
@@ -177,6 +194,10 @@
       '    <div class="anocus-row">',
       '      <label>Name</label>',
       '      <input type="text" name="guest_name" maxlength="80" required />',
+      '    </div>',
+      '    <div class="anocus-row">',
+      '      <label>Link (optional)</label>',
+      '      <input type="url" name="guest_link" maxlength="500" placeholder="https://example.com" />',
       '    </div>',
       '    <div class="anocus-row">',
       '      <label>Comment</label>',
@@ -270,6 +291,7 @@
       event.preventDefault();
       const formData = new FormData(formNode);
       const guestName = String(formData.get('guest_name') || '').trim();
+      const guestLink = String(formData.get('guest_link') || '').trim();
       const content = String(formData.get('content') || '').trim();
 
       if (!guestName || !content) {
@@ -294,6 +316,7 @@
             pathname: normalizePathname(opts.pathname),
             page_title: String(opts.pageTitle || document.title || '').trim(),
             guest_name: guestName,
+            guest_link: guestLink,
             content,
             parent_comment_id: state.replyToCommentId || undefined,
             turnstile_token: state.turnstileToken,

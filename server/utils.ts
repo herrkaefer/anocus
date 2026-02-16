@@ -75,3 +75,24 @@ export function getRemoteIp(request: Request): string {
 export function trimBody(body: string): string {
   return body.replace(/\r\n/g, "\n").trim();
 }
+
+export function normalizeGuestLink(input: string): string | undefined {
+  const raw = (input || "").trim();
+  if (!raw) return undefined;
+  if (raw.length > 500) return undefined;
+
+  let candidate = raw;
+  if (!/^https?:\/\//i.test(candidate)) {
+    candidate = `https://${candidate}`;
+  }
+
+  try {
+    const url = new URL(candidate);
+    if (url.protocol !== "http:" && url.protocol !== "https:") {
+      return undefined;
+    }
+    return url.toString();
+  } catch {
+    return undefined;
+  }
+}

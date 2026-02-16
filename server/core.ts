@@ -9,7 +9,7 @@ import {
   StorageAdapter,
   ThreadResponse,
 } from "./types.ts";
-import { normalizePathname, toInt, trimBody } from "./utils.ts";
+import { normalizeGuestLink, normalizePathname, toInt, trimBody } from "./utils.ts";
 import { verifyTurnstileToken } from "./turnstile.ts";
 
 export function readConfig(env: AnocusRequestEnv): AnocusConfig {
@@ -59,6 +59,7 @@ export class AnocusService {
   async createComment(input: CommentInput, turnstileToken: string): Promise<CommentResponse> {
     const pathname = normalizePathname(input.pathname);
     const guestName = input.guestName.trim();
+    const guestLink = normalizeGuestLink(input.guestLink || "");
     if (!guestName) {
       throw new Error("Guest name is required");
     }
@@ -95,7 +96,7 @@ export class AnocusService {
     }
 
     const thread = await this.adapter.ensureThread(pathname, input.pageTitle);
-    const comment = await this.adapter.createComment(thread, content, guestName, input.parentCommentId);
+    const comment = await this.adapter.createComment(thread, content, guestName, guestLink, input.parentCommentId);
 
     return {
       ok: true,

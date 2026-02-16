@@ -69,6 +69,7 @@ export async function handleCommentRequest({ request, env }: CloudflareContext):
   const pathname = textOrEmpty(body.pathname);
   const pageTitle = textOrEmpty(body.page_title || body.pageTitle);
   const guestName = textOrEmpty(body.guest_name || body.guestName);
+  const guestLink = textOrEmpty(body.guest_link || body.guestLink);
   const content = textOrEmpty(body.content);
   const turnstileToken = textOrEmpty(body.turnstile_token || body.turnstileToken);
   const parentCommentId = textOrEmpty(body.parent_comment_id || body.parentCommentId);
@@ -83,6 +84,7 @@ export async function handleCommentRequest({ request, env }: CloudflareContext):
         pathname,
         pageTitle,
         guestName,
+        guestLink,
         content,
         parentCommentId: parentCommentId || undefined,
         remoteIp: getRemoteIp(request),

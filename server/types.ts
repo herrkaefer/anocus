@@ -33,6 +33,7 @@ export interface CommentInput {
   pathname: string;
   pageTitle: string;
   guestName: string;
+  guestLink?: string;
   content: string;
   parentCommentId?: string;
   remoteIp?: string;
@@ -54,6 +55,7 @@ export interface StorageAdapter {
     thread: ThreadRef,
     body: string,
     guestName: string,
+    guestLink?: string,
     parentCommentId?: string,
   ): Promise<PublicComment>;
 }

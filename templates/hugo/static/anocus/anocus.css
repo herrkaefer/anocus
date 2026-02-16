@@ -60,6 +60,10 @@
   font-weight: 600;
 }
 
+.anocus-author a {
+  color: inherit;
+}
+
 .anocus-time {
   font-size: 0.8rem;
   color: #666;

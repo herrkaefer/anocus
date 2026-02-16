@@ -96,6 +96,7 @@ Body:
   "pathname": "/post/path",
   "page_title": "Post title",
   "guest_name": "Alice",
+  "guest_link": "https://example.com",
   "content": "Hello",
   "parent_comment_id": "optional_parent_comment_id",
   "turnstile_token": "..."
@@ -113,6 +114,7 @@ Body:
 
 By default, new comments are written to storage with a visible header block:
 - `Name: ...`
+- `Link: ...` (if provided)
 - `---`
 
 ## License
