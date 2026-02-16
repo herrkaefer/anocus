@@ -79,6 +79,10 @@
     const content = escapeHtml(comment.content || '').replace(/\n/g, '<br>');
     const createdAt = formatDate(comment.createdAt || '');
     const childrenHtml = (node.children || []).map(renderCommentNode).join('');
+    const replyAction =
+      depth === 0
+        ? `<div class="anocus-comment-actions"><button type="button" class="anocus-reply-btn" data-reply-id="${escapeHtml(comment.id)}" data-reply-parent-id="${escapeHtml(comment.parentId || '')}" data-reply-name="${encodeAttrValue(rawName)}">Reply</button></div>`
+        : '';
 
     return [
       `<article class="anocus-comment depth-${depth}" data-comment-id="${escapeHtml(comment.id)}">`,
@@ -87,7 +91,7 @@
       `    <time class="anocus-time">${escapeHtml(createdAt)}</time>`,
       '  </header>',
       `  <div class="anocus-comment-body">${content}</div>`,
-      `  <div class="anocus-comment-actions"><button type="button" class="anocus-reply-btn" data-reply-id="${escapeHtml(comment.id)}" data-reply-name="${encodeAttrValue(rawName)}">Reply</button></div>`,
+      replyAction,
       childrenHtml ? `<div class="anocus-replies">${childrenHtml}</div>` : '',
       '</article>',
     ].join('');
@@ -149,6 +153,7 @@
 
     const state = {
       thread: null,
+      provider: '',
       comments: [],
       turnstileToken: '',
       turnstileWidgetId: null,
@@ -207,6 +212,7 @@
           method: 'GET',
           credentials: 'same-origin',
         });
+        state.provider = String(payload.provider || '');
         state.thread = payload.thread;
         state.comments = payload.comments || [];
         renderCommentsList(listNode, state.comments);
@@ -294,6 +300,7 @@
           }),
         });
 
+        state.provider = String(payload.provider || state.provider || '');
         state.thread = payload.thread;
         state.comments = state.comments.concat(payload.comment);
         renderCommentsList(listNode, state.comments);
@@ -312,6 +319,7 @@
       const button = target.closest('.anocus-reply-btn');
       if (!button) return;
       const replyId = button.getAttribute('data-reply-id') || '';
+      const replyParentId = button.getAttribute('data-reply-parent-id') || '';
       const encodedReplyName = button.getAttribute('data-reply-name') || '';
       let replyName = 'guest';
       try {
@@ -319,7 +327,8 @@
       } catch (_) {
         replyName = encodedReplyName || 'guest';
       }
-      setReplyTarget(replyId, replyName);
+      const targetReplyId = state.provider === 'github' && replyParentId ? replyParentId : replyId;
+      setReplyTarget(targetReplyId, replyName);
     });
 
     replyCancelNode.addEventListener('click', function () {
