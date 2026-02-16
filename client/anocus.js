@@ -54,6 +54,10 @@
     }
   }
 
+  function buildDicebearAvatarUrl(seed) {
+    return `https://api.dicebear.com/9.x/croodles/svg?seed=${encodeURIComponent(String(seed || 'guest'))}`;
+  }
+
   function buildCommentTree(comments) {
     const byId = new Map();
     const byParent = new Map();
@@ -89,6 +93,8 @@
     const rawName = comment.author && comment.author.name ? comment.author.name : 'guest';
     const rawProfileUrl = comment.author && comment.author.profileUrl ? String(comment.author.profileUrl) : '';
     const profileUrl = sanitizeProfileUrl(rawProfileUrl);
+    const avatarUrl = buildDicebearAvatarUrl(rawName);
+    const avatarHtml = `<img class="anocus-avatar" src="${escapeHtml(avatarUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" />`;
     const name = escapeHtml(rawName);
     const displayName = profileUrl
       ? `<a href="${escapeHtml(profileUrl)}" target="_blank" rel="noopener noreferrer nofollow ugc">${name}</a>`
@@ -104,7 +110,7 @@
     return [
       `<article class="anocus-comment depth-${depth}" data-comment-id="${escapeHtml(comment.id)}">`,
       '  <header class="anocus-comment-header">',
-      `    <span class="anocus-author" data-author-name="${name}">${displayName}</span>`,
+      `    <span class="anocus-author" data-author-name="${name}">${avatarHtml}${displayName}</span>`,
       `    <time class="anocus-time">${escapeHtml(createdAt)}</time>`,
       '  </header>',
       `  <div class="anocus-comment-body">${content}</div>`,
