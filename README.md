@@ -105,6 +105,7 @@ Body:
 ## Security Model
 
 - Turnstile token is verified server-side.
+- Only comments using the Anocus public format header (`[Anocus Comment]`) are displayed.
 - Request origin can be restricted with `ANOCUS_ALLOWED_ORIGIN`.
 - In-memory rate limits reduce spam bursts.
 

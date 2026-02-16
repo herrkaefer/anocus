@@ -343,10 +343,16 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
 
       const commentNodes = data.node?.comments?.nodes || [];
       for (const node of commentNodes) {
-        comments.push(await this.toPublicComment(node, node.replyTo?.id || undefined));
+        const parsed = parseStoredCommentBody(node.body);
+        if (parsed) {
+          comments.push(this.toPublicComment(node, parsed, node.replyTo?.id || undefined));
+        }
         const replies = node.replies?.nodes || [];
         for (const reply of replies) {
-          comments.push(await this.toPublicComment(reply, reply.replyTo?.id || node.id));
+          const replyParsed = parseStoredCommentBody(reply.body);
+          if (replyParsed) {
+            comments.push(this.toPublicComment(reply, replyParsed, reply.replyTo?.id || node.id));
+          }
         }
       }
 
@@ -360,31 +366,15 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
     return comments.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   }
 
-  private async toPublicComment(node: GitHubCommentNode, parentId?: string): Promise<PublicComment> {
-    const parsed = parseStoredCommentBody(node.body);
-    if (parsed.isGuest) {
-      return {
-        id: node.id,
-        parentId,
-        content: parsed.content,
-        createdAt: node.createdAt,
-        author: {
-          kind: "guest",
-          name: parsed.guestName || "guest",
-        },
-      };
-    }
-
+  private toPublicComment(node: GitHubCommentNode, parsed: { guestName: string; content: string }, parentId?: string): PublicComment {
     return {
       id: node.id,
       parentId,
-      content: trimBody(node.body),
+      content: parsed.content,
       createdAt: node.createdAt,
       author: {
-        kind: "github",
-        name: node.author?.login || "github-user",
-        avatarUrl: node.author?.avatarUrl,
-        profileUrl: node.author?.url,
+        kind: "guest",
+        name: parsed.guestName || "guest",
       },
     };
   }

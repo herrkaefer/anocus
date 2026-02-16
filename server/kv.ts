@@ -106,6 +106,7 @@ export class KvStorageAdapter implements StorageAdapter {
         if (!record) continue;
 
         const parsed = parseStoredCommentBody(record.body);
+        if (!parsed) continue;
         comments.push({
           id: record.id,
           parentId: record.parentId,

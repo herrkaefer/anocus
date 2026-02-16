@@ -1,8 +1,7 @@
 const PUBLIC_HEADER = "[Anocus Comment]";
 
 export interface ParsedCommentBody {
-  isGuest: boolean;
-  guestName?: string;
+  guestName: string;
   content: string;
 }
 
@@ -41,20 +40,11 @@ function parsePublicCommentBody(body: string): ParsedCommentBody | null {
 
   const content = lines.slice(dividerIndex + 1).join("\n").trim();
   return {
-    isGuest: true,
     guestName: name,
     content,
   };
 }
 
-export function parseStoredCommentBody(body: string): ParsedCommentBody {
-  const publicParsed = parsePublicCommentBody(body);
-  if (publicParsed) {
-    return publicParsed;
-  }
-
-  return {
-    isGuest: false,
-    content: body.trim(),
-  };
+export function parseStoredCommentBody(body: string): ParsedCommentBody | null {
+  return parsePublicCommentBody(body);
 }
