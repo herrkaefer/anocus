@@ -33,10 +33,12 @@ Copy these files into your static assets:
 Create:
 - `functions/api/anocus/thread.ts`
 - `functions/api/anocus/comment.ts`
+- `functions/api/anocus/ensure-thread.ts`
 
 Use the templates from:
 - `templates/cloudflare/functions/api/anocus/thread.ts`
 - `templates/cloudflare/functions/api/anocus/comment.ts`
+- `templates/cloudflare/functions/api/anocus/ensure-thread.ts`
 
 If you keep Anocus source in your repo (recommended), make imports point to your local copy of `adapters/cloudflare.ts`.
 
@@ -56,6 +58,8 @@ Then render it from your single post template.
   turnstile_site_key = 'YOUR_TURNSTILE_SITE_KEY'
   max_length = 5000
   lang = 'en'
+  github_login_enabled = true
+  github_login_label = 'Comment with GitHub'
 ```
 
 ### 5. Configure Cloudflare environment variables
@@ -97,12 +101,15 @@ Body:
   "pathname": "/post/path",
   "page_title": "Post title",
   "guest_name": "Alice",
-  "guest_email": "alice@example.com",
   "content": "Hello",
   "parent_comment_id": "optional_parent_comment_id",
   "turnstile_token": "..."
 }
 ```
+
+### `POST /api/anocus/ensure-thread`
+
+Ensures a discussion thread exists and returns thread metadata (including `thread.url` when backend is GitHub Discussions).
 
 ## Security Model
 
@@ -115,9 +122,7 @@ Body:
 
 By default, new comments are written to storage with a visible header block:
 - `Name: ...`
-- `Email: ...` (if provided)
-
-This means email addresses are stored as plain text in the backend comment body.
+- `---`
 
 ## License
 

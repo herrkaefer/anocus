@@ -7,6 +7,8 @@
     theme: 'auto',
     maxLength: 5000,
     turnstileSiteKey: '',
+    githubLoginEnabled: false,
+    githubLoginLabel: 'Comment with GitHub',
   };
 
   function normalizePathname(pathname) {
@@ -75,9 +77,7 @@
     const comment = node.comment;
     const depth = Math.min(node.depth || 0, 4);
     const rawName = comment.author && comment.author.name ? comment.author.name : 'guest';
-    const rawEmail = comment.author && comment.author.email ? String(comment.author.email) : '';
     const name = escapeHtml(rawName);
-    const displayName = rawEmail ? `${name} <span class="anocus-email">(${escapeHtml(rawEmail)})</span>` : name;
     const content = escapeHtml(comment.content || '').replace(/\n/g, '<br>');
     const createdAt = formatDate(comment.createdAt || '');
     const childrenHtml = (node.children || []).map(renderCommentNode).join('');
@@ -85,7 +85,7 @@
     return [
       `<article class="anocus-comment depth-${depth}" data-comment-id="${escapeHtml(comment.id)}">`,
       '  <header class="anocus-comment-header">',
-      `    <span class="anocus-author" data-author-name="${name}">${displayName}</span>`,
+      `    <span class="anocus-author" data-author-name="${name}">${name}</span>`,
       `    <time class="anocus-time">${escapeHtml(createdAt)}</time>`,
       '  </header>',
       `  <div class="anocus-comment-body">${content}</div>`,
@@ -176,16 +176,13 @@
       '      <input type="text" name="guest_name" maxlength="80" required />',
       '    </div>',
       '    <div class="anocus-row">',
-      '      <label>Email (optional)</label>',
-      '      <input type="email" name="guest_email" maxlength="254" />',
-      '    </div>',
-      '    <div class="anocus-row">',
       '      <label>Comment</label>',
       `      <textarea name="content" rows="5" maxlength="${opts.maxLength}" required></textarea>`,
       '    </div>',
       '    <div class="anocus-row anocus-turnstile" data-role="turnstile"></div>',
-      '    <div class="anocus-row">',
+      '    <div class="anocus-row anocus-actions">',
       '      <button type="submit">Post Comment</button>',
+      '      <button type="button" class="anocus-github-btn" data-role="github-login" style="display:none;"></button>',
       '    </div>',
       '  </form>',
       '</section>',
@@ -198,10 +195,43 @@
     const replyContextNode = root.querySelector('[data-role="reply-context"]');
     const replyLabelNode = root.querySelector('[data-role="reply-label"]');
     const replyCancelNode = root.querySelector('[data-role="reply-cancel"]');
+    const githubLoginNode = root.querySelector('[data-role="github-login"]');
 
     function setFeedback(message, type) {
       feedbackNode.textContent = message || '';
       feedbackNode.className = 'anocus-feedback' + (type ? ` ${type}` : '');
+    }
+
+    function updateGitHubLoginButton() {
+      if (!githubLoginNode) return;
+      if (!opts.githubLoginEnabled) {
+        githubLoginNode.style.display = 'none';
+        return;
+      }
+      githubLoginNode.textContent = String(opts.githubLoginLabel || 'Comment with GitHub');
+      githubLoginNode.style.display = '';
+    }
+
+    async function ensureGitHubThreadUrl() {
+      if (state.thread && state.thread.url) {
+        return String(state.thread.url);
+      }
+      const payload = await requestJson(`${opts.apiBase}/ensure-thread`, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pathname: normalizePathname(opts.pathname),
+          page_title: String(opts.pageTitle || document.title || '').trim(),
+        }),
+      });
+      state.thread = payload.thread || null;
+      if (!state.thread || !state.thread.url) {
+        return '';
+      }
+      return String(state.thread.url);
     }
 
     async function loadComments() {
@@ -216,6 +246,7 @@
         state.thread = payload.thread;
         state.comments = payload.comments || [];
         renderCommentsList(listNode, state.comments);
+        updateGitHubLoginButton();
         setFeedback('', '');
       } catch (error) {
         setFeedback(error.message || 'Unable to load comments', 'error');
@@ -270,7 +301,6 @@
       event.preventDefault();
       const formData = new FormData(formNode);
       const guestName = String(formData.get('guest_name') || '').trim();
-      const guestEmail = String(formData.get('guest_email') || '').trim();
       const content = String(formData.get('content') || '').trim();
 
       if (!guestName || !content) {
@@ -295,7 +325,6 @@
             pathname: normalizePathname(opts.pathname),
             page_title: String(opts.pageTitle || document.title || '').trim(),
             guest_name: guestName,
-            guest_email: guestEmail,
             content,
             parent_comment_id: state.replyToCommentId || undefined,
             turnstile_token: state.turnstileToken,
@@ -305,6 +334,7 @@
         state.thread = payload.thread;
         state.comments = state.comments.concat(payload.comment);
         renderCommentsList(listNode, state.comments);
+        updateGitHubLoginButton();
         formNode.reset();
         clearReplyTarget();
         resetTurnstile();
@@ -334,6 +364,23 @@
       clearReplyTarget();
     });
 
+    if (githubLoginNode) {
+      githubLoginNode.addEventListener('click', async function () {
+        try {
+          setFeedback('Opening GitHub discussion...', 'info');
+          const threadUrl = await ensureGitHubThreadUrl();
+          if (!threadUrl) {
+            throw new Error('GitHub login comment is unavailable for current backend.');
+          }
+          setFeedback('', '');
+          window.location.href = threadUrl;
+        } catch (error) {
+          setFeedback(error.message || 'Unable to open GitHub discussion', 'error');
+        }
+      });
+    }
+
+    updateGitHubLoginButton();
     setupTurnstile();
     loadComments();
   }

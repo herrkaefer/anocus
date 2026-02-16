@@ -1,7 +1,15 @@
 import { GitHubDiscussionsAdapter } from "./github.ts";
 import { KvStorageAdapter } from "./kv.ts";
 import { checkRateLimit } from "./rate-limit.ts";
-import { AnocusConfig, AnocusRequestEnv, CommentInput, CommentResponse, StorageAdapter, ThreadResponse } from "./types.ts";
+import {
+  AnocusConfig,
+  AnocusRequestEnv,
+  CommentInput,
+  CommentResponse,
+  EnsureThreadResponse,
+  StorageAdapter,
+  ThreadResponse,
+} from "./types.ts";
 import { normalizePathname, toInt, trimBody } from "./utils.ts";
 import { verifyTurnstileToken } from "./turnstile.ts";
 
@@ -55,6 +63,16 @@ export class AnocusService {
     };
   }
 
+  async ensureThread(pathname: string, pageTitle: string): Promise<EnsureThreadResponse> {
+    const normalized = normalizePathname(pathname);
+    const thread = await this.adapter.ensureThread(normalized, pageTitle);
+    return {
+      ok: true,
+      provider: this.adapter.provider,
+      thread,
+    };
+  }
+
   async createComment(input: CommentInput, turnstileToken: string): Promise<CommentResponse> {
     const pathname = normalizePathname(input.pathname);
     const guestName = input.guestName.trim();
@@ -94,13 +112,7 @@ export class AnocusService {
     }
 
     const thread = await this.adapter.ensureThread(pathname, input.pageTitle);
-    const comment = await this.adapter.createComment(
-      thread,
-      content,
-      guestName,
-      input.guestEmail,
-      input.parentCommentId,
-    );
+    const comment = await this.adapter.createComment(thread, content, guestName, input.parentCommentId);
 
     return {
       ok: true,

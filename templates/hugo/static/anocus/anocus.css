@@ -60,12 +60,6 @@
   font-weight: 600;
 }
 
-.anocus-email {
-  font-weight: 400;
-  color: #656565;
-  font-size: 0.9em;
-}
-
 .anocus-time {
   font-size: 0.8rem;
   color: #666;
@@ -132,6 +126,22 @@
 
 .anocus-row button:hover {
   background: #0c6d59;
+}
+
+.anocus-actions {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.anocus-github-btn {
+  border: 1px solid #c9c9c9 !important;
+  background: #fff !important;
+  color: #222 !important;
+}
+
+.anocus-github-btn:hover {
+  background: #f4f4f4 !important;
 }
 
 .anocus-reply-context {

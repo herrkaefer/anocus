@@ -116,7 +116,6 @@ export class KvStorageAdapter implements StorageAdapter {
           author: {
             kind: "guest",
             name: parsed.guestName || "guest",
-            email: parsed.guestEmail,
           },
         });
       }
@@ -129,13 +128,12 @@ export class KvStorageAdapter implements StorageAdapter {
     thread: ThreadRef,
     body: string,
     guestName: string,
-    guestEmail?: string,
     parentCommentId?: string,
   ): Promise<PublicComment> {
     const content = trimBody(body);
     const createdAt = nowIso();
     const id = crypto.randomUUID();
-    const mergedBody = composePublicCommentBody(guestName, guestEmail, content);
+    const mergedBody = composePublicCommentBody(guestName, content);
 
     const timestamp = new Date(createdAt).getTime().toString().padStart(16, "0");
     const key = `${this.commentPrefix(thread.id)}${timestamp}:${id}`;
@@ -157,7 +155,6 @@ export class KvStorageAdapter implements StorageAdapter {
       author: {
         kind: "guest",
         name: guestName,
-        email: (guestEmail || "").trim() || undefined,
       },
     };
   }

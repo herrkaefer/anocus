@@ -57,16 +57,11 @@ export async function parseMeta(body: string, secret: string): Promise<{ meta: G
 export interface ParsedCommentBody {
   isGuest: boolean;
   guestName?: string;
-  guestEmail?: string;
   content: string;
 }
 
-export function composePublicCommentBody(name: string, email: string | undefined, comment: string): string {
+export function composePublicCommentBody(name: string, comment: string): string {
   const lines = [PUBLIC_HEADER, `Name: ${name.trim()}`];
-  const normalizedEmail = (email || "").trim();
-  if (normalizedEmail) {
-    lines.push(`Email: ${normalizedEmail}`);
-  }
   lines.push("---");
   lines.push(comment);
   return lines.join("\n");
@@ -80,7 +75,6 @@ function parsePublicCommentBody(body: string): ParsedCommentBody | null {
 
   const lines = normalized.split("\n");
   let name = "";
-  let email = "";
   let dividerIndex = -1;
 
   for (let index = 1; index < lines.length; index += 1) {
@@ -93,10 +87,6 @@ function parsePublicCommentBody(body: string): ParsedCommentBody | null {
       name = line.slice(5).trim();
       continue;
     }
-    if (line.toLowerCase().startsWith("email:")) {
-      email = line.slice(6).trim();
-      continue;
-    }
   }
 
   if (dividerIndex < 0 || !name) {
@@ -107,7 +97,6 @@ function parsePublicCommentBody(body: string): ParsedCommentBody | null {
   return {
     isGuest: true,
     guestName: name,
-    guestEmail: email || undefined,
     content,
   };
 }

@@ -373,7 +373,6 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
         author: {
           kind: "guest",
           name: parsed.guestName || "guest",
-          email: parsed.guestEmail,
         },
       };
     }
@@ -396,11 +395,10 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
     thread: ThreadRef,
     body: string,
     guestName: string,
-    guestEmail?: string,
     parentCommentId?: string,
   ): Promise<PublicComment> {
     const content = trimBody(body);
-    const mergedBody = composePublicCommentBody(guestName, guestEmail, content);
+    const mergedBody = composePublicCommentBody(guestName, content);
     const mutation = `
       mutation AddDiscussionComment($discussionId: ID!, $body: String!, $replyToId: ID) {
         addDiscussionComment(input: {discussionId: $discussionId, body: $body, replyToId: $replyToId}) {
@@ -442,7 +440,6 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
       author: {
         kind: "guest",
         name: guestName,
-        email: (guestEmail || "").trim() || undefined,
       },
     };
   }

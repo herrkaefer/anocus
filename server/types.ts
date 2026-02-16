@@ -10,7 +10,6 @@ export interface ThreadRef {
 export interface AuthorRef {
   kind: "guest" | "github";
   name: string;
-  email?: string;
   avatarUrl?: string;
   profileUrl?: string;
 }
@@ -34,7 +33,6 @@ export interface CommentInput {
   pathname: string;
   pageTitle: string;
   guestName: string;
-  guestEmail?: string;
   content: string;
   parentCommentId?: string;
   remoteIp?: string;
@@ -47,6 +45,12 @@ export interface CommentResponse {
   comment: PublicComment;
 }
 
+export interface EnsureThreadResponse {
+  ok: true;
+  provider: StorageBackend;
+  thread: ThreadRef;
+}
+
 export interface StorageAdapter {
   provider: StorageBackend;
   getThreadByPath(pathname: string): Promise<ThreadRef | null>;
@@ -56,7 +60,6 @@ export interface StorageAdapter {
     thread: ThreadRef,
     body: string,
     guestName: string,
-    guestEmail?: string,
     parentCommentId?: string,
   ): Promise<PublicComment>;
 }
