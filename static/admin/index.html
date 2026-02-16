@@ -9,47 +9,6 @@
   </head>
   <body>
     <noscript>This admin page requires JavaScript.</noscript>
-    <script>
-      (function () {
-        function hideSortControls() {
-          var nodes = document.querySelectorAll("label, span, div, button");
-          for (var i = 0; i < nodes.length; i += 1) {
-            var node = nodes[i];
-            var text = (node.textContent || "").trim();
-            if (text !== "Sort by") continue;
-
-            var box = node;
-            for (var depth = 0; depth < 6 && box; depth += 1) {
-              var content = box.textContent || "";
-              var hasSelect = !!(box.querySelector && box.querySelector("select"));
-              var hasDirection = content.indexOf("Ascending") >= 0 || content.indexOf("Descending") >= 0;
-              if (hasSelect || hasDirection) break;
-              box = box.parentElement;
-            }
-            if (box) {
-              box.style.display = "none";
-            }
-          }
-
-          var buttons = document.querySelectorAll("button");
-          for (var j = 0; j < buttons.length; j += 1) {
-            var btn = buttons[j];
-            var btnText = (btn.textContent || "").trim();
-            if (btnText === "Ascending" || btnText === "Descending") {
-              btn.style.display = "none";
-            }
-          }
-        }
-
-        var observer = new MutationObserver(function () {
-          hideSortControls();
-        });
-
-        document.addEventListener("DOMContentLoaded", hideSortControls);
-        window.addEventListener("load", hideSortControls);
-        observer.observe(document.documentElement, { childList: true, subtree: true });
-      })();
-    </script>
     <script src="https://unpkg.com/decap-cms@3/dist/decap-cms.js"></script>
   </body>
 </html>
