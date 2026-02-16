@@ -12,7 +12,13 @@
   function normalizePathname(pathname) {
     const raw = String(pathname || '').trim();
     if (!raw) return '/';
-    const path = raw.startsWith('/') ? raw : '/' + raw;
+    let decoded = raw;
+    try {
+      decoded = decodeURI(raw);
+    } catch (_) {
+      decoded = raw;
+    }
+    const path = decoded.startsWith('/') ? decoded : '/' + decoded;
     if (path.length > 1 && path.endsWith('/')) return path.slice(0, -1);
     return path;
   }

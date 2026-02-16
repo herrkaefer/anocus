@@ -1,4 +1,4 @@
-import { buildMeta, composeCommentBody, parseMeta } from "./meta.ts";
+import { composePublicCommentBody, parseStoredCommentBody } from "./meta.ts";
 import { PublicComment, StorageAdapter, ThreadRef } from "./types.ts";
 import { normalizePathname, trimBody } from "./utils.ts";
 
@@ -50,6 +50,11 @@ function pathnameCandidates(pathname: string): Set<string> {
   const normalized = normalizePathname(pathname);
   const set = new Set<string>();
   set.add(normalized);
+  try {
+    set.add(encodeURI(normalized));
+  } catch {
+    // ignore encode failures
+  }
   set.add(normalized.endsWith("/") ? normalized.slice(0, -1) || "/" : `${normalized}/`);
   if (normalized.startsWith("/")) {
     set.add(normalized.slice(1));
@@ -307,15 +312,15 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
 
       const commentNodes = data.node?.comments?.nodes || [];
       for (const node of commentNodes) {
-        const parsed = await parseMeta(node.body, this.hmacSecret);
-        if (parsed.meta) {
+        const parsed = await parseStoredCommentBody(node.body, this.hmacSecret);
+        if (parsed.isGuest) {
           comments.push({
             id: node.id,
             content: parsed.content,
             createdAt: node.createdAt,
             author: {
               kind: "guest",
-              name: parsed.meta.name,
+              name: parsed.guestName || "guest",
             },
           });
           continue;
@@ -346,8 +351,7 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
 
   async createComment(thread: ThreadRef, body: string, guestName: string, guestEmail?: string): Promise<PublicComment> {
     const content = trimBody(body);
-    const meta = await buildMeta(guestName, guestEmail, this.hmacSecret);
-    const mergedBody = composeCommentBody(meta, content);
+    const mergedBody = composePublicCommentBody(guestName, guestEmail, content);
 
     const mutation = `
       mutation AddDiscussionComment($discussionId: ID!, $body: String!) {

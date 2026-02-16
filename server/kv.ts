@@ -1,4 +1,4 @@
-import { buildMeta, composeCommentBody, parseMeta } from "./meta.ts";
+import { composePublicCommentBody, parseStoredCommentBody } from "./meta.ts";
 import { PublicComment, StorageAdapter, ThreadRef } from "./types.ts";
 import { normalizePathname, nowIso, sha256Hex, trimBody } from "./utils.ts";
 
@@ -106,14 +106,14 @@ export class KvStorageAdapter implements StorageAdapter {
         const record = await this.kv.get<KvCommentRecord>(key.name, "json");
         if (!record) continue;
 
-        const parsed = await parseMeta(record.body, this.hmacSecret);
+        const parsed = await parseStoredCommentBody(record.body, this.hmacSecret);
         comments.push({
           id: record.id,
           content: trimBody(parsed.content),
           createdAt: record.createdAt,
           author: {
             kind: "guest",
-            name: parsed.meta?.name || "guest",
+            name: parsed.guestName || "guest",
           },
         });
       }
@@ -126,8 +126,7 @@ export class KvStorageAdapter implements StorageAdapter {
     const content = trimBody(body);
     const createdAt = nowIso();
     const id = crypto.randomUUID();
-    const meta = await buildMeta(guestName, guestEmail, this.hmacSecret);
-    const mergedBody = composeCommentBody(meta, content);
+    const mergedBody = composePublicCommentBody(guestName, guestEmail, content);
 
     const timestamp = new Date(createdAt).getTime().toString().padStart(16, "0");
     const key = `${this.commentPrefix(thread.id)}${timestamp}:${id}`;

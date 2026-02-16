@@ -1,4 +1,4 @@
-import { sha256Hex, signText } from "./utils.ts";
+import { signText } from "./utils.ts";
 
 export interface GuestMeta {
   v: 1;
@@ -8,27 +8,10 @@ export interface GuestMeta {
 }
 
 const PREFIX = "<!-- anocus-meta:";
+const PUBLIC_HEADER = "[Anocus Guest Comment]";
 
 function stableMetaPayload(name: string, emailHash?: string): string {
   return JSON.stringify({ v: 1, name, email_hash: emailHash || "" });
-}
-
-export async function buildMeta(name: string, email: string | undefined, secret: string): Promise<GuestMeta> {
-  const normalizedName = name.trim();
-  const normalizedEmail = (email || "").trim().toLowerCase();
-  const emailHash = normalizedEmail ? await sha256Hex(normalizedEmail) : undefined;
-  const payload = stableMetaPayload(normalizedName, emailHash);
-  const sig = await signText(payload, secret);
-  return {
-    v: 1,
-    name: normalizedName,
-    email_hash: emailHash,
-    sig,
-  };
-}
-
-export function composeCommentBody(meta: GuestMeta, comment: string): string {
-  return `${PREFIX}${JSON.stringify(meta)} -->\n${comment}`;
 }
 
 export async function parseMeta(body: string, secret: string): Promise<{ meta: GuestMeta | null; content: string }> {
@@ -69,4 +52,83 @@ export async function parseMeta(body: string, secret: string): Promise<{ meta: G
   } catch {
     return { meta: null, content };
   }
+}
+
+export interface ParsedCommentBody {
+  isGuest: boolean;
+  guestName?: string;
+  guestEmail?: string;
+  content: string;
+}
+
+export function composePublicCommentBody(name: string, email: string | undefined, comment: string): string {
+  const lines = [PUBLIC_HEADER, `Name: ${name.trim()}`];
+  const normalizedEmail = (email || "").trim();
+  if (normalizedEmail) {
+    lines.push(`Email: ${normalizedEmail}`);
+  }
+  lines.push("---");
+  lines.push(comment);
+  return lines.join("\n");
+}
+
+function parsePublicCommentBody(body: string): ParsedCommentBody | null {
+  const normalized = body.replace(/\r\n/g, "\n").trimStart();
+  if (!normalized.startsWith(PUBLIC_HEADER)) {
+    return null;
+  }
+
+  const lines = normalized.split("\n");
+  let name = "";
+  let email = "";
+  let dividerIndex = -1;
+
+  for (let index = 1; index < lines.length; index += 1) {
+    const line = lines[index].trim();
+    if (line === "---") {
+      dividerIndex = index;
+      break;
+    }
+    if (line.toLowerCase().startsWith("name:")) {
+      name = line.slice(5).trim();
+      continue;
+    }
+    if (line.toLowerCase().startsWith("email:")) {
+      email = line.slice(6).trim();
+      continue;
+    }
+  }
+
+  if (dividerIndex < 0 || !name) {
+    return null;
+  }
+
+  const content = lines.slice(dividerIndex + 1).join("\n").trim();
+  return {
+    isGuest: true,
+    guestName: name,
+    guestEmail: email || undefined,
+    content,
+  };
+}
+
+export async function parseStoredCommentBody(body: string, secret: string): Promise<ParsedCommentBody> {
+  const publicParsed = parsePublicCommentBody(body);
+  if (publicParsed) {
+    return publicParsed;
+  }
+
+  const legacy = await parseMeta(body, secret);
+  if (legacy.meta) {
+    return {
+      isGuest: true,
+      guestName: legacy.meta.name,
+      content: legacy.content.trim(),
+    };
+  }
+
+  return {
+    isGuest: false,
+    content: body.trim(),
+  };
 }

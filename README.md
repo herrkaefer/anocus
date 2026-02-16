@@ -105,9 +105,17 @@ Body:
 ## Security Model
 
 - Turnstile token is verified server-side.
-- Guest metadata is signed with `ANOCUS_HMAC_SECRET`.
+- Legacy hidden guest metadata is still readable for backward compatibility.
 - Request origin can be restricted with `ANOCUS_ALLOWED_ORIGIN`.
 - In-memory rate limits reduce spam bursts.
+
+## Guest Identity Storage
+
+By default, new comments are written to storage with a visible header block:
+- `Name: ...`
+- `Email: ...` (if provided)
+
+This means email addresses are stored as plain text in the backend comment body.
 
 ## License
 

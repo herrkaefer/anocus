@@ -3,7 +3,14 @@ const encoder = new TextEncoder();
 export function normalizePathname(pathname: string): string {
   const raw = (pathname || "").trim();
   if (!raw) return "/";
-  const value = raw.startsWith("/") ? raw : `/${raw}`;
+  let decoded = raw;
+  try {
+    decoded = decodeURI(raw);
+  } catch {
+    // Keep original when the input has malformed escape sequences.
+  }
+
+  const value = decoded.startsWith("/") ? decoded : `/${decoded}`;
   if (value.length > 1 && value.endsWith("/")) {
     return value.slice(0, -1);
   }
