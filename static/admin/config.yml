@@ -30,8 +30,39 @@ collections:
     extension: md
     format: frontmatter
     summary: "{{date}} · {{title}}"
-    sortable_fields: ["date", "title"]
+    sortable_fields: ["date"]
     sort: "date:desc"
+    view_filters:
+      - label: "2025"
+        field: date
+        pattern: "^2025-"
+      - label: "2020"
+        field: date
+        pattern: "^2020-"
+      - label: "2018"
+        field: date
+        pattern: "^2018-"
+      - label: "2017"
+        field: date
+        pattern: "^2017-"
+      - label: "2016"
+        field: date
+        pattern: "^2016-"
+      - label: "2011"
+        field: date
+        pattern: "^2011-"
+      - label: "2010"
+        field: date
+        pattern: "^2010-"
+      - label: "2009"
+        field: date
+        pattern: "^2009-"
+      - label: "2008"
+        field: date
+        pattern: "^2008-"
+      - label: "2007"
+        field: date
+        pattern: "^2007-"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     editor:
       preview: true
