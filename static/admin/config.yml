@@ -2,6 +2,7 @@ backend:
   name: github
   repo: herrkaefer/herrkaefer.com
   branch: master
+  use_graphql: false
   base_url: https://herrkaefer.com
   auth_endpoint: /api/auth
 
@@ -23,10 +24,14 @@ collections:
     label: Posts
     label_singular: Post
     folder: content/posts
+    search: false
     create: true
     delete: true
     extension: md
     format: frontmatter
+    summary: "{{date}} · {{title}}"
+    sortable_fields: ["date", "title"]
+    sort: "date:desc"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     editor:
       preview: true
