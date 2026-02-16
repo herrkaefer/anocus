@@ -60,18 +60,10 @@
   font-weight: 600;
 }
 
-.anocus-author-badge {
-  margin-left: 0.5rem;
-  font-size: 0.72rem;
-  border: 1px solid #c6c6c6;
-  border-radius: 999px;
-  padding: 0.1rem 0.45rem;
-  color: #4f4f4f;
-}
-
-.anocus-author-badge-guest {
-  border-color: #95c9a7;
-  color: #1e7f42;
+.anocus-email {
+  font-weight: 400;
+  color: #656565;
+  font-size: 0.9em;
 }
 
 .anocus-time {

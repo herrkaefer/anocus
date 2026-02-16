@@ -116,6 +116,7 @@ export class KvStorageAdapter implements StorageAdapter {
           author: {
             kind: "guest",
             name: parsed.guestName || "guest",
+            email: parsed.guestEmail,
           },
         });
       }
@@ -156,6 +157,7 @@ export class KvStorageAdapter implements StorageAdapter {
       author: {
         kind: "guest",
         name: guestName,
+        email: (guestEmail || "").trim() || undefined,
       },
     };
   }

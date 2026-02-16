@@ -10,6 +10,7 @@ export interface ThreadRef {
 export interface AuthorRef {
   kind: "guest" | "github";
   name: string;
+  email?: string;
   avatarUrl?: string;
   profileUrl?: string;
 }

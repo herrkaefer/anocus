@@ -75,10 +75,9 @@
     const comment = node.comment;
     const depth = Math.min(node.depth || 0, 4);
     const rawName = comment.author && comment.author.name ? comment.author.name : 'guest';
+    const rawEmail = comment.author && comment.author.email ? String(comment.author.email) : '';
     const name = escapeHtml(rawName);
-    const badge = comment.author && comment.author.kind === 'github'
-      ? '<span class="anocus-author-badge">GitHub</span>'
-      : '<span class="anocus-author-badge anocus-author-badge-guest">Guest</span>';
+    const displayName = rawEmail ? `${name} <span class="anocus-email">(${escapeHtml(rawEmail)})</span>` : name;
     const content = escapeHtml(comment.content || '').replace(/\n/g, '<br>');
     const createdAt = formatDate(comment.createdAt || '');
     const childrenHtml = (node.children || []).map(renderCommentNode).join('');
@@ -86,7 +85,7 @@
     return [
       `<article class="anocus-comment depth-${depth}" data-comment-id="${escapeHtml(comment.id)}">`,
       '  <header class="anocus-comment-header">',
-      `    <span class="anocus-author" data-author-name="${name}">${name}</span>${badge}`,
+      `    <span class="anocus-author" data-author-name="${name}">${displayName}</span>`,
       `    <time class="anocus-time">${escapeHtml(createdAt)}</time>`,
       '  </header>',
       `  <div class="anocus-comment-body">${content}</div>`,
