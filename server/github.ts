@@ -401,60 +401,34 @@ export class GitHubDiscussionsAdapter implements StorageAdapter {
   ): Promise<PublicComment> {
     const content = trimBody(body);
     const mergedBody = composePublicCommentBody(guestName, guestEmail, content);
-
-    let node: { id: string; createdAt: string; replyTo?: { id: string } | null } | undefined;
-    if (parentCommentId) {
-      const mutation = `
-        mutation AddDiscussionCommentReply($replyToId: ID!, $body: String!) {
-          addDiscussionCommentReply(input: {replyToId: $replyToId, body: $body}) {
-            comment {
+    const mutation = `
+      mutation AddDiscussionComment($discussionId: ID!, $body: String!, $replyToId: ID) {
+        addDiscussionComment(input: {discussionId: $discussionId, body: $body, replyToId: $replyToId}) {
+          comment {
+            id
+            createdAt
+            replyTo {
               id
-              createdAt
-              replyTo {
-                id
-              }
             }
           }
         }
-      `;
-      const data = await this.graphql<{
-        addDiscussionCommentReply?: {
-          comment?: {
-            id: string;
-            createdAt: string;
-            replyTo?: { id: string } | null;
-          };
-        };
-      }>(mutation, {
-        replyToId: parentCommentId,
-        body: mergedBody,
-      });
-      node = data.addDiscussionCommentReply?.comment;
-    } else {
-      const mutation = `
-        mutation AddDiscussionComment($discussionId: ID!, $body: String!) {
-          addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
-            comment {
-              id
-              createdAt
-            }
-          }
-        }
-      `;
+      }
+    `;
 
-      const data = await this.graphql<{
-        addDiscussionComment?: {
-          comment?: {
-            id: string;
-            createdAt: string;
-          };
+    const data = await this.graphql<{
+      addDiscussionComment?: {
+        comment?: {
+          id: string;
+          createdAt: string;
+          replyTo?: { id: string } | null;
         };
-      }>(mutation, {
-        discussionId: thread.id,
-        body: mergedBody,
-      });
-      node = data.addDiscussionComment?.comment;
-    }
+      };
+    }>(mutation, {
+      discussionId: thread.id,
+      body: mergedBody,
+      replyToId: parentCommentId || null,
+    });
+    const node = data.addDiscussionComment?.comment;
 
     if (!node) {
       throw new Error("Unable to create discussion comment");
