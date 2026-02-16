@@ -55,7 +55,7 @@
   }
 
   function buildDicebearAvatarUrl(seed) {
-    return `https://api.dicebear.com/9.x/croodles/svg?seed=${encodeURIComponent(String(seed || 'guest'))}`;
+    return `https://api.dicebear.com/9.x/croodles/svg?seed=${encodeURIComponent(String(seed || 'guest'))}&size=48`;
   }
 
   function buildCommentTree(comments) {

@@ -68,12 +68,12 @@
 }
 
 .anocus-avatar {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 20px;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
   border-radius: 50%;
-  border: 1px solid #ddd;
-  background: #f5f5f5;
+  border: none;
+  background: transparent;
 }
 
 .anocus-time {

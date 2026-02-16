@@ -4,28 +4,48 @@
   "description": "Anonymous comments for static sites with Turnstile and pluggable storage backends.",
   "license": "MIT",
   "type": "module",
-  "main": "./index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./index.ts",
-    "./server": "./server/index.ts",
-    "./adapters/cloudflare": "./adapters/cloudflare.ts",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.js"
+    },
+    "./adapters/cloudflare": {
+      "types": "./dist/adapters/cloudflare.d.ts",
+      "import": "./dist/adapters/cloudflare.js"
+    },
     "./client/anocus.js": "./client/anocus.js",
     "./client/anocus.css": "./client/anocus.css"
   },
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
+  },
   "files": [
-    "index.ts",
+    "dist",
     "LICENSE",
     "README.md",
     "client",
-    "server",
-    "adapters",
     "templates"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "comments",
     "hugo",
     "cloudflare",
     "turnstile",
     "github-discussions"
-  ]
+  ],
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  }
 }

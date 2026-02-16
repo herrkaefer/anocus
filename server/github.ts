@@ -1,6 +1,6 @@
-import { composePublicCommentBody, parseStoredCommentBody } from "./meta.ts";
-import { PublicComment, StorageAdapter, ThreadRef } from "./types.ts";
-import { normalizePathname, trimBody } from "./utils.ts";
+import { composePublicCommentBody, parseStoredCommentBody } from "./meta.js";
+import { PublicComment, StorageAdapter, ThreadRef } from "./types.js";
+import { normalizePathname, trimBody } from "./utils.js";
 
 interface GitHubAuthor {
   login?: string;

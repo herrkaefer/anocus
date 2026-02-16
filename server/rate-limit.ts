@@ -1,4 +1,4 @@
-import { RateLimitResult } from "./types.ts";
+import { RateLimitResult } from "./types.js";
 
 interface IpWindow {
   lastPostAtMs: number;

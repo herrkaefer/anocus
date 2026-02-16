@@ -1,4 +1,4 @@
-import { TurnstileResult } from "./types.ts";
+import { TurnstileResult } from "./types.js";
 
 interface TurnstileResponse {
   success?: boolean;

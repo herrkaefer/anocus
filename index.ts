@@ -1,2 +1,2 @@
-export * from "./server/index.ts";
-export * from "./adapters/cloudflare.ts";
+export * from "./server/index.js";
+export * from "./adapters/cloudflare.js";

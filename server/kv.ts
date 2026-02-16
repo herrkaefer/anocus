@@ -1,6 +1,6 @@
-import { composePublicCommentBody, parseStoredCommentBody } from "./meta.ts";
-import { PublicComment, StorageAdapter, ThreadRef } from "./types.ts";
-import { normalizePathname, nowIso, sha256Hex, trimBody } from "./utils.ts";
+import { composePublicCommentBody, parseStoredCommentBody } from "./meta.js";
+import { PublicComment, StorageAdapter, ThreadRef } from "./types.js";
+import { normalizePathname, nowIso, sha256Hex, trimBody } from "./utils.js";
 
 interface KvThreadRecord {
   id: string;
@@ -100,7 +100,7 @@ export class KvStorageAdapter implements StorageAdapter {
         limit: 100,
       });
 
-      cursor = result.list_complete ? undefined : result.cursor;
+      cursor = result.list_complete ? undefined : ("cursor" in result ? result.cursor : undefined);
       for (const key of result.keys) {
         const record = await this.kv.get<KvCommentRecord>(key.name, "json");
         if (!record) continue;

@@ -1,6 +1,6 @@
-import { AnocusRequestEnv } from "../server/types.ts";
-import { AnocusService } from "../server/core.ts";
-import { getRemoteIp, jsonResponse, textOrEmpty } from "../server/utils.ts";
+import { AnocusRequestEnv } from "../server/types.js";
+import { AnocusService } from "../server/core.js";
+import { getRemoteIp, jsonResponse, textOrEmpty } from "../server/utils.js";
 
 interface CloudflareContext {
   request: Request;

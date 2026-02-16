@@ -1,6 +1,6 @@
-import { GitHubDiscussionsAdapter } from "./github.ts";
-import { KvStorageAdapter } from "./kv.ts";
-import { checkRateLimit } from "./rate-limit.ts";
+import { GitHubDiscussionsAdapter } from "./github.js";
+import { KvStorageAdapter } from "./kv.js";
+import { checkRateLimit } from "./rate-limit.js";
 import {
   AnocusConfig,
   AnocusRequestEnv,
@@ -8,9 +8,9 @@ import {
   CommentResponse,
   StorageAdapter,
   ThreadResponse,
-} from "./types.ts";
-import { normalizeGuestLink, normalizePathname, toInt, trimBody } from "./utils.ts";
-import { verifyTurnstileToken } from "./turnstile.ts";
+} from "./types.js";
+import { normalizeGuestLink, normalizePathname, toInt, trimBody } from "./utils.js";
+import { verifyTurnstileToken } from "./turnstile.js";
 
 export function readConfig(env: AnocusRequestEnv): AnocusConfig {
   const backend = (env.ANOCUS_STORAGE_BACKEND || "github").trim().toLowerCase();
